@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jdbc.dao.inter.DemoMenuDao" >
+  <resultMap id="BaseResultMap" type="jdbc.entity.db.DemoMenu" >
+    <id column="menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="pmenu_id" property="pmenuId" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="leaf" property="leaf" jdbcType="TINYINT" />
+    <result column="level" property="level" jdbcType="TINYINT" />
+    <result column="menu_remark" property="menuRemark" jdbcType="VARCHAR" />
+    <result column="order" property="order" jdbcType="CHAR" />
+    <result column="used" property="used" jdbcType="TINYINT" />
+  </resultMap>
+  
+  <select id="queryAll" resultMap="BaseResultMap">
+		select * from demo_menu
+	</select>
+ 
+</mapper>
