@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%
+    String randomVer = Math.random() + ""; // 随机数
+%>
+
 <script>
-// 项目根目录
-var contextPath = "<%=request.getContextPath()%>";
+var contextPath = "<%=request.getContextPath()%>"; // 项目根目录
 </script>
 
 <!-- extjs 样式 -->
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/extjs/resources/ext-theme-classic/ext-theme-classic-all.css"></link>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/extjs/resources/ext-theme-gray/ext-theme-gray-all.css"></link>
 <!-- 重写滚动条 -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/rewriteScroll.css">
 

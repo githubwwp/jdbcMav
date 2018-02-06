@@ -33,6 +33,7 @@ Ext.onReady(function() {
                     root : {
                         expanded : true,
                         children : [ 
+                            {   text : "storeTest", leaf : true, url : contextPath + '/jsp/jspTest/storeTest.jsp' }, 
                             {   text : "layoutTest", leaf : true, url : contextPath + '/jsp/jspTest/layoutTest.jsp' }, 
                             {   text : "treeTest", leaf : true, url : contextPath + '/jsp/jspTest/treeTest.jsp' }, 
                             {   text : "gridTest", leaf : true, url : contextPath + '/jsp/jspTest/gridTest.jsp' }, 
@@ -60,6 +61,7 @@ Ext.onReady(function() {
             region : 'south',
             title : 'South Panel',
             collapsible : true,
+            hidden: true,
             html : 'Information goes here',
             split : true,
             height : 100,
@@ -153,4 +155,20 @@ function addCenterTab(title, url) {
     }
 
     centerTabs.setActiveTab(tab); // 设置显示当前面板
+}
+
+function test(){
+    var data = [
+        {id: '123', name: 'abc', age: 23}, 
+        {id: '345', name: 'erge', age: 29}, 
+        {id: '965', name: 'akibc', age: 56}
+    ];
+    var store  = Ext.create('Ext.data.Store', {
+        fields: ['id', 'name'],
+        proxy: {
+            type: 'memory'
+        },
+        data: data
+    });
+    
 }

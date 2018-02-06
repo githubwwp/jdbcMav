@@ -17,6 +17,20 @@ public class ObjectUtil {
 		return rand.nextInt(limit);
 	}
 	
+
+    // 获取随机字符串
+    public static String getRandStr(int length) {
+        char[] chs = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+                'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        Random ran = new Random();
+        StringBuffer sb = new StringBuffer();
+        int chsLength = chs.length;
+        for (int i = 0; i < length; i++) {
+            sb.append(chs[ran.nextInt(chsLength)]);
+        }
+        return sb.toString();
+    }
+
 	/**
 	 * 获取uuid
 	 * @return
@@ -25,5 +39,18 @@ public class ObjectUtil {
 		
 		return UUID.randomUUID().toString();
 	}
+	
+	// test
+	public static void main(String[] args) {
+	    System.out.println(getRandStr((short) 13));
+	    
+//        for(char i = 'a'; i <= 'z'; i++){
+//            System.out.print("'" + i + "',");
+//        }
+//        System.out.println();
+//        for(int i = 0; i <= 9; i++){
+//            System.out.print("'" + i + "',");
+//        }
+    }
 	
 }
