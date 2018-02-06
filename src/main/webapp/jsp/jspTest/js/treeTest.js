@@ -89,108 +89,44 @@ function addBaseStoreTree(){
      Ext.getCmp('treeTabs').add(tree);
 }
 
-
 // 基本树
 function addBaseTree(){
-    var tree = Ext.create('Ext.tree.Panel', {
-       title: 'Simple Tree',
-       rootVisible: false,
-       tbar: [
-           {
-               xtype: 'button',
-               text: 'add sub tree',
-               handler: function(){
-                   var root = tree.getRootNode();
-                   var parent = root.appendChild({
-                       text: 'Parent 1',
-                       expanded: true,
-                       children: [{
-                           text: 'Child 3',
-                           leaf: true
-                       }]
-                   });
-               }
-           }
-       ],
-       root: {
-           text: 'Root',
-           expanded: true,
-           children: [
-               {
-                   text: 'Child 1',
-                   leaf: true
-               },
-               {
-                   text: 'Child 2',
-                   leaf: true
-               },
-               {
-                   text: 'Child 3',
-                   expanded: true,
-                   children: [
-                       {
-                           text: 'Grandchild',
-                           leaf: true
-                       }            
-                   ]
-               }
-           ]
-       }
+    var treeStore = Ext.create('Ext.data.TreeStore', {
+        fields: [ 
+            'id', 'text', 'children', 'menuId',
+        ],
+        proxy: {
+            type: 'ajax',
+            url: contextPath + '/sysMenu/getChildrenByPid.do',
+            reader: {
+                type: 'json',
+                root: 'children'
+            },
+            extraParams: {
+                pid: '0'
+            }
+        },
+        root: {  
+            text: '根节点',  
+            id: '0',  
+            expanded: true  
+        },  
+        autoLoad: true
     });
+    
+    var tree = Ext.create('Ext.tree.Panel', {
+       title: 'menu tree',
+       rootVisible:false,
+       store: treeStore,
+       listeners: {
+           'beforeitemexpand': function(node, optd){ // extjs 会自动处理其它 数据
+               var tt=node.data.menuId;  // 不能使用id ，会和extjs 冲突
+               console.log(node.data);
+               treeStore.proxy.extraParams.pid = tt;
+           }
+       },
+    });
+    
     Ext.getCmp("treeTabs").add(tree);
 }
 
-
-/*Ext.onReady(function() {
-    //树节点配置[root>>children]每个节点有： text显示文本, leaf是否是叶子, expanded是否展开，等属性。  
-    var store = Ext.create('Ext.data.TreeStore', {
-        root : {
-            expanded : true,
-            children : [ {
-                text : "detention",
-                leaf : true
-            }, {
-                text : "homework",
-                expanded : true,
-                children : [ {
-                    text : "book",
-                    leaf : true
-                }, {
-                    text : "alegrbra",
-                    leaf : true
-                } ]
-            }, {
-                text : "tickets",
-                leaf : true
-            } ]
-        }
-    });
-    //创建TreePanel rootVisible表示根节点是否显示  
-    Ext.create('Ext.tree.Panel', {
-        title : 'Simple Tree',
-        width : 200,
-        height : 150,
-        rootVisible : false,
-        root : {
-            expanded : true,
-            children : [ {
-                text : "detention",
-                leaf : true
-            }, {
-                text : "homework",
-                expanded : true,
-                children : [ {
-                    text : "book",
-                    leaf : true
-                }, {
-                    text : "alegrbra",
-                    leaf : true
-                } ]
-            }, {
-                text : "tickets",
-                leaf : true
-            } ]
-        },
-        renderTo : Ext.getBody()
-    });
-});*/

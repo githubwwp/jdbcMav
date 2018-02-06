@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jdbc.dao.inter.SysMenuDao">
+	<resultMap id="BaseResultMap" type="jdbc.entity.db.SysMenu">
+		<id column="menu_id" property="menuId" jdbcType="VARCHAR" />
+		<result column="menu_pid" property="menuPid" jdbcType="VARCHAR" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+		<result column="menu_remark" property="menuRemark" jdbcType="VARCHAR" />
+		<result column="menu_order" property="menuOrder" jdbcType="VARCHAR" />
+		<result column="used" property="used" jdbcType="TINYINT" />
+	</resultMap>
+
+	<select id="queryAll" resultMap="BaseResultMap">
+		SELECT * FROM sys_menu
+	</select>
+	
+	<select id="queryMenuVos" resultType="jdbc.entity.vo.SysMenuVo">
+		SELECT menu_id id, menu_pid pid, menu_name text, menu_url, menu_remark, menu_order, used FROM sys_menu
+	</select>
+	
+	<select id="getChildrenByPid" resultType="jdbc.entity.vo.SysMenuVo">
+		SELECT menu_id menuId, menu_pid pid, menu_name text, menu_url, menu_remark, menu_order, used, 0 leaf FROM sys_menu where menu_pid = #{pid}
+	</select>
+
+</mapper>
