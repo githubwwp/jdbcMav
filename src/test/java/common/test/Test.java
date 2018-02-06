@@ -7,8 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Random;
 
 public class Test {
-	public static void main(String[] args) throws UnsupportedEncodingException, ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH");
-		System.out.println(sdf.parse(null));
+	public static void main(String[] args) throws UnsupportedEncodingException, ParseException, InterruptedException {
+		Test test = new Test();
+		Thread.sleep(2000);
+		System.out.println(test);
 	}
 }
