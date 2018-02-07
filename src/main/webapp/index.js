@@ -1,4 +1,27 @@
 Ext.onReady(function() {
+    
+    var treeStore = Ext.create('Ext.data.TreeStore', {
+        fields: [ 
+            'text', 'menuId', 'menuPid', 'menuName', 'menuUrl', 'menuRemark', 'menuOrder', 
+        ],
+        proxy: {
+            type: 'ajax',
+            url: contextPath + '/sysMenu/getChildrenByPid.do',
+            reader: {
+                type: 'json',
+                root: 'children'
+            },
+            extraParams: {
+                pid: '0'
+            }
+        },
+        root: {  
+            text: '根节点',  
+            id: '0',  
+            expanded: true  
+        },  
+        autoLoad: true
+    });
 
     Ext.create('Ext.container.Viewport', {
         layout : 'border',
@@ -8,18 +31,14 @@ Ext.onReady(function() {
             border : false,
             margins : '0 0 5 0',
             title : 'top',
-            tbar : [ {
-                xtype : 'button',
-                text : '添加选项卡',
-                handler : addTab
-            }, {
-                xtype : 'button',
-                text : '添加百度页面',
-                handler : addBaiDu
-            }, {
-                text : '添加 google',
-                handler : addGoogle
-            } ]
+            tbar : [ 
+                {   xtype : 'button', text : '菜单管理', iconCls: 'icon-th-list icon-large',
+                    handler : function(){ addCenterTab('菜单管理', '/jsp/system/menuManage.jsp'); }
+                },
+                {   xtype : 'button', text : '关闭所有tab页面', iconCls: 'icon-th-list icon-large',
+                    handler : function(){ addCenterTab('菜单管理', '/jsp/system/menuManage.jsp'); } 
+                }
+            ]
 
         }, {
             id : 'west',
@@ -27,33 +46,31 @@ Ext.onReady(function() {
             collapsible : true,
             title : 'Navigation',
             autoScroll: true,
-            width : 150,
-            items : [ 
-                {   xtype : 'treePanel', rootVisible : true, 
-                    root : {
-                        expanded : true,
-                        children : [ 
-                            {   text : "storeTest", leaf : true, url : contextPath + '/jsp/jspTest/storeTest.jsp' }, 
-                            {   text : "layoutTest", leaf : true, url : contextPath + '/jsp/jspTest/layoutTest.jsp' }, 
-                            {   text : "treeTest", leaf : true, url : contextPath + '/jsp/jspTest/treeTest.jsp' }, 
-                            {   text : "gridTest", leaf : true, url : contextPath + '/jsp/jspTest/gridTest.jsp' }, 
-                            {   text : "homework", expanded : true,
-                                children : [ 
-                                    {   text : "panelTest", leaf : true, url : contextPath + '/jsp/jspTest/panelTest.jsp' }, 
-                                    {   text : "alegrbra", leaf : true }
-                                ] 
-                            }, 
-                            {   text : "formTest", leaf : true, url : contextPath + '/jsp/jspTest/formTest.jsp' }
-                        ]
-                    },
-                    listeners : {
-                        'itemclick' : function(obj, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-                            var text = td.raw['text'];
-                            var url = td.raw['url'];
-                            addCenterTab(text, url);
+            width : 170,
+            items : [
+                {
+                    xtype: 'treePanel',
+                    id: 'menuTreePanel',
+                    rootVisible:false,
+                    autoScroll: true,
+                    store: treeStore,
+                    height: 400,
+                    bodyPadding : 5,
+                    listeners: {
+                        'beforeitemexpand': function(node, optd){ // extjs 会自动处理其它 数据
+                            var tt=node.data.menuId;  // 不能使用id ，会和extjs 冲突
+                            treeStore.proxy.extraParams.pid = tt;
+                        },
+                        'itemclick': function(obj, record){ // 点击触发事件
+                            var data = record.data;
+                            var text = data.text;
+                            if(data.leaf){
+                                var url = data.menuUrl;
+                                addCenterTab(text, url);
+                            }
                         }
                     }
-                } 
+                }
             ]
         // could use a TreePanel or AccordionLayout for navigational items
         }, {
@@ -141,6 +158,7 @@ function addCenterTab(title, url) {
     var centerTabs = Ext.getCmp("center");
     var tabId = title + "_id";
     var tab = centerTabs.getComponent(tabId);
+    url = contextPath + url;
     
     // 如果panel不存在，新建一个panel，并添加到tabPanel中。
     if (!tab) {

@@ -8,6 +8,7 @@ import jdbc.entity.db.SysMenu;
 import jdbc.entity.vo.SysMenuVo;
 import jdbc.service.impl.SysMenuService;
 import jdbc.util.ObjectUtil;
+import jdbc.web.WebConstant;
 
 import net.sf.json.spring.web.servlet.view.JsonView;
 
@@ -109,11 +110,20 @@ public class SysMenuController {
      * 2018-2-7 by wwp
      */
     @RequestMapping("deleteSysMenu")
-    public ModelAndView deleteSysMenu(SysMenu sysMenu){
+    public ModelAndView deleteSysMenu(String menuId){
         @SuppressWarnings("unused")
         int effRow;
         Map<String, Object> model = new HashMap<String, Object>();
-        effRow = sysMenuService.updateSysMenu(sysMenu); // TODO
+        
+        // 判断是否存在子菜单
+        int count = sysMenuService.getCountByPid(menuId);
+        if(count == 0){
+            // 删除菜单
+            effRow = sysMenuService.deleteMenuById(menuId);
+            model.put(WebConstant.RST_MSG, WebConstant.SUCC_STATUS);
+        } else{
+            model.put(WebConstant.RST_MSG, "存在子菜单，无法删除！");
+        }
         
         return new ModelAndView(new JsonView(), model);
     }

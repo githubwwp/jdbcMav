@@ -15,6 +15,10 @@
 		SELECT * FROM sys_menu
 	</select>
 	
+	<select id="getCountByPid" resultType="int" >
+		SELECT count(*) FROM sys_menu WHERE menu_pid = #{menuId}
+	</select>
+	
 	<select id="queryMenuVos" resultType="jdbc.entity.vo.SysMenuVo">
 		SELECT menu_id id, menu_pid pid, menu_name text, menu_url, menu_remark, menu_order, used FROM sys_menu
 	</select>
@@ -38,5 +42,9 @@
 		INSERT INTO sys_menu ( `menu_id`, `menu_pid`, `menu_name`, `menu_url`, `menu_remark`, `menu_order` ) 
 		VALUES ( #{menuId}, #{menuPid}, #{menuName}, #{menuUrl}, #{menuRemark}, #{menuOrder} )
 	</insert>
+	
+	<delete id="deleteMenuById">
+		DELETE FROM sys_menu WHERE menu_id = #{menuId}
+	</delete>
 
 </mapper>

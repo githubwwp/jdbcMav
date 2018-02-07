@@ -3,6 +3,8 @@ package jdbc.dao.inter;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import jdbc.entity.db.SysMenu;
 import jdbc.entity.vo.SysMenuVo;
 
@@ -20,5 +22,9 @@ public interface SysMenuDao {
 	int updateSysMenu(SysMenu sysMenu);
 	
 	int insertSysMenu(SysMenu sysMenu);
+	
+	int deleteMenuById(@Param("menuId") String menuId);
+	
+	int getCountByPid(@Param("menuId") String menuId);
 	
 }

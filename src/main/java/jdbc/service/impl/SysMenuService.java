@@ -7,6 +7,7 @@ import jdbc.dao.inter.SysMenuDao;
 import jdbc.entity.db.SysMenu;
 import jdbc.entity.vo.SysMenuVo;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,14 @@ public class SysMenuService {
 	
 	public int insertSysMenu(SysMenu sysMenu){
 	    return sysMenuDao.insertSysMenu(sysMenu);
+	}
+	
+	public int deleteMenuById(String menuId){
+	    return sysMenuDao.deleteMenuById(menuId);
+	}
+	
+	public int getCountByPid(String menuId){
+	    return sysMenuDao.getCountByPid(menuId);
 	}
 	
 }

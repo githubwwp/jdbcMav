@@ -3,95 +3,15 @@ var IS_ADD;
 var IS_EDIT;
 
 Ext.onReady(function(){
-    // 选项卡
-    var treeTabs = Ext.create('Ext.tab.Panel', {
-        id: 'treeTabs',
-        frame: true, tabPosition: 'bottom',
-    });
-    
     
     Ext.create('Ext.container.Viewport', {
+        id: 'viewPort',
         layout: 'fit', 
         items: [
-            treeTabs
         ]
     });
-    
-    // examples
     addBaseTree();
-    addBaseStoreTree();
-    addMultipleColumnsTree();
-    
-    treeTabs.setActiveTab(0); // 
 });
-
-// 多列树
-function addMultipleColumnsTree(){
-    var tree = Ext.create('Ext.tree.Panel', {
-       title: 'multiple columns tree',
-       fields: [ 'name', 'description' ],
-       columns: [
-           {
-               xtype: 'treecolunm',
-               text: 'name',
-               dataIndex: 'name',
-               width: 150,
-               sortable: true
-           },
-           {
-               xtype: 'treecolunm',
-               text: 'Description',
-               dataIndex: 'description',
-               flex: 1,
-               sortable: true
-           }
-       ],
-       root: {
-           name: 'root',
-           description: 'root description',
-           expanded: true,
-           children: [
-               {
-                   name: 'child 1',
-                   description: 'description 1',
-                   leaf: true
-               },
-               {
-                   name: 'child 2',
-                   description: 'description 2',
-                   leaf: true
-               }
-           ]
-       }
-    });
-    Ext.getCmp('treeTabs').add(tree);
-}
-
-// store 树
-function addBaseStoreTree(){
-    var store = Ext.create('Ext.data.TreeStore', {
-        root: {
-            text: 'Root',
-            expanded: true,
-            children: [
-                {
-                    text: 'Child 1',
-                    leaf: true
-                },
-                {
-                    text: 'Child 2',
-                    leaf: true
-                }
-            ]
-        }
-    });
-    
-    var tree = Ext.create('Ext.tree.Panel', {
-        title: 'simpleTree',
-        store: store
-    });
-     Ext.getCmp('treeTabs').add(tree);
-}
 
 // 基本树
 function addBaseTree(){
@@ -164,14 +84,12 @@ function addBaseTree(){
            'itemclick': function(obj, record){ // 点击触发事件
                Ext.getCmp("editMenuForm").getForm().setValues(record.data);
            }
-       },
+       }
     });
     
     var panel = Ext.create('Ext.panel.Panel', {
-        title: 'menu tree',
         layout: 'column',
         autoScroll: true,
-        bodyPadding : 5,
         items: [
             tree,
             {columnWidth: 0.02, },
@@ -179,7 +97,7 @@ function addBaseTree(){
          ]
     });
     
-    Ext.getCmp("treeTabs").add(panel);
+    Ext.getCmp("viewPort").add(panel);
 }
 
 
