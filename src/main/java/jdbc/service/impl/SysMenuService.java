@@ -28,4 +28,16 @@ public class SysMenuService {
 		return sysMenuDao.getChildrenByPid(parmMap);
 	}
 	
+	public SysMenu querySysMenuById(Map<String, String> parmMap){
+	    return sysMenuDao.querySysMenuById(parmMap);
+	}
+	
+	public int updateSysMenu(SysMenu sysMenu){
+	    return sysMenuDao.updateSysMenu(sysMenu);
+	}
+	
+	public int insertSysMenu(SysMenu sysMenu){
+	    return sysMenuDao.insertSysMenu(sysMenu);
+	}
+	
 }

@@ -15,5 +15,10 @@ public interface SysMenuDao {
 	
 	List<SysMenuVo> getChildrenByPid(Map<String, String> parmMap);
 	
+	SysMenu querySysMenuById(Map<String, String> parmMap);
+	
+	int updateSysMenu(SysMenu sysMenu);
+	
+	int insertSysMenu(SysMenu sysMenu);
 	
 }

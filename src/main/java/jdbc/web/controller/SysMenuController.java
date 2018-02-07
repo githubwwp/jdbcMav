@@ -7,6 +7,7 @@ import java.util.Map;
 import jdbc.entity.db.SysMenu;
 import jdbc.entity.vo.SysMenuVo;
 import jdbc.service.impl.SysMenuService;
+import jdbc.util.ObjectUtil;
 
 import net.sf.json.spring.web.servlet.view.JsonView;
 
@@ -42,6 +43,10 @@ public class SysMenuController {
 		return new ModelAndView(new JsonView(), model);
 	}
 	
+	/**
+	 * 异步加载数据 <p /> 
+	 * 2018-2-7 by wwp
+	 */
 	@RequestMapping("getChildrenByPid")
 	public ModelAndView getChildrenByPid(String pid){
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -52,5 +57,65 @@ public class SysMenuController {
 		
 		return new ModelAndView(new JsonView(), model);
 	}
+	
+	/**
+	 * 根据id 获取菜单
+	 * 2018-2-7 by wwp
+	 */
+	@RequestMapping("querySysMenuById")
+	public ModelAndView querySysMenuById(String menuId){
+	    Map<String, Object> model = new HashMap<String, Object>();
+        Map<String, String> parmMap = new HashMap<String, String>();
+        parmMap.put("menuId", menuId);
+        SysMenu sysMenu = sysMenuService.querySysMenuById(parmMap);
+        model.put("sysMenu", sysMenu);
+        
+        return new ModelAndView(new JsonView(), model);
+	}
+	
+	/**
+	 * 编辑菜单
+	 * 2018-2-7 by wwp
+	 */
+	@RequestMapping("editSysMenu")
+	public ModelAndView editSysMenu(SysMenu sysMenu){
+	    @SuppressWarnings("unused")
+        int effRow;
+        Map<String, Object> model = new HashMap<String, Object>();
+        effRow = sysMenuService.updateSysMenu(sysMenu);
+        
+        return new ModelAndView(new JsonView(), model);
+    }
+	
+	/**
+     * 新增菜单
+     * 2018-2-7 by wwp
+     */
+    @RequestMapping("addSysMenu")
+    public ModelAndView addSysMenu(SysMenu sysMenu){
+        @SuppressWarnings("unused")
+        int effRow;
+        Map<String, Object> model = new HashMap<String, Object>();
+        String seq = ObjectUtil.getBaseUuid();
+        sysMenu.setMenuId(seq);
+        
+        effRow = sysMenuService.insertSysMenu(sysMenu); // 新增菜单
+        
+        return new ModelAndView(new JsonView(), model);
+    }
+    
+    /**
+     * 删除菜单
+     * 2018-2-7 by wwp
+     */
+    @RequestMapping("deleteSysMenu")
+    public ModelAndView deleteSysMenu(SysMenu sysMenu){
+        @SuppressWarnings("unused")
+        int effRow;
+        Map<String, Object> model = new HashMap<String, Object>();
+        effRow = sysMenuService.updateSysMenu(sysMenu); // TODO
+        
+        return new ModelAndView(new JsonView(), model);
+    }
 
 }

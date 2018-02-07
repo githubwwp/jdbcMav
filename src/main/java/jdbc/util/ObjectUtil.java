@@ -37,20 +37,12 @@ public class ObjectUtil {
 	 */
 	public static String getBaseUuid(){
 		
-		return UUID.randomUUID().toString();
+		return UUID.randomUUID().toString().replace('-', '_');
 	}
 	
 	// test
 	public static void main(String[] args) {
-	    System.out.println(getRandStr((short) 13));
-	    
-//        for(char i = 'a'; i <= 'z'; i++){
-//            System.out.print("'" + i + "',");
-//        }
-//        System.out.println();
-//        for(int i = 0; i <= 9; i++){
-//            System.out.print("'" + i + "',");
-//        }
+	    System.out.println(getBaseUuid());
     }
 	
 }

@@ -20,7 +20,23 @@
 	</select>
 	
 	<select id="getChildrenByPid" resultType="jdbc.entity.vo.SysMenuVo">
-		SELECT menu_id menuId, menu_pid pid, menu_name text, menu_url, menu_remark, menu_order, used, 0 leaf FROM sys_menu where menu_pid = #{pid}
+		SELECT menu_id menuId, menu_pid menuPid, menu_name menuName, menu_url menuUrl, menu_remark menuRemark, menu_order menuOrder, menu_name text, ( CASE WHEN ( SELECT count(*) FROM sys_menu WHERE menu_pid = m.menu_id ) > 0 THEN 0 ELSE 1 END ) AS leaf 
+		FROM sys_menu m 
+		WHERE menu_pid = #{pid}
 	</select>
+	
+	<select id="querySysMenuById" resultMap="BaseResultMap">
+		SELECT menu_id, menu_pid, menu_name, menu_url, menu_remark, menu_order, used FROM sys_menu WHERE menu_id = #{menuId}
+	</select>
+	
+	
+	<update id="updateSysMenu">
+		UPDATE sys_menu SET menu_name=#{menuName}, menu_url=#{menuUrl}, menu_remark=#{menuRemark}, menu_order=#{menuOrder} WHERE menu_id=#{menuId}
+	</update>
+	
+	<insert id="insertSysMenu">
+		INSERT INTO sys_menu ( `menu_id`, `menu_pid`, `menu_name`, `menu_url`, `menu_remark`, `menu_order` ) 
+		VALUES ( #{menuId}, #{menuPid}, #{menuName}, #{menuUrl}, #{menuRemark}, #{menuOrder} )
+	</insert>
 
 </mapper>
