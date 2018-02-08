@@ -3,11 +3,11 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>bar chart</title>
+<title>guage chart</title>
 
 <jsp:include page="/jsp/baseJsp/extJsp.jsp"></jsp:include>
 
-<script type="text/javascript" src="js/areaChart.js?v=<%=Math.random()%>"></script>
+<script type="text/javascript" src="js/gaugeChart.js?v=<%=Math.random()%>"></script>
 
 </head>
 <body>

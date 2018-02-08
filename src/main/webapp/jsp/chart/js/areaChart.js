@@ -48,12 +48,12 @@ Ext.onReady(function(){
         ],
         series: [{
             type: 'area',
-            highlight: false,
+            highlight: true,
             axis: 'left',
             xField: 'name',
             yField: ['data1', 'data2', 'data3', 'data4', 'data5'],
             style: {
-                opacity: 0.53
+                opacity: 0.83
             }
         }]
     });
