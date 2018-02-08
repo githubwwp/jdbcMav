@@ -7,9 +7,10 @@ import jdbc.dao.inter.SysMenuDao;
 import jdbc.entity.db.SysMenu;
 import jdbc.entity.vo.SysMenuVo;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SysMenuService {
@@ -33,6 +34,7 @@ public class SysMenuService {
 	    return sysMenuDao.querySysMenuById(parmMap);
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public int updateSysMenu(SysMenu sysMenu){
 	    return sysMenuDao.updateSysMenu(sysMenu);
 	}
