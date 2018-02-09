@@ -1,0 +1,24 @@
+
+
+.icon-color-primary:before {
+	color: #337AB7
+}
+
+
+.icon-color-success:before {
+	color: #5CB85C
+}
+
+.icon-color-info:before {
+	color: #5BC0DE
+}
+
+.icon-color-warning:before {
+	color: #F0AD4E
+}
+
+.icon-color-danger:before {
+	color: #D9534F
+}
+
+

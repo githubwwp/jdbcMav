@@ -19,8 +19,10 @@
 		SELECT count(*) FROM sys_menu WHERE menu_pid = #{menuId}
 	</select>
 	
-	<select id="queryMenuVos" resultType="jdbc.entity.vo.SysMenuVo">
-		SELECT menu_id id, menu_pid pid, menu_name text, menu_url, menu_remark, menu_order, used FROM sys_menu
+	<select id="queryMenuChildVos" resultType="jdbc.entity.vo.SysMenuChildVo">
+		SELECT menu_id menuId, menu_pid menuPid, menu_name menuName, menu_url menuUrl, menu_remark menuRemark, menu_order menuOrder, menu_name text, ( CASE WHEN ( SELECT count(*) FROM sys_menu WHERE menu_pid = m.menu_id ) > 0 THEN 0 ELSE 1 END ) AS leaf 
+		FROM sys_menu m 
+		order by menu_order
 	</select>
 	
 	<select id="getChildrenByPid" resultType="jdbc.entity.vo.SysMenuVo">

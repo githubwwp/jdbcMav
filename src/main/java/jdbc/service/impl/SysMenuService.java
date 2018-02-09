@@ -5,6 +5,7 @@ import java.util.Map;
 
 import jdbc.dao.inter.SysMenuDao;
 import jdbc.entity.db.SysMenu;
+import jdbc.entity.vo.SysMenuChildVo;
 import jdbc.entity.vo.SysMenuVo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class SysMenuService {
 		return sysMenuDao.queryAll();
 	}
 	
-	public List<SysMenuVo> queryMenuVos(){
-		return sysMenuDao.queryMenuVos();
+	public List<SysMenuChildVo> queryMenuChildVos(){
+		return sysMenuDao.queryMenuChildVos();
 	}
 	
 	public List<SysMenuVo> getChildrenByPid(Map<String, String> parmMap){

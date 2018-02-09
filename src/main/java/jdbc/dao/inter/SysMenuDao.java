@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import jdbc.entity.db.SysMenu;
+import jdbc.entity.vo.SysMenuChildVo;
 import jdbc.entity.vo.SysMenuVo;
 
 
@@ -13,7 +14,7 @@ public interface SysMenuDao {
 	
 	List<SysMenu> queryAll();
 	
-	List<SysMenuVo> queryMenuVos();
+	List<SysMenuChildVo> queryMenuChildVos();
 	
 	List<SysMenuVo> getChildrenByPid(Map<String, String> parmMap);
 	

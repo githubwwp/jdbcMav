@@ -1,28 +1,5 @@
 Ext.onReady(function() {
     
-    var treeStore = Ext.create('Ext.data.TreeStore', {
-        fields: [ 
-            'text', 'menuId', 'menuPid', 'menuName', 'menuUrl', 'menuRemark', 'menuOrder', 
-        ],
-        proxy: {
-            type: 'ajax',
-            url: contextPath + '/sysMenu/getChildrenByPid.do',
-            reader: {
-                type: 'json',
-                root: 'children'
-            },
-            extraParams: {
-                pid: '0'
-            }
-        },
-        root: {  
-            text: '根节点',  
-            id: '0',  
-            expanded: true  
-        },  
-        autoLoad: true
-    });
-
     Ext.create('Ext.container.Viewport', {
         layout : 'border',
         items : [ {
@@ -32,45 +9,24 @@ Ext.onReady(function() {
             margins : '0 0 5 0',
             title : 'top',
             tbar : [ 
-                {   xtype : 'button', text : '菜单管理', iconCls: 'icon-th-list icon-large',
+                {   xtype : 'button', text : '菜单管理', iconCls: 'icon-th-list icon-large icon-color-primary',
                     handler : function(){ window.open(contextPath + '/jsp/system/menuManage.jsp', '菜单管理'); }
                 },
-                {   xtype : 'button', text : '关闭所有tab页面', iconCls: 'icon-th-list icon-large',
-                    handler : function(){ addCenterTab('菜单管理', '/jsp/system/menuManage.jsp'); } 
+                {   xtype : 'button', text : '关闭其它tab页面', iconCls: 'icon-remove-sign icon-large icon-color-danger',
+                    handler : closeOtherTabs
+                },
+                {   xtype : 'button', text : '图库链接', iconCls: 'icon-link icon-large icon-color-info',
+                    handler : function(){ window.open('http://www.bootcss.com/p/font-awesome/'); }
                 }
             ]
-
         }, {
             id : 'west',
             region : 'west',
             collapsible : true,
             title : 'Navigation',
             autoScroll: true,
-            width : 170,
+            width : 250,
             items : [
-                {
-                    xtype: 'treePanel',
-                    id: 'menuTreePanel',
-                    rootVisible:false,
-                    autoScroll: true,
-                    store: treeStore,
-                    height: 400,
-                    bodyPadding : 5,
-                    listeners: {
-                        'beforeitemexpand': function(node, optd){ // extjs 会自动处理其它 数据
-                            var tt=node.data.menuId;  // 不能使用id ，会和extjs 冲突
-                            treeStore.proxy.extraParams.pid = tt;
-                        },
-                        'itemclick': function(obj, record){ // 点击触发事件
-                            var data = record.data;
-                            var text = data.text;
-                            if(data.leaf){
-                                var url = data.menuUrl;
-                                addCenterTab(text, url);
-                            }
-                        }
-                    }
-                }
             ]
         // could use a TreePanel or AccordionLayout for navigational items
         }, {
@@ -101,49 +57,58 @@ Ext.onReady(function() {
             }
         } ]
     });
+    
+    // 添加导航
+    Ext.Ajax.request( {
+        url : contextPath + '/sysMenu/queryMenuVos.do',
+        method : 'post',
+        success : function(rst) {
+            var o = Ext.decode(rst.responseText);
+            addWestNav(o);
+        },
+        failure : function(a) {
+            alert(a.responseText);
+        }
+    });
 });
 
-function addTab() {
-    var panel = Ext.create('Ext.panel.Panel', {
-        bodyPadding : 5, // Don't want content to crunch against the borders
-        closable : true,
-        title : 'Filters',
-        items : [ {
-            xtype : 'datefield',
-            fieldLabel : 'Start date'
-        }, {
-            xtype : 'datefield',
-            fieldLabel : 'End date'
-        } ]
+// 添加导航
+function addWestNav(o){
+    var treeStore = Ext.create('Ext.data.TreeStore', {
+        fields: [ 
+            'text', 'menuId', 'menuPid', 'menuName', 'menuUrl', 'menuRemark', 'menuOrder', 'children'
+        ],
+        root: o.sysMenuChildVo
     });
-    var centerTabs = Ext.getCmp("center");
-    centerTabs.add(panel);
-}
-
-// 添加百度
-function addBaiDu() {
-    var url = "http://www.baidu.com";
-    var panel = Ext.create('Ext.panel.Panel', {
-        bodyPadding : 5, // Don't want content to crunch against the borders
-        closable : true,
-        title : 'baidu ',
-        html : "<iframe name='baiduIframe' src='" + url + "' style='overflow:auto; width:100%; height:100%;' frameborder='0'></iframe>"
+    
+    var treePanel = Ext.create('Ext.tree.Panel', {
+        id: 'menuTreePanel',
+        rootVisible:false,
+        autoScroll: true,
+        height: 400,
+        bodyPadding : 5,
+        store: treeStore,
+        tbar: [
+            {   xtype: 'button', text: '展开', iconCls: 'icon-sort-down icon-large icon-color-info',
+                handler: function(){ treePanel.expandAll(); }
+            },
+            {   xtype: 'button', text: '收起', iconCls: ' icon-sort-up icon-large icon-color-info',
+                handler: function(){ treePanel.collapseAll(); }
+            }
+        ],
+        listeners: {
+            'itemclick': function(obj, rec){
+                var data = rec.data;
+                if(data.leaf){
+                    addCenterTab(data.text, data.menuUrl); // 添加tab
+                }
+            }
+        }
     });
-    var centerTabs = Ext.getCmp("center");
-    centerTabs.add(panel);
-}
-
-// 添加google
-function addGoogle() {
-    var url = "https://www.google.com";
-    var panel = Ext.create('Ext.panel.Panel', {
-        bodyPadding : 5, // Don't want content to crunch against the borders
-        closable : true,
-        title : 'google ',
-        html : "<iframe name='google' src='" + url + "' style='overflow:auto; width:100%; height:100%;' frameborder='0'></iframe>"
-    });
-    var centerTabs = Ext.getCmp("center");
-    centerTabs.add(panel);
+    
+    Ext.getCmp("west").add(treePanel);
+    treePanel.expandNode(treePanel.getRootNode()); // 展开根节点
+    
 }
 
 // 动态添加
@@ -175,18 +140,12 @@ function addCenterTab(title, url) {
     centerTabs.setActiveTab(tab); // 设置显示当前面板
 }
 
-function test(){
-    var data = [
-        {id: '123', name: 'abc', age: 23}, 
-        {id: '345', name: 'erge', age: 29}, 
-        {id: '965', name: 'akibc', age: 56}
-    ];
-    var store  = Ext.create('Ext.data.Store', {
-        fields: ['id', 'name'],
-        proxy: {
-            type: 'memory'
-        },
-        data: data
+// 关闭其它 tabs
+function closeOtherTabs(){
+    var centerTabs = Ext.getCmp("center");
+    centerTabs.items.each(function(item){
+        if(item.closable && centerTabs.activeTab != item){
+            item.close();
+        }
     });
-    
 }

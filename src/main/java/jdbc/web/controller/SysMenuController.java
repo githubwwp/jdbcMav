@@ -1,10 +1,12 @@
 package jdbc.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import jdbc.entity.db.SysMenu;
+import jdbc.entity.vo.SysMenuChildVo;
 import jdbc.entity.vo.SysMenuVo;
 import jdbc.service.impl.SysMenuService;
 import jdbc.util.ObjectUtil;
@@ -35,13 +37,38 @@ public class SysMenuController {
 		return new ModelAndView(new JsonView(), model);
 	}
 	
+	/**
+	 * 一次加载所有的菜单
+	 * 2018-2-9 by wwp
+	 */
 	@RequestMapping("queryMenuVos")
 	public ModelAndView queryMenuVos(){
 		Map<String, Object> model = new HashMap<String, Object>();
-		List<SysMenuVo> sysMenuVos = sysMenuService.queryMenuVos();
-		model.put("sysMenuVos", sysMenuVos);
+		List<SysMenuChildVo> sysMenuChildVos  = sysMenuService.queryMenuChildVos(); // 所有菜单集合
+		
+		// 获取根目录
+		for(SysMenuChildVo mc: sysMenuChildVos){
+            if("0".equals(mc.getMenuPid())){
+                // 递归获取树结构菜单
+                treeSysMenu1(sysMenuChildVos, mc);
+                model.put("sysMenuChildVo", mc);
+                break;
+            }
+        }
 		
 		return new ModelAndView(new JsonView(), model);
+	}
+	
+	private void treeSysMenu1(List<SysMenuChildVo> sysMenuChildVos, SysMenuChildVo pmc){
+	    for(SysMenuChildVo mc: sysMenuChildVos){
+	        if(mc.getMenuPid().equals(pmc.getMenuId())){
+	            if(pmc.getChildren() == null){
+	                pmc.setChildren(new ArrayList<SysMenuChildVo>());
+	            }
+	            pmc.getChildren().add(mc);
+	            treeSysMenu1(sysMenuChildVos, mc); // 递归
+	        }
+	    }
 	}
 	
 	/**
