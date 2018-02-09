@@ -33,7 +33,7 @@ Ext.onReady(function() {
             title : 'top',
             tbar : [ 
                 {   xtype : 'button', text : '菜单管理', iconCls: 'icon-th-list icon-large',
-                    handler : function(){ addCenterTab('菜单管理', '/jsp/system/menuManage.jsp'); }
+                    handler : function(){ window.open(contextPath + '/jsp/system/menuManage.jsp', '菜单管理'); }
                 },
                 {   xtype : 'button', text : '关闭所有tab页面', iconCls: 'icon-th-list icon-large',
                     handler : function(){ addCenterTab('菜单管理', '/jsp/system/menuManage.jsp'); } 
