@@ -12,8 +12,14 @@ Ext.onReady(function() {
                 {   xtype : 'button', text : '菜单管理', iconCls: 'icon-th-list icon-large icon-color-primary',
                     handler : function(){ window.open(contextPath + '/jsp/system/menuManage.jsp', '菜单管理'); }
                 },
-                {   xtype : 'button', text : '关闭其它tab页面', iconCls: 'icon-remove-sign icon-large icon-color-danger',
-                    handler : closeOtherTabs
+                {   xtype : 'splitbutton', text : '关闭tab', iconCls: 'icon-remove-sign icon-large icon-color-danger',
+                    menu: {
+                        xtype: 'menu',
+                        items: [
+                            {   text: '关闭其它tab', handler: closeOtherTabs },
+                            {   text: '关闭全部tab', handler: closeAllTabs }
+                        ]
+                    }
                 },
                 {   xtype : 'button', text : '图库链接', iconCls: 'icon-link icon-large icon-color-info',
                     handler : function(){ window.open('http://www.bootcss.com/p/font-awesome/'); }
@@ -140,11 +146,21 @@ function addCenterTab(title, url) {
     centerTabs.setActiveTab(tab); // 设置显示当前面板
 }
 
-// 关闭其它 tabs
+// 关闭其它 tab
 function closeOtherTabs(){
     var centerTabs = Ext.getCmp("center");
     centerTabs.items.each(function(item){
         if(item.closable && centerTabs.activeTab != item){
+            item.close();
+        }
+    });
+}
+
+// 关闭全部tab
+function closeAllTabs(){
+    var centerTabs = Ext.getCmp("center");
+    centerTabs.items.each(function(item){
+        if(item.closable){
             item.close();
         }
     });
