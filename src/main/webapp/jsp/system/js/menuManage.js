@@ -41,12 +41,11 @@ function addBaseTree(){
     var form = Ext.create('Ext.form.Panel', {
        title: '<center>菜单详细信息</center>',
        id: 'editMenuForm',
-       columnWidth: 0.58,
        autoScroll: true,
-       height: 400,
        bodyPadding : 5,
        defaults : { margin : '3' },
        layout: 'column',
+       flex: 1,
        items: [
            {    xtype: 'textfield', name: 'menuId', fieldLabel: '菜单id', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
            {    xtype: 'textfield', name: 'text', fieldLabel: '名称', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
@@ -62,9 +61,9 @@ function addBaseTree(){
        height: 400,
        rootVisible:false,
        autoScroll: true,
-       columnWidth: 0.4,
        store: treeStore,
        bodyPadding : 5,
+       flex: 1,
        tbar: [
            {   xtype: 'button', text: '新增', iconCls: 'icon-plus icon-large',
                handler: function(){ showAddOrEditMenu('add'); } 
@@ -88,11 +87,14 @@ function addBaseTree(){
     });
     
     var panel = Ext.create('Ext.panel.Panel', {
-        layout: 'column',
+        layout: {
+            type: 'hbox',
+            align: 'stretch'
+        },
         autoScroll: true,
         items: [
             tree,
-            {columnWidth: 0.02, },
+            { width: 10 },
             form
          ]
     });
