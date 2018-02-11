@@ -30,6 +30,7 @@ Ext.onReady(function() {
             region : 'west',
             collapsible : true,
             title : 'Navigation',
+            layout: 'fit',
             autoScroll: true,
             width : 250,
             items : [
