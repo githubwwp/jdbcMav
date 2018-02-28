@@ -45,3 +45,22 @@ UPDATE dcms_dep_cost_subsidy SET month_sum = ( IFNULL(month1, 0) + IFNULL(month2
 DROP TABLE if EXISTS dcms_dep_cost_subsidy_temp;
 
 ### 费用补贴明细结果表2数据迁移结束  ###
+
+
+
+##  人员信息表添加字段 by wwp 2018-02-26
+ALTER TABLE dcms_employee_information ADD emp_add_method CHAR (4) NULL DEFAULT NULL COMMENT '来源（NC: NC导入，SG：手工录入；）';
+ALTER TABLE dcms_employee_information ADD emp_is_second_entry TINYINT (4) NOT NULL DEFAULT 0 COMMENT '是否二次入职登记（0：否，1：是。）';
+ALTER TABLE dcms_employee_information ADD emp_is_valid TINYINT (4) NOT NULL DEFAULT 1 COMMENT '是否有效（0：否，1：是。）';
+
+# 新建外购单价表 by wwp 2018-02-26
+DROP TABLE IF EXISTS dcms_employee_outsourcing;
+CREATE TABLE `dcms_employee_outsourcing` (
+  `os_id` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_id` varchar(50) NOT NULL COMMENT '对应 dcms_employee_information 表的 emp_id 字段',
+  `os_price` decimal(16,2) DEFAULT NULL COMMENT '单价',
+  `os_begin_date` date DEFAULT NULL COMMENT '开始时间',
+  `os_end_date` date DEFAULT NULL COMMENT '结束时间',
+  PRIMARY KEY (`os_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gbk COMMENT='员工外购周期';
+
