@@ -22,3 +22,6 @@ var contextPath = "<%=request.getContextPath()%>"; // 项目根目录
 <script type="text/javascript" src="<%=request.getContextPath()%>/extjs/ext-all.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/extjs/locale/ext-lang-zh_CN.js"></script>
 
+<!-- 自定义 -->
+<<script type="text/javascript" src="<%=request.getContextPath()%>/jsiframe/customjs/customTreeSelect.js?v=<%=Math.random()%>" ></script>
+
