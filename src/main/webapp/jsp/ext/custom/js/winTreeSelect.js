@@ -29,4 +29,29 @@ Ext.onReady(function(){
         ],
         renderTo: Ext.getBody()
     });
+    
+    var win = Ext.create('Ext.window.Window', {
+        title : '二次入职临时登记', width : 550, height : 450,
+        autoScroll: true, closable : true, frame : true, constrainHeader : true, modal: true,
+        layout : 'anchor',
+        items : [ 
+             {
+                xtype: 'winTreeSelect', 
+                store : sexStore, queryMode : 'local', displayField : 'text', valueField : 'value', forceSelection : true
+            }   
+        ],
+        buttonAlign : 'center',
+        fbar : [ 
+            {   text : '保存',
+            },
+            {   text : '取消',
+                handler : function(btn, e) {
+                    btn.findParentByType('window').close();
+                }
+            }
+        ],
+        listeners : {}
+    });
+    win.show();
+    
 });
