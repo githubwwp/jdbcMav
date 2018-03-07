@@ -64,3 +64,20 @@ CREATE TABLE `dcms_employee_outsourcing` (
   PRIMARY KEY (`os_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=gbk COMMENT='员工外购周期';
 
+
+# 初始化员工来源状态 by wwp 2018-03-05
+UPDATE dcms_employee_information SET emp_add_method = NULL;
+UPDATE dcms_employee_information SET emp_add_method = "NC" WHERE Emp_oa_no REGEXP 'NT[a-zA-Z0-9]{8}';
+UPDATE dcms_employee_information SET emp_add_method = "SG" WHERE Emp_oa_no IS NULL;
+
+# 添加人员界面菜单模块 by wwp 2018-03-05
+INSERT INTO `sys_module` VALUES ('employee_secondEntry', NULL, '二次入职临时登记', 'employeeInfo', NULL, '3', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_module` VALUES ('employee_cancalSecondEntry', NULL, '取消二次入职登记', 'employeeInfo', NULL, '3', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_module` VALUES ('employee_markInvalid', NULL, '标记无效', 'employeeInfo', NULL, '3', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+# 菜单添加权限
+INSERT INTO `sys_rolemodule` VALUES ( 'employee_secondEntry', 'Role_personnel_manage', NULL );
+INSERT INTO `sys_rolemodule` VALUES ( 'employee_cancalSecondEntry', 'Role_personnel_manage', NULL );
+INSERT INTO `sys_rolemodule` VALUES ( 'employee_markInvalid', 'Role_personnel_manage', NULL );
+
+

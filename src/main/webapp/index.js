@@ -12,7 +12,7 @@ Ext.onReady(function() {
                 {   xtype : 'button', text : '菜单管理', iconCls: 'icon-th-list icon-large icon-color-primary',
                     handler : function(){ window.open(contextPath + '/jsp/system/menuManage.jsp', '菜单管理'); }
                 },
-                {   xtype : 'splitbutton', text : '关闭tab', iconCls: 'icon-remove-sign icon-large icon-color-danger',
+                {   xtype : 'button', text : '关闭tab', iconCls: 'icon-remove-sign icon-large icon-color-danger',
                     menu: {
                         xtype: 'menu',
                         items: [
