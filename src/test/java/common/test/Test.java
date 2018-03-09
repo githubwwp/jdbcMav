@@ -1,16 +1,15 @@
 package common.test;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import org.apache.commons.collections.map.CaseInsensitiveMap;
 
 
 public class Test {
     public static void main(String[] args) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = df.parse("0000-00-00");
+        CaseInsensitiveMap map = new CaseInsensitiveMap();
+        map.put("B", "sd");
+        System.out.println(map.get("b"));
         
-        System.out.println(df.format(date));
     }
 }
