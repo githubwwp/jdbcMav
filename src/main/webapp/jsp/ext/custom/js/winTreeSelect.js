@@ -22,7 +22,7 @@ Ext.onReady(function(){
                xtype: 'textfield', fieldLabel: 'abc' 
             },
             {
-                xtype: 'winTreeSelect', 
+                xtype: 'dcmsperson2', 
                 store : sexStore, queryMode : 'local', displayField : 'text', valueField : 'value', forceSelection : true
             }
             
@@ -52,6 +52,6 @@ Ext.onReady(function(){
         ],
         listeners : {}
     });
-    win.show();
+//    win.show();
     
 });

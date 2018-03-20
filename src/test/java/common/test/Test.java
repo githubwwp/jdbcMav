@@ -2,14 +2,15 @@ package common.test;
 
 import java.text.ParseException;
 
-import org.apache.commons.collections.map.CaseInsensitiveMap;
 
-
+/**
+ * 测试<p />
+ * @author wwp
+ * @date 2018-3-12
+ */
 public class Test {
     public static void main(String[] args) throws ParseException {
-        CaseInsensitiveMap map = new CaseInsensitiveMap();
-        map.put("B", "sd");
-        System.out.println(map.get("b"));
+        System.out.println(Integer.parseInt("234"));
         
     }
 }
