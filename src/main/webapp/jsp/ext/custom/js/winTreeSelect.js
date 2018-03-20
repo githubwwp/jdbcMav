@@ -31,7 +31,7 @@ Ext.onReady(function(){
     });
     
     var win = Ext.create('Ext.window.Window', {
-        title : '二次入职临时登记', width : 550, height : 450,
+        title : '二次入职临时登记', width : 550, height : 50,
         autoScroll: true, closable : true, frame : true, constrainHeader : true, modal: true,
         layout : 'anchor',
         items : [ 

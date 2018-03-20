@@ -30,39 +30,97 @@ Ext.define('Ext.ux.DcmsPerson2', {
 
 // 显示弹框
 function dcmsperson2_showWin(){
-    
+	
+	var baseStore =  Ext.create('Ext.data.Store', {
+		fields: ['id', 'name', 'dep'],
+		data: [
+		   { id: '1', name: 'uop', dep: 'A' },  
+		   { id: '2', name: '王者荣耀', dep: 'B' }, 
+		   { id: '3', name: '英雄联盟', dep: 'C' }, 
+		   { id: '4', name: 'QQ地主', dep: 'D' }, 
+		   { id: '5', name: '流星蝴蝶剑', dep: 'E' }, 
+		   { id: '6', name: '实况足球', dep: 'F' },
+        ]
+	});
+	
     // 可选人员grid
     var dcmsperson2_empListGrid = Ext.create('Ext.grid.Panel', {
-        id: "dcmsperson2_empListGrid", columnWidth: 0.4,
+        id: "dcmsperson2_empListGrid", columnWidth: 0.45,
         forceFit:true, columnLines:true,
-        store: Ext.create('Ext.data.Store', {
-            fields: ['emp_name', 'emp_id', 'cost_subsidy'] 
-        }),
+        store: baseStore,
         columns: [ 
-            {   header: '姓名', dataIndex: 'emp_name', sortable: false, hideable: false, flex: 1 }
+            {   header: 'id', dataIndex: 'id', sortable: false, hideable: false, flex: 1 },
+            {   header: '姓名', dataIndex: 'name', sortable: false, hideable: false, flex: 1,
+            	items    : {
+                    xtype: 'textfield',
+                    flex : 1,
+                    margin: 2,
+                    enableKeyEvents: true,
+                    listeners: {
+                        keyup: function() {
+                            var store = this.up('tablepanel').store;
+                            store.clearFilter();
+                            if (this.value) {
+                                store.filter({
+                                    property     : 'name',
+                                    value         : this.value,
+                                    anyMatch      : true,
+                                    caseSensitive : false
+                                });
+                            }
+                        },
+                        buffer: 500
+                    }
+                }
+            },
+            {   header: '部门', dataIndex: 'dep', sortable: false, hideable: false, flex: 1 },
+            {   header: '操作', flex: 1, align:'center', xtype: 'actioncolumn',
+                items: [
+                    {   icon: 'icon-remove-sign icon-large icon-color-danger', tooltip : '选择',
+                        handler : function(grid, rowIdx){
+                        	var rec = grid.getStore().getAt(rowIdx);
+                        	// TODO	判断是否存在人员就工号
+                            Ext.getCmp("dcmsperson2_selectedGrid").getStore().add(rec);
+                        }
+                    }
+                ]
+            }
         ]
     });
     
     // 已选人员grid
     var dcmsperson2_selectedGrid = Ext.create('Ext.grid.Panel', {
-        id: "dcmsperson2_selectedGrid", columnWidth: 0.4,
+        id: "dcmsperson2_selectedGrid", columnWidth: 0.45,
         forceFit:true, columnLines:true,
         store: Ext.create('Ext.data.Store', {
-            fields: ['emp_name', 'emp_id', 'cost_subsidy'] 
+        	fields: ['id', 'name', 'dep'],
         }),
         columns: [ 
-            {   header: '姓名', dataIndex: 'emp_name', sortable: false, hideable: false, flex: 1 }
+            {   header: 'id', dataIndex: 'id', sortable: false, hideable: false, flex: 1 },
+            {   header: '姓名', dataIndex: 'name', sortable: false, hideable: false, flex: 1 },
+            {   header: '部门', dataIndex: 'dep', sortable: false, hideable: false, flex: 1 },
+            {   header: '操作', flex: 1, align:'center', xtype: 'actioncolumn',
+                items: [
+                    {   icon: 'icon-remove-sign icon-large icon-color-danger', tooltip : '取消',
+                        handler : function(grid, rowIdx){
+                        	grid.getStore().removeAt(rowIdx);
+                        	this.up('gridpanel').getView().refresh();
+                        }
+                    }
+                ]
+            }
         ]
     });
     
     
     // 弹框
     var win = Ext.create('Ext.window.Window', {
-        title : '人员选择', width : 450, height : 450,
+        title : '人员选择', width : 750, height : 350,
         autoScroll: true, closable : true, frame : true, constrainHeader : true, modal: true,
         layout : 'column',
         items : [ 
             dcmsperson2_empListGrid,
+            { columnWidth: 0.1 },
             dcmsperson2_selectedGrid
         ],
         buttonAlign : 'center',
@@ -82,4 +140,29 @@ function dcmsperson2_showWin(){
     });
     win.show();
 }
+
+function dcmsperson2_filteritems(gridId, property) {
+	return {
+		xtype : 'textfield',
+		flex : 1,
+		margin : 2,
+		enableKeyEvents : true,
+		listeners : {
+//			change : function() {
+//				var store = Ext.getCmp(gridId).store;
+//				store.clearFilter();
+//				if (this.value) {
+//					store.filter({
+//						property : property,
+//						value : this.value,
+//						anyMatch : true,
+//						caseSensitive : false
+//					});
+//				}
+//			},
+			buffer : 500
+		}
+	};
+};
+
 
