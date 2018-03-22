@@ -2,6 +2,9 @@ package common.test;
 
 import java.text.ParseException;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 
 /**
  * 测试<p />
@@ -10,7 +13,9 @@ import java.text.ParseException;
  */
 public class Test {
     public static void main(String[] args) throws ParseException {
-        System.out.println(Integer.parseInt("234"));
-        
+        String str = "{'a': 'c'}";
+        JSONObject jb = JSONObject.fromObject(str);
+        JSONArray ja = jb.getJSONArray("a");
+        System.out.println(ja);
     }
 }
