@@ -1,6 +1,11 @@
 package common.test;
 
 import java.text.ParseException;
+import java.util.Arrays;
+
+import jdbc.util.ObjectUtil;
+
+import sun.security.util.Length;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -13,9 +18,8 @@ import net.sf.json.JSONObject;
  */
 public class Test {
     public static void main(String[] args) throws ParseException {
-        String str = "{'a': 'c'}";
-        JSONObject jb = JSONObject.fromObject(str);
-        JSONArray ja = jb.getJSONArray("a");
-        System.out.println(ja);
+        for(int i=0; i< 10;i++){
+            System.out.println(i);
+        }
     }
 }
