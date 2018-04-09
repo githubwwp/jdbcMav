@@ -56,3 +56,7 @@ INSERT INTO `sys_datadictionary` VALUES ('PRO_TYPE', 'qt', '其它', '项目类�
 ALTER TABLE dcms_project_information DROP INDEX Pro_id;
 ALTER TABLE dcms_project_information ADD CONSTRAINT uk_Pro_id UNIQUE (Pro_id);
 
+# 修改项目变更表（备份旧表，复制项目信息表）by wwp 2018-04-03
+ALTER TABLE dcms_project_changeinformation RENAME dcms_project_changeinformation_bak;
+CREATE TABLE dcms_project_changeinformation LIKE dcms_project_information;
+ALTER TABLE dcms_project_changeinformation DROP INDEX `uk_Pro_id`;
