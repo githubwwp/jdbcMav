@@ -4,6 +4,6 @@ public class WebConstant {
 
     public static final String RST_MSG = "rstMsg";
     
-    public static final String SUCC_STATUS = "0000";
+    public static final String SUCC_DATA = "0000";
     
 }

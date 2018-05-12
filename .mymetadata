@@ -3,7 +3,7 @@
   type="WEB"
   name="jdbcMav"
   id="myeclipse.1515674008293"
-  context-root="/jdbcMav"
+  context-root="/ROOT"
   j2ee-spec="6.0"
   archive="jdbcMav.war">
   <attributes>

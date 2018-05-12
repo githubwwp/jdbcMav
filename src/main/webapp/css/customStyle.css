@@ -21,4 +21,8 @@
 	color: #D9534F
 }
 
+[readonly='readonly'] {
+	background: #ebebe4
+}
+
 

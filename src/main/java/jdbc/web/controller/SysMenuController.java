@@ -147,7 +147,7 @@ public class SysMenuController {
         if(count == 0){
             // 删除菜单
             effRow = sysMenuService.deleteMenuById(menuId);
-            model.put(WebConstant.RST_MSG, WebConstant.SUCC_STATUS);
+            model.put(WebConstant.RST_MSG, WebConstant.SUCC_DATA);
         } else{
             model.put(WebConstant.RST_MSG, "存在子菜单，无法删除！");
         }
