@@ -65,6 +65,13 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<!-- spring end -->
+		
+		<!-- poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.5-FINAL</version>
+		</dependency>
 
 		<!-- mybatis核心包 -->
 		<dependency>
