@@ -1,7 +1,5 @@
 package jdbc.entity.vo;
 
-import java.util.List;
-
 import jdbc.entity.db.SysMenu;
 
 public class SysMenuVo extends SysMenu {

@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import jdbc.entity.db.SysMenu;
+import jdbc.entity.page.PageEntity;
 import jdbc.entity.vo.SysMenuChildVo;
 import jdbc.entity.vo.SysMenuVo;
 import jdbc.service.impl.SysMenuService;
+import jdbc.service.page.PageUtilService;
 import jdbc.util.ObjectUtil;
 import jdbc.web.WebConstant;
 
@@ -27,6 +29,8 @@ public class SysMenuController {
 	
 	@Autowired
 	private SysMenuService sysMenuService;
+	@Autowired
+	private PageUtilService pageUtilService;
 	
 	@RequestMapping("queryAll")
 	public ModelAndView queryAll(){
@@ -152,6 +156,19 @@ public class SysMenuController {
             model.put(WebConstant.RST_MSG, "存在子菜单，无法删除！");
         }
         
+        return new ModelAndView(new JsonView(), model);
+    }
+    
+    
+    @RequestMapping("loadPageMenus")
+    public ModelAndView loadPageMenus(int page, int limit){
+        Map<String, Object> model = new HashMap<String, Object>();
+        PageEntity pageEntity = new PageEntity();
+        pageEntity.setPageSize(limit);
+        pageEntity.setPageNum(page);
+        pageUtilService.getPageEntity(pageEntity);
+        
+        model.put("pageEntity", pageEntity);
         return new ModelAndView(new JsonView(), model);
     }
     
