@@ -73,6 +73,9 @@ function addBaseTree(){
            },
            {   xtype: 'button', text: '删除', iconCls: 'icon-remove icon-large',
                handler: delEditMenu 
+           },
+           {   xtype: 'button', text: '展开', iconCls: 'icon-remove icon-large',
+               handler: expandAll
            }
        ],
        listeners: {
@@ -293,4 +296,7 @@ function delEditMenu(){
     }
 }
 
+function expandAll(){
+	Ext.getCmp('menuTreePanel').expandAll();
+}
 

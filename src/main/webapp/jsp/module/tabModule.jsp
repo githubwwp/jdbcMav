@@ -3,11 +3,12 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>日志管理</title>
+<title>tab 模块</title>
 
+<!-- common.jsp -->
 <jsp:include page="/jsp/baseJsp/extJsp.jsp"></jsp:include>
 
-<script type="text/javascript" src="js/logManage.js?v=<%=Math.random()%>"></script>
+<script type="text/javascript" src="js/tabModule.js?v=<%=Math.random()%>"></script>
 
 </head>
 <body>
