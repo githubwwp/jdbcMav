@@ -1,3 +1,5 @@
+var count = 0;
+
 Ext.onReady(function() {
 
 	var panel = Ext.create('Ext.panel.Panel', {
@@ -76,6 +78,7 @@ function showBaseTAbFn() {
 		title : 'tab example',
 		width : '400',
 		height : '400',
+		modal : true,
 		layout : 'fit',
 		items : [ baseTab ]
 	}).show();
@@ -84,8 +87,10 @@ function showBaseTAbFn() {
 
 // show advanced tab
 function showAdvancedTabFn() {
+	Ext.tip.QuickTipManager.init();
 
 	var tabs = Ext.create('Ext.tab.Panel', {
+		id : 'tabs',
 		items : [ {
 			title : 'tab1',
 		}, {
@@ -97,14 +102,20 @@ function showAdvancedTabFn() {
 		title : 'advanced tab',
 		width : '400',
 		height : '400',
+		modal : true,
 		layout : 'fit',
 		tbar : [ {
 			xtype : 'button',
 			text : 'add closable tab',
-			handler: addClosableTabFn
+			handler : function() {
+				addClosableTabFn(true);
+			}
 		}, {
 			xtype : 'button',
-			text : 'add unclosable tab'
+			text : 'add unclosable tab',
+			handler : function() {
+				addClosableTabFn(false);
+			}
 		}, {
 			xtype : 'button',
 			text : 'scrollTo'
@@ -124,6 +135,12 @@ function showGroupTabFn() {
 }
 
 // 新增可关闭的tab
-function addClosableTabFn(){
-	Ext.getCmp();
+function addClosableTabFn(closable) {
+	count++;
+	Ext.getCmp('tabs').add({
+		closable : closable,
+		html : 'this is a new tab',
+		iconCls : 'tabs',
+		title : 'tabs-' + count
+	}).show();
 }

@@ -46,12 +46,18 @@ function addBaseTree(){
        defaults : { margin : '3' },
        layout: 'column',
        flex: 1,
+       fbar: [
+           {
+        	   xtype: 'button', text: '保存',
+        	   handler: saveMenuInfoFn
+           }
+       ],
        items: [
            {    xtype: 'textfield', name: 'menuId', fieldLabel: '菜单id', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
-           {    xtype: 'textfield', name: 'text', fieldLabel: '名称', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
-           {    xtype: 'textfield', name: 'menuUrl', fieldLabel: '菜单地址', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
-           {    xtype: 'textarea', name: 'menuRemark', fieldLabel: '备注', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
-           {    xtype: 'textfield', name: 'menuOrder', fieldLabel: '排序', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
+           {    xtype: 'textfield', name: 'menuName', fieldLabel: '名称', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false },
+           {    xtype: 'textfield', name: 'menuUrl', fieldLabel: '菜单地址', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false },
+           {    xtype: 'textarea', name: 'menuRemark', fieldLabel: '备注', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false },
+           {    xtype: 'textfield', name: 'menuOrder', fieldLabel: '排序', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false },
        ]
     });
     
@@ -84,7 +90,24 @@ function addBaseTree(){
                treeStore.proxy.extraParams.pid = tt;
            },
            'itemclick': function(obj, record){ // 点击触发事件
-               Ext.getCmp("editMenuForm").getForm().setValues(record.data);
+        	   var menuId = record.data.menuId;
+        	   // 后台加载数据
+        	   Ext.getCmp('editMenuForm').getEl().mask("loading...");
+               Ext.Ajax.request( {
+                   url : contextPath + '/sysMenu/querySysMenuById.do',
+                   method : 'post',
+                   params : {
+                       menuId: menuId
+                   },
+                   success : function(rst) {
+                	   Ext.getCmp('editMenuForm').getEl().unmask("loading...");
+                       var o = Ext.decode(rst.responseText);
+                       form.getForm().setValues(o.sysMenu);
+                   },
+                   failure : function(a) {
+                       alert(a.responseText);
+                   }
+               });
            }
        }
     });
@@ -298,5 +321,22 @@ function delEditMenu(){
 
 function expandAll(){
 	Ext.getCmp('menuTreePanel').expandAll();
+}
+
+function saveMenuInfoFn(){
+	var form = this.up('form').getForm();
+	var params = form.getValues();
+    Ext.Ajax.request( {
+    	url : contextPath + '/sysMenu/editSysMenu.do',
+        method : 'post',
+        params : params,
+        success : function(rst) {
+            Ext.Msg.alert("提示：", "保存成功", function(){
+            });
+        },
+        failure : function(a) {
+            alert(a.responseText);
+        }
+    });
 }
 
