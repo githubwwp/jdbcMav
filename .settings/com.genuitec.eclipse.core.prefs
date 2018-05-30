@@ -1,3 +1,3 @@
 eclipse.preferences.version=1
 validator.Checked=/
-validator.Unchecked=src/main/webapp/jsp/ext/custom/pageComponent.jsp,src/main/webapp/jsp/module/js/tabModule.js,src/main/java/jdbc/dao/mapper/SysMenuMapper.xml,src/main/webapp/jsp/ext/custom/js/pageComponent.js,src/main/webapp/jsp/ext/app/js/app.js
+validator.Unchecked=src/main/webapp/jsp/ext/custom/pageComponent.jsp,src/main/webapp/jsp/module/js/tabModule.js,src/main/webapp/jsp/system/js/logManage.js,src/main/java/jdbc/dao/mapper/SysMenuMapper.xml,src/main/webapp/jsp/ext/app/js/app.js,src/main/webapp/jsp/ext/custom/js/pageComponent.js
