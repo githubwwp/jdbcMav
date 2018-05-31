@@ -80,7 +80,7 @@ function addBaseTree(){
            {   xtype: 'button', text: '删除', iconCls: 'icon-remove icon-large',
                handler: delEditMenu 
            },
-           {   xtype: 'button', text: '展开', iconCls: 'icon-remove icon-large',
+           {   xtype: 'button', text: '展开', iconCls: 'icon-resize-full icon-large',
                handler: expandAll
            }
        ],
