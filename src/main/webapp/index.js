@@ -102,6 +102,11 @@ function addWestNav(o){
             {   xtype: 'button', text: '收起', iconCls: ' icon-sort-up icon-large icon-color-info',
                 handler: function(){ treePanel.collapseAll(); }
             }
+//            TODO
+//            ,{
+//                xtype: 'button', text: '刷新', iconCls: ' icon-sort-up icon-large icon-color-info',
+//                handler: function(){ treeStore.reload(); }
+//            }
         ],
         listeners: {
             'itemclick': function(obj, rec){
