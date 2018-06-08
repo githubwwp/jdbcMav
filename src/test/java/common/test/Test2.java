@@ -1,5 +1,8 @@
 package common.test;
 
+import java.util.UUID;
+
+import jdbc.util.ObjectUtil;
 
 public class Test2 {
     private static void testBoolean() {
@@ -10,14 +13,14 @@ public class Test2 {
         System.out.println(Boolean.parseBoolean(null));
         System.out.println(Double.parseDouble(null));
     }
-    
-    private static void testByte(){
+
+    private static void testByte() {
         System.out.println("Byte_max_value: " + Byte.MAX_VALUE);
         System.out.println("Byte_min_value: " + Byte.MIN_VALUE);
         System.out.println("Byte_size: " + Byte.SIZE);
         System.out.println("Byte_type: " + Byte.TYPE);
     }
-    
+
     private static void testClass() throws ClassNotFoundException {
         System.out.println(Boolean.TYPE);
         System.out.println(Boolean.class);
@@ -27,7 +30,10 @@ public class Test2 {
     }
 
     public static void main(String[] args) throws ClassNotFoundException {
-        System.out.println(6/3);
+        for (int i = 0; i < 5; i++) {
+            String str = "ID".concat(UUID.randomUUID().toString().replace("-", "_"));
+            System.out.println(str);
+        }
     }
 
 }

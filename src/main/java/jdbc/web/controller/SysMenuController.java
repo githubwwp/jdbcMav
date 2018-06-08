@@ -13,13 +13,13 @@ import jdbc.service.impl.SysMenuService;
 import jdbc.service.page.PageUtilService;
 import jdbc.util.ObjectUtil;
 import jdbc.web.WebConstant;
-
 import net.sf.json.spring.web.servlet.view.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -170,6 +170,14 @@ public class SysMenuController {
         
         model.put("pageEntity", pageEntity);
         return new ModelAndView(new JsonView(), model);
+    }
+    
+    @RequestMapping("queryRemoteMenus")
+    public ModelAndView queryRemoteMenus(int page, int start, int limit, String query) {
+        Map<String, Object> rstMap = new HashMap<String, Object>();
+        rstMap = sysMenuService.getPageMenus(query, page, start, limit);
+
+        return new ModelAndView(new JsonView(), rstMap);
     }
     
 }
