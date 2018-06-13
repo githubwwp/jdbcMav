@@ -1,6 +1,8 @@
 package common.test;
 
+import java.util.Date;
 import java.util.UUID;
+import net.sf.json.util.NewBeanInstanceStrategy;
 
 import jdbc.util.ObjectUtil;
 
@@ -30,10 +32,10 @@ public class Test2 {
     }
 
     public static void main(String[] args) throws ClassNotFoundException {
-        for (int i = 0; i < 5; i++) {
-            String str = "ID".concat(UUID.randomUUID().toString().replace("-", "_"));
-            System.out.println(str);
-        }
+//        System.out.println(new Date());
+//        System.out.println("ID" + UUID.randomUUID().toString().replace("-", "_"));
+        
+        System.out.println("null".equals("" + null));
     }
 
 }
