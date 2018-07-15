@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 
 import jdbc.entity.excel.ColType;
+import jdbc.entity.excel.ColTypeEnum;
+import jdbc.entity.excel.MergeColType;
 import jdbc.entity.excel.SheetEntity;
 import jdbc.util.ExcelUtil;
 import jdbc.util.ObjectUtil;
@@ -19,14 +21,14 @@ public class TestExcelUtil {
 
     private static SheetEntity getSheet1() {
         SheetEntity se = new SheetEntity();
-        String sheetName = "this is sheet" + new Random().nextInt(30);
+        String sheetName = "this is sheet" + System.currentTimeMillis();
         ArrayList<Integer> titleRowList = new ArrayList<Integer>();
         titleRowList.add(0);
 
-        List<Integer> colTypeList = new ArrayList<Integer>();
-        colTypeList.add(ColType.STRING);
-        colTypeList.add(ColType.DATE);
-        colTypeList.add(ColType.DOUBLE);
+        List<ColTypeEnum> colTypeList = new ArrayList<ColTypeEnum>();
+        colTypeList.add(ColTypeEnum.STRING);
+        colTypeList.add(ColTypeEnum.DATE);
+        colTypeList.add(ColTypeEnum.DOUBLE);
 
         List<List<Object>> dataList = new ArrayList<List<Object>>();
         List<Object> titleList = new ArrayList<Object>();
@@ -35,7 +37,7 @@ public class TestExcelUtil {
         titleList.add("数字");
         dataList.add(titleList);
 
-        int dataRow = 1000000;
+        int dataRow = 100;
         for (int i = 0; i < dataRow; i++) {
             String str = ObjectUtil.getBaseUuid();
             Date date = new Date();
@@ -48,10 +50,18 @@ public class TestExcelUtil {
             dataList.add(tl);
         }
 
+        // 合并单元格
+        List<MergeColType> mergeColTypes = new ArrayList<MergeColType>() {
+            {
+                add(new MergeColType(0, 1, 0, 1));
+            }
+        };
+
         se.setSheetName(sheetName);
         se.setTitleRowList(titleRowList);
         se.setColTypeList(colTypeList);
         se.setDataList(dataList);
+        se.setMergeColTypes(mergeColTypes);
 
         return se;
     }
@@ -63,13 +73,14 @@ public class TestExcelUtil {
         boolean isExcel2007 = true;
         List<SheetEntity> sheetEntities = new ArrayList<SheetEntity>();
         sheetEntities.add(getSheet1());
-//        sheetEntities.add(getSheet1());
+        sheetEntities.add(getSheet1());
+        sheetEntities.add(getSheet1());
 
         Workbook wk = ExcelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
 
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream("e:/z_temp/" + fileName + (isExcel2007 ? ".xlsx" : ".xls"));
+            fos = new FileOutputStream("G:/temp/" + fileName + (isExcel2007 ? ".xlsx" : ".xls"));
             wk.write(fos);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

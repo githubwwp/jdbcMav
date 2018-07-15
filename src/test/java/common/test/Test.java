@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import jdbc.entity.excel.ColType;
+import jdbc.entity.excel.ColTypeEnum;
 import jdbc.entity.excel.SheetEntity;
 import jdbc.util.ExcelUtil;
 
@@ -23,7 +24,7 @@ public class Test {
         List<List<Object>> dataList = new ArrayList<List<Object>>();
 
         sheet1.setTitleRowList(titleRowList);
-        sheet1.setColTypeList(colTypeList);
+//        sheet1.setColTypeList(colTypeList);
         sheet1.setDataList(dataList);
 
         // sheet name
@@ -63,23 +64,24 @@ public class Test {
 
     // 测试
     public static void main(String[] args) throws IOException {
-        List<SheetEntity> sheetEntities = new ArrayList<SheetEntity>();
-        boolean isExcel2007 = true;
-        String fileName = "g:/temp/export_test";
-        if (isExcel2007) {
-            fileName += ".xlsx";
-        } else {
-            fileName += ".xls";
-        }
-
-        sheetEntities.add(getSheet1());
-        Workbook wk = ExcelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
-        FileOutputStream fos = new FileOutputStream(fileName);
-        wk.write(fos);
-        fos.close();
-        System.out.println("导出成功");
+//        List<SheetEntity> sheetEntities = new ArrayList<SheetEntity>();
+//        boolean isExcel2007 = true;
+//        String fileName = "g:/temp/export_test";
+//        if (isExcel2007) {
+//            fileName += ".xlsx";
+//        } else {
+//            fileName += ".xls";
+//        }
+//
+//        sheetEntities.add(getSheet1());
+//        Workbook wk = ExcelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
+//        FileOutputStream fos = new FileOutputStream(fileName);
+//        wk.write(fos);
+//        fos.close();
+//        System.out.println("导出成功");
+//        
         
-        System.out.println("test");
+//        System.out.println("test");
     }
 
 }

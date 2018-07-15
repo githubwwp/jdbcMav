@@ -1,7 +1,5 @@
 package jdbc.entity.excel;
 
 public enum ColTypeEnum {
-    STRING, 
-    BOOLEAN, 
-    DOUBLE
+    STRING, BOOLEAN, DOUBLE, DATE, DATETIME, RICHTEXTSTRING
 }
