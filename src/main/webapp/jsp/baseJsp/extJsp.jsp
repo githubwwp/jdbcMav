@@ -23,6 +23,7 @@ var contextPath = "<%=request.getContextPath()%>"; // 项目根目录
 <script type="text/javascript" src="<%=request.getContextPath()%>/extjs/locale/ext-lang-zh_CN.js"></script>
 
 <!-- 自定义组件 -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/jsiframe/customjs/myTools.js?v=<%=Math.random()%>" ></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/jsiframe/customjs/customTreeSelect.js?v=<%=Math.random()%>" ></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/jsiframe/customjs/DcmsPerson2.js?v=<%=Math.random()%>" ></script>
 

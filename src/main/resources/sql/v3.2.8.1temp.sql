@@ -13,4 +13,5 @@ INSERT INTO `dcms_system_par` VALUES ('ID88958ce9_0abf_445b_981d_ee9f199cfb10', 
 INSERT INTO `dcms_system_par` VALUES ('ID7c3aa1e2_7b13_402b_bc3d_3dfd4ca7cba5', 'accountAgeBadDabtRate', NULL, NULL, '4-5Y', '5', '0.40', '4-5年', '1', '1', 'superadmin', '2018-06-06', '10');
 INSERT INTO `dcms_system_par` VALUES ('IDe29477fa_f9ed_470a_a617_13ffdda51b71', 'accountAgeBadDabtRate', NULL, NULL, '5Y', '5', '1.00', '5年', '1', '1', 'superadmin', '2018-06-06', '11');
 
-
+# 修改客户信息维护
+UPDATE `sys_module` SET `module_entry`='/contractmgr/customInfo2.jsp' WHERE (`module_id`='customInfo') 

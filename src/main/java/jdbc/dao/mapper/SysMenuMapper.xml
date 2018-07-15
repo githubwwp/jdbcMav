@@ -15,6 +15,10 @@
 		SELECT * FROM sys_menu
 	</select>
 	
+	<select id="queryAll2" resultMap="BaseResultMap">
+		SELECT * FROM sys_menu limit 999
+	</select>
+	
 	<select id="getCountByPid" resultType="int" >
 		SELECT count(*) FROM sys_menu WHERE menu_pid = #{menuId}
 	</select>

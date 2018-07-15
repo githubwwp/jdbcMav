@@ -17,7 +17,20 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+/**
+ * excel工具类
+ * @author wwp
+ * @date 2018-7-13
+ */
 public class ExcelUtil {
+
+    // 初始化基本样式
+    static {
+
+    }
+
+    //基本样式
+    private CellStyle baseCellStyle;
 
     private ExcelUtil() {
     }

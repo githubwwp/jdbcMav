@@ -70,5 +70,9 @@ public class SysMenuService {
         map.put("sysMenus", sysMenus);
         return map;
     }
+    
+    public List<SysMenu> queryAll2() {
+        return sysMenuDao.queryAll2();
+    }
 	
 }

@@ -1,7 +1,6 @@
 package jdbc.entity.excel;
 
 import java.util.List;
-import java.util.Map;
 
 public class SheetEntity {
 

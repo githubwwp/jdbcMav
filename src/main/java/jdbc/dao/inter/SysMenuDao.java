@@ -14,6 +14,8 @@ public interface SysMenuDao {
 	
 	List<SysMenu> queryAll();
 	
+	List<SysMenu> queryAll2();
+	
 	List<SysMenuChildVo> queryMenuChildVos();
 	
 	List<SysMenuVo> getChildrenByPid(Map<String, String> parmMap);

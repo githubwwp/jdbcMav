@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jdbc.service.impl.SysMenuService;
+
 import net.sf.json.spring.web.servlet.view.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,17 @@ public class TestController {
 	@Autowired
     private JdbcTemplate jdbcTemplate;
 	
+	@Autowired
+	private SysMenuService sysMenuService;
+	
 	
 	@RequestMapping("jdbcTest")
 	public ModelAndView jdbcTest(Map<String, Object> map){
 	    Map<String, Object> rstMap = new HashMap<String, Object>();
 	    List<Map<String, Object>> list = jdbcTemplate.queryForList("select user_id, username, age from t_user");
 	    rstMap.put("list", list);
+	    
+	    sysMenuService.queryAll2();
 	    
 	    return new ModelAndView(new JsonView(), rstMap);
 	}

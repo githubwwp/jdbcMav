@@ -4,5 +4,12 @@ INSERT INTO `dcms_system_par` VALUES ( 'IDa1745760_883c_4f09_8861_0d31dfbede32',
 
 # 修改合同表字段注释（'合同签署方' 改为 '销售合同结算单元'）
 ALTER TABLE dcms_sales_contract_register MODIFY `Cont_Signatory` VARCHAR (20) NOT NULL DEFAULT '' COMMENT '销售合同结算单元';
+# 初始化销售合同结算单元字段
+UPDATE dcms_sales_contract_register SET Cont_Signatory = '广州南天电脑系统有限公司' WHERE locate('GZ', Cont_id) > 0;
+UPDATE dcms_sales_contract_register SET Cont_Signatory = '云南南天电子信息产业股份有限公司' WHERE locate('GF', Cont_id) > 0;
+
+# 供应商表新增字段（‘开户银行’， ‘银行账号’）
+ALTER TABLE dcms_purchase_supplier ADD p_bank_account VARCHAR (50) DEFAULT '' COMMENT '银行帐号' AFTER p_supplier_level;
+ALTER TABLE dcms_purchase_supplier ADD p_open_account_bank VARCHAR (50) DEFAULT '' COMMENT '开户银行' AFTER p_supplier_level;
 
 
