@@ -1,4 +1,4 @@
-package jdbc.entity.excel;
+package jdbc.util.excel;
 
 /**
  * 合并单元格类

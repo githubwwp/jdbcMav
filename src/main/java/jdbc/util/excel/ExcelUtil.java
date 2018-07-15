@@ -1,11 +1,8 @@
-package jdbc.util;
+package jdbc.util.excel;
 
 import java.util.Date;
 import java.util.List;
 
-import jdbc.entity.excel.ColTypeEnum;
-import jdbc.entity.excel.MergeColType;
-import jdbc.entity.excel.SheetEntity;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -26,14 +23,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
  */
 public class ExcelUtil {
 
-    // 初始化基本样式
-    static {
-
-    }
-
-    // 基本样式
-    private CellStyle baseCellStyle;
-
+    // 防止实例化
     private ExcelUtil() {
     }
 

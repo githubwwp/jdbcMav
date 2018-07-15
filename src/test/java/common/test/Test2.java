@@ -1,15 +1,6 @@
 package common.test;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import jdbc.entity.excel.ColType;
-
-import org.apache.commons.codec.Decoder;
 
 public class Test2 {
     private static void testBoolean() {
@@ -36,16 +27,8 @@ public class Test2 {
         System.out.println(thread.getSimpleName());
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, UnsupportedEncodingException {
-        List<Integer> colTypeList = new ArrayList<Integer>() {
-            {
-                add(ColType.STRING);
-                add(ColType.DATE);
-                add(ColType.DOUBLE);
-            }
-        };
-        colTypeList.add(3);
-        
+    public static void main(String[] args) {
+
     }
 
 }

@@ -1,18 +1,12 @@
 package common.test;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import jdbc.entity.excel.ColType;
-import jdbc.entity.excel.ColTypeEnum;
-import jdbc.entity.excel.SheetEntity;
-import jdbc.util.ExcelUtil;
-
-import org.apache.poi.ss.usermodel.Workbook;
+import jdbc.util.excel.SheetEntity;
 
 public class Test {
 
@@ -33,12 +27,6 @@ public class Test {
         // 标题行
         titleRowList.add(2);
 
-        // 列类型
-        colTypeList.add(ColType.BOOLEAN);
-        colTypeList.add(ColType.CALENDAR);
-        colTypeList.add(ColType.DATETIME);
-        colTypeList.add(ColType.DOUBLE);
-        colTypeList.add(ColType.STRING);
 
         // 所有数据
         for (int i = 0; i < 100; i++) {
@@ -64,24 +52,7 @@ public class Test {
 
     // 测试
     public static void main(String[] args) throws IOException {
-//        List<SheetEntity> sheetEntities = new ArrayList<SheetEntity>();
-//        boolean isExcel2007 = true;
-//        String fileName = "g:/temp/export_test";
-//        if (isExcel2007) {
-//            fileName += ".xlsx";
-//        } else {
-//            fileName += ".xls";
-//        }
-//
-//        sheetEntities.add(getSheet1());
-//        Workbook wk = ExcelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
-//        FileOutputStream fos = new FileOutputStream(fileName);
-//        wk.write(fos);
-//        fos.close();
-//        System.out.println("导出成功");
-//        
         
-//        System.out.println("test");
     }
 
 }

@@ -6,14 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
-import jdbc.entity.excel.ColType;
-import jdbc.entity.excel.ColTypeEnum;
-import jdbc.entity.excel.MergeColType;
-import jdbc.entity.excel.SheetEntity;
-import jdbc.util.ExcelUtil;
 import jdbc.util.ObjectUtil;
+import jdbc.util.excel.ColTypeEnum;
+import jdbc.util.excel.ExcelUtil;
+import jdbc.util.excel.MergeColType;
+import jdbc.util.excel.SheetEntity;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
