@@ -3,7 +3,6 @@ package jdbc.util.excel;
 import java.util.Date;
 import java.util.List;
 
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -27,6 +26,11 @@ public class ExcelUtil {
     private ExcelUtil() {
     }
 
+    /**
+     * 导出excel 公共方法
+     * 
+     * 2018-7-17 by wwp
+     */
     public static Workbook getExportExcel(String fileName, List<SheetEntity> sheetEntities, boolean isExcel2007) {
         Workbook wk = null;
         if (isExcel2007) {
@@ -34,6 +38,9 @@ public class ExcelUtil {
         } else {
             wk = new HSSFWorkbook();
         }
+
+        // 初始化样式（不用每一个单元格都创建一次样式，可以极大减少运行速度，并且防止大数据量时的wk 创建样式，字体的限制）
+        BaseCellStyle baseCellStyle = new BaseCellStyle(wk);
 
         // 遍历每一个sheet
         for (SheetEntity se : sheetEntities) {
@@ -55,9 +62,9 @@ public class ExcelUtil {
                     Object data = rowData.get(j);
                     // 如果是标题行，统一做字符串处理
                     if (titleRowList.contains(i)) {
-                        setCellValue(cell, data, ColTypeEnum.STRING);
+                        setCellValue(cell, data, ColTypeEnum.STRING, baseCellStyle);
                     } else {
-                        setCellValue(cell, data, colTypeList.get(j));
+                        setCellValue(cell, data, colTypeList.get(j), baseCellStyle);
                     }
                 }
             }
@@ -65,7 +72,8 @@ public class ExcelUtil {
             // 合并单元格
             List<MergeColType> mctList = se.getMergeColTypes();
             for (MergeColType mct : mctList) {
-                CellRangeAddress cellRangeAddress = new CellRangeAddress(mct.getFirstRow(), mct.getLastRow(), mct.getFirstCol(), mct.getLastCol());
+                CellRangeAddress cellRangeAddress = new CellRangeAddress(mct.getFirstRow(), mct.getLastRow(), mct.getFirstCol(),
+                        mct.getLastCol());
                 sheet.addMergedRegion(cellRangeAddress);
             }
         }
@@ -76,44 +84,31 @@ public class ExcelUtil {
     /**
      * 设置单元格的值
      */
-    private static void setCellValue(Cell cell, Object data, ColTypeEnum dataType) {
-        Workbook wk = cell.getRow().getSheet().getWorkbook();
-        DataFormat format = wk.createDataFormat();
-
-        // 单元格样式
-        CellStyle cellDateStyle = wk.createCellStyle();
-        cellDateStyle.setBorderBottom(CellStyle.BORDER_THIN);
-        cellDateStyle.setBorderLeft(CellStyle.BORDER_THIN);
-        cellDateStyle.setBorderRight(CellStyle.BORDER_THIN);
-        cellDateStyle.setBorderTop(CellStyle.BORDER_THIN);
-        cellDateStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);// 垂直居中
-        cell.setCellStyle(cellDateStyle);
-
+    private static void setCellValue(Cell cell, Object data, ColTypeEnum dataType, BaseCellStyle baseCellStyle) {
         // cell 为空，不做处理
         if (data != null) {
+            cell.setCellStyle(baseCellStyle.getCellStyle(dataType));
+
             switch (dataType) {
             case BOOLEAN:
                 cell.setCellValue((Boolean) data);
                 break;
             case DATE:
-                cellDateStyle.setDataFormat(format.getFormat("yyyy-mm-dd"));
                 cell.setCellValue((Date) data);
                 break;
             case DATETIME:
-                cellDateStyle.setDataFormat(format.getFormat("yyyy-mm-dd HH:mm:ss"));
                 cell.setCellValue((Date) data);
                 break;
             case RICHTEXTSTRING:
                 cell.setCellValue((RichTextString) data);
                 break;
             case DOUBLE:
-                cell.setCellValue(Double.parseDouble(data.toString()));
+                cell.setCellValue((Double) data);
                 break;
             default:
                 cell.setCellValue(data.toString());
                 break;
             }
-
         }
     }
 

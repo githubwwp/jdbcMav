@@ -35,11 +35,11 @@ public class TestExcelUtil {
         titleList.add("数字");
         dataList.add(titleList);
 
-        int dataRow = 100;
+        int dataRow = 60000;
         for (int i = 0; i < dataRow; i++) {
             String str = ObjectUtil.getBaseUuid();
             Date date = new Date();
-            Double db = Math.random();
+            Double db = 23.2;
 
             List<Object> tl = new ArrayList<Object>();
             tl.add(str);
@@ -71,14 +71,15 @@ public class TestExcelUtil {
         boolean isExcel2007 = true;
         List<SheetEntity> sheetEntities = new ArrayList<SheetEntity>();
         sheetEntities.add(getSheet1());
-        sheetEntities.add(getSheet1());
-        sheetEntities.add(getSheet1());
+//        sheetEntities.add(getSheet1());
+//        sheetEntities.add(getSheet1());
 
+        System.out.println("开始导出数据...");
         Workbook wk = ExcelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
 
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream("G:/temp/" + fileName + (isExcel2007 ? ".xlsx" : ".xls"));
+            fos = new FileOutputStream("e:/z_temp/" + fileName + (isExcel2007 ? ".xlsx" : ".xls"));
             wk.write(fos);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
