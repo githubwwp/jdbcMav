@@ -4,11 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import jdbc.util.ObjectUtil;
-import jdbc.util.excel.ColTypeEnum;
+import jdbc.util.excel.CellEntity;
+import jdbc.util.excel.CellTypeEnum;
 import jdbc.util.excel.ExcelUtil;
 import jdbc.util.excel.MergeColType;
 import jdbc.util.excel.SheetEntity;
@@ -23,41 +26,36 @@ public class TestExcelUtil {
         ArrayList<Integer> titleRowList = new ArrayList<Integer>();
         titleRowList.add(0);
 
-        List<ColTypeEnum> colTypeList = new ArrayList<ColTypeEnum>();
-        colTypeList.add(ColTypeEnum.STRING);
-        colTypeList.add(ColTypeEnum.DATE);
-        colTypeList.add(ColTypeEnum.DOUBLE);
-
-        List<List<Object>> dataList = new ArrayList<List<Object>>();
-        List<Object> titleList = new ArrayList<Object>();
-        titleList.add("字符串");
-        titleList.add("日期");
-        titleList.add("数字");
+        List<List<CellEntity>> dataList = new ArrayList<List<CellEntity>>();
+        // 添加标题
+        List<CellEntity> titleList = new ArrayList<CellEntity>();
+        titleList.add(new CellEntity("字符串", CellTypeEnum.STRING));
+        titleList.add(new CellEntity("日期", CellTypeEnum.STRING));
+        titleList.add(new CellEntity("小数", CellTypeEnum.STRING));
+        titleList.add(new CellEntity("整数", CellTypeEnum.STRING));
+        titleList.add(new CellEntity("Calender", CellTypeEnum.STRING));
+        titleList.add(new CellEntity("boolean", CellTypeEnum.STRING));
         dataList.add(titleList);
 
-        int dataRow = 60000;
+        // 添加数据
+        int dataRow = 10000;
         for (int i = 0; i < dataRow; i++) {
-            String str = ObjectUtil.getBaseUuid();
-            Date date = new Date();
-            Double db = 23.2;
+            List<CellEntity> tl = new ArrayList<CellEntity>();
+            tl.add(new CellEntity(ObjectUtil.getBaseUuid(), CellTypeEnum.STRING));
+            tl.add(new CellEntity(new Date(), CellTypeEnum.DATETIME));
+            tl.add(new CellEntity(Math.random(), CellTypeEnum.DOUBLE_PERCENT));
+            tl.add(new CellEntity(new Random().nextInt(987), CellTypeEnum.INTEGER));
+            tl.add(new CellEntity(Calendar.getInstance(), CellTypeEnum.CALENDAR));
+            tl.add(new CellEntity(i % 3 == 0, CellTypeEnum.BOOLEAN));
 
-            List<Object> tl = new ArrayList<Object>();
-            tl.add(str);
-            tl.add(date);
-            tl.add(db);
             dataList.add(tl);
         }
 
         // 合并单元格
-        List<MergeColType> mergeColTypes = new ArrayList<MergeColType>() {
-            {
-                add(new MergeColType(0, 1, 0, 1));
-            }
-        };
+        List<MergeColType> mergeColTypes = new ArrayList<MergeColType>();
+        mergeColTypes.add(new MergeColType(0, 1, 0, 1));
 
         se.setSheetName(sheetName);
-        se.setTitleRowList(titleRowList);
-        se.setColTypeList(colTypeList);
         se.setDataList(dataList);
         se.setMergeColTypes(mergeColTypes);
 
@@ -71,8 +69,8 @@ public class TestExcelUtil {
         boolean isExcel2007 = true;
         List<SheetEntity> sheetEntities = new ArrayList<SheetEntity>();
         sheetEntities.add(getSheet1());
-//        sheetEntities.add(getSheet1());
-//        sheetEntities.add(getSheet1());
+        sheetEntities.add(getSheet1());
+        sheetEntities.add(getSheet1());
 
         System.out.println("开始导出数据...");
         Workbook wk = ExcelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);

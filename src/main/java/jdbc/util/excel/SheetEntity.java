@@ -17,12 +17,12 @@ public class SheetEntity {
     /**
      * 列数据类型
      */
-    private List<ColTypeEnum> colTypeList;
+    private List<CellTypeEnum> colTypeList;
 
     /**
      * sheet数据
      */
-    private List<List<Object>> dataList;
+    private List<List<CellEntity>> dataList;
 
     /**
      * 合并单元格
@@ -47,14 +47,6 @@ public class SheetEntity {
         this.titleRowList = titleRowList;
     }
 
-    public List<List<Object>> getDataList() {
-        return dataList;
-    }
-
-    public void setDataList(List<List<Object>> dataList) {
-        this.dataList = dataList;
-    }
-
     public List<MergeColType> getMergeColTypes() {
         return mergeColTypes;
     }
@@ -63,12 +55,20 @@ public class SheetEntity {
         this.mergeColTypes = mergeColTypes;
     }
 
-    public List<ColTypeEnum> getColTypeList() {
+    public List<CellTypeEnum> getColTypeList() {
         return colTypeList;
     }
 
-    public void setColTypeList(List<ColTypeEnum> colTypeList) {
+    public void setColTypeList(List<CellTypeEnum> colTypeList) {
         this.colTypeList = colTypeList;
+    }
+
+    public List<List<CellEntity>> getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(List<List<CellEntity>> dataList) {
+        this.dataList = dataList;
     }
 
 }

@@ -1,12 +1,11 @@
 package jdbc.util.excel;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -40,32 +39,25 @@ public class ExcelUtil {
         }
 
         // 初始化样式（不用每一个单元格都创建一次样式，可以极大减少运行速度，并且防止大数据量时的wk 创建样式，字体的限制）
-        BaseCellStyle baseCellStyle = new BaseCellStyle(wk);
+        DefaultCellStyleMap baseCellStyle = new DefaultCellStyleMap(wk);
 
         // 遍历每一个sheet
         for (SheetEntity se : sheetEntities) {
             String sheetName = se.getSheetName();
-            List<Integer> titleRowList = se.getTitleRowList();
-            List<ColTypeEnum> colTypeList = se.getColTypeList();
-            List<List<Object>> dataList = se.getDataList();
+            List<List<CellEntity>> dataList = se.getDataList();
 
             Sheet sheet = wk.createSheet(sheetName); // 创建sheet
 
             // 遍历每一行
             for (int i = 0, iLen = dataList.size(); i < iLen; i++) {
-                List<Object> rowData = dataList.get(i);
+                List<CellEntity> rowData = dataList.get(i);
                 Row row = sheet.createRow(i);
 
                 // 遍历每一列
                 for (int j = 0, jLen = rowData.size(); j < jLen; j++) {
                     Cell cell = row.createCell(j);
-                    Object data = rowData.get(j);
-                    // 如果是标题行，统一做字符串处理
-                    if (titleRowList.contains(i)) {
-                        setCellValue(cell, data, ColTypeEnum.STRING, baseCellStyle);
-                    } else {
-                        setCellValue(cell, data, colTypeList.get(j), baseCellStyle);
-                    }
+                    CellEntity data = rowData.get(j);
+                    setCellValue(cell, data, baseCellStyle);
                 }
             }
 
@@ -84,10 +76,13 @@ public class ExcelUtil {
     /**
      * 设置单元格的值
      */
-    private static void setCellValue(Cell cell, Object data, ColTypeEnum dataType, BaseCellStyle baseCellStyle) {
+    private static void setCellValue(Cell cell, CellEntity cellEntity, DefaultCellStyleMap baseCellStyle) {
+        Object data = cellEntity.getData();
+        CellTypeEnum dataType = cellEntity.getColTypeEnum();
+
         // cell 为空，不做处理
         if (data != null) {
-            cell.setCellStyle(baseCellStyle.getCellStyle(dataType));
+            cell.setCellStyle(baseCellStyle.get(dataType));
 
             switch (dataType) {
             case BOOLEAN:
@@ -102,8 +97,17 @@ public class ExcelUtil {
             case RICHTEXTSTRING:
                 cell.setCellValue((RichTextString) data);
                 break;
+            case INTEGER:
+                cell.setCellValue(Double.parseDouble(data.toString()));
+                break;
             case DOUBLE:
-                cell.setCellValue((Double) data);
+                cell.setCellValue(Double.parseDouble(data.toString()));
+                break;
+            case CALENDAR:
+                cell.setCellValue((Calendar) data);
+                break;
+            case DOUBLE_PERCENT:
+                cell.setCellValue(Double.parseDouble(data.toString()));
                 break;
             default:
                 cell.setCellValue(data.toString());
