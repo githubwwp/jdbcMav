@@ -19,10 +19,10 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
  * @author wwp
  * @date 2018-7-13
  */
-public class ExcelUtil {
+public class ExcelWritelUtil {
 
     // 防止实例化
-    private ExcelUtil() {
+    private ExcelWritelUtil() {
     }
 
     /**
@@ -113,6 +113,8 @@ public class ExcelUtil {
                 cell.setCellValue(data.toString());
                 break;
             }
+        } else {
+            cell.setCellStyle(baseCellStyle.get(CellTypeEnum.STRING));
         }
     }
 

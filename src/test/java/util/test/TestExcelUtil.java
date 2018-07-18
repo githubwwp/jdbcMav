@@ -8,11 +8,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import jdbc.util.ObjectUtil;
 import jdbc.util.excel.CellEntity;
 import jdbc.util.excel.CellTypeEnum;
-import jdbc.util.excel.ExcelUtil;
+import jdbc.util.excel.ExcelWritelUtil;
 import jdbc.util.excel.MergeColType;
 import jdbc.util.excel.SheetEntity;
 
@@ -22,7 +23,7 @@ public class TestExcelUtil {
 
     private static SheetEntity getSheet1() {
         SheetEntity se = new SheetEntity();
-        String sheetName = "this is sheet" + System.currentTimeMillis();
+        String sheetName = "this is sheet" + UUID.randomUUID().toString();
         ArrayList<Integer> titleRowList = new ArrayList<Integer>();
         titleRowList.add(0);
 
@@ -38,11 +39,15 @@ public class TestExcelUtil {
         dataList.add(titleList);
 
         // 添加数据
-        int dataRow = 10000;
+        int dataRow = 5;
         for (int i = 0; i < dataRow; i++) {
+            if (i == 1) {
+                dataList.add(new ArrayList<CellEntity>());
+                continue;
+            }
             List<CellEntity> tl = new ArrayList<CellEntity>();
             tl.add(new CellEntity(ObjectUtil.getBaseUuid(), CellTypeEnum.STRING));
-            tl.add(new CellEntity(new Date(), CellTypeEnum.DATETIME));
+            tl.add(new CellEntity(null, CellTypeEnum.DATETIME));
             tl.add(new CellEntity(Math.random(), CellTypeEnum.DOUBLE_PERCENT));
             tl.add(new CellEntity(new Random().nextInt(987), CellTypeEnum.INTEGER));
             tl.add(new CellEntity(Calendar.getInstance(), CellTypeEnum.CALENDAR));
@@ -73,7 +78,7 @@ public class TestExcelUtil {
         sheetEntities.add(getSheet1());
 
         System.out.println("开始导出数据...");
-        Workbook wk = ExcelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
+        Workbook wk = ExcelWritelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
 
         FileOutputStream fos = null;
         try {
