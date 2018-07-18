@@ -2,7 +2,7 @@ package jdbc.util.excel;
 
 import java.util.List;
 
-public class SheetEntity {
+public class SheetExportEntity {
 
     /**
      * sheet 名称

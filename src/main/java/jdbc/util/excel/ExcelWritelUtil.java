@@ -30,7 +30,7 @@ public class ExcelWritelUtil {
      * 
      * 2018-7-17 by wwp
      */
-    public static Workbook getExportExcel(String fileName, List<SheetEntity> sheetEntities, boolean isExcel2007) {
+    public static Workbook getExportExcel(String fileName, List<SheetExportEntity> sheetEntities, boolean isExcel2007) {
         Workbook wk = null;
         if (isExcel2007) {
             wk = new SXSSFWorkbook(); // 处理大数据
@@ -42,7 +42,7 @@ public class ExcelWritelUtil {
         DefaultCellStyleMap baseCellStyle = new DefaultCellStyleMap(wk);
 
         // 遍历每一个sheet
-        for (SheetEntity se : sheetEntities) {
+        for (SheetExportEntity se : sheetEntities) {
             String sheetName = se.getSheetName();
             List<List<CellEntity>> dataList = se.getDataList();
 

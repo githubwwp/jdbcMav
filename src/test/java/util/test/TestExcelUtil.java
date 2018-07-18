@@ -15,14 +15,14 @@ import jdbc.util.excel.CellEntity;
 import jdbc.util.excel.CellTypeEnum;
 import jdbc.util.excel.ExcelWritelUtil;
 import jdbc.util.excel.MergeColType;
-import jdbc.util.excel.SheetEntity;
+import jdbc.util.excel.SheetExportEntity;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
 public class TestExcelUtil {
 
-    private static SheetEntity getSheet1() {
-        SheetEntity se = new SheetEntity();
+    private static SheetExportEntity getSheet1() {
+        SheetExportEntity se = new SheetExportEntity();
         String sheetName = "this is sheet" + UUID.randomUUID().toString();
         ArrayList<Integer> titleRowList = new ArrayList<Integer>();
         titleRowList.add(0);
@@ -39,7 +39,7 @@ public class TestExcelUtil {
         dataList.add(titleList);
 
         // 添加数据
-        int dataRow = 5;
+        int dataRow = 5000;
         for (int i = 0; i < dataRow; i++) {
             if (i == 1) {
                 dataList.add(new ArrayList<CellEntity>());
@@ -72,7 +72,7 @@ public class TestExcelUtil {
         // 获取数据
         String fileName = "导出excel";
         boolean isExcel2007 = true;
-        List<SheetEntity> sheetEntities = new ArrayList<SheetEntity>();
+        List<SheetExportEntity> sheetEntities = new ArrayList<SheetExportEntity>();
         sheetEntities.add(getSheet1());
         sheetEntities.add(getSheet1());
         sheetEntities.add(getSheet1());
