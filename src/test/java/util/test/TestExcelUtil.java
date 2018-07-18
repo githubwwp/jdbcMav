@@ -15,7 +15,7 @@ import jdbc.util.excel.read.RowReadContent;
 import jdbc.util.excel.read.SheetReadContent;
 import jdbc.util.excel.write.CellEntity;
 import jdbc.util.excel.write.CellTypeEnum;
-import jdbc.util.excel.write.ExcelWritelUtil;
+import jdbc.util.excel.write.ExcelWriteUtil;
 import jdbc.util.excel.write.MergeColEntity;
 import jdbc.util.excel.write.SheetExportEntity;
 
@@ -92,7 +92,7 @@ public class TestExcelUtil {
         sheetEntities.add(getSheet1());
 
         System.out.println("开始导出数据...");
-        Workbook wk = ExcelWritelUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
+        Workbook wk = ExcelWriteUtil.getExportExcel(fileName, sheetEntities, isExcel2007);
 
         FileOutputStream fos = null;
         try {

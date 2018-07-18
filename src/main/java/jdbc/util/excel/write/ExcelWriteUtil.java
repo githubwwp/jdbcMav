@@ -20,10 +20,10 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
  * @author wwp
  * @date 2018-7-13
  */
-public class ExcelWritelUtil {
+public class ExcelWriteUtil {
 
     // 防止实例化
-    private ExcelWritelUtil() {
+    private ExcelWriteUtil() {
     }
 
     /**
