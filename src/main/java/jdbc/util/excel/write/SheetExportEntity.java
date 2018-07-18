@@ -1,6 +1,7 @@
-package jdbc.util.excel;
+package jdbc.util.excel.write;
 
 import java.util.List;
+
 
 public class SheetExportEntity {
 
@@ -19,7 +20,7 @@ public class SheetExportEntity {
      * 
      * @return
      */
-    private List<MergeColType> mergeColTypes;
+    private List<MergeColEntity> mergeColTypes;
 
     public String getSheetName() {
         return sheetName;
@@ -29,11 +30,11 @@ public class SheetExportEntity {
         this.sheetName = sheetName;
     }
 
-    public List<MergeColType> getMergeColTypes() {
+    public List<MergeColEntity> getMergeColTypes() {
         return mergeColTypes;
     }
 
-    public void setMergeColTypes(List<MergeColType> mergeColTypes) {
+    public void setMergeColTypes(List<MergeColEntity> mergeColTypes) {
         this.mergeColTypes = mergeColTypes;
     }
 

@@ -5,17 +5,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import jdbc.util.ObjectUtil;
-import jdbc.util.excel.CellEntity;
-import jdbc.util.excel.CellTypeEnum;
-import jdbc.util.excel.ExcelWritelUtil;
-import jdbc.util.excel.MergeColType;
-import jdbc.util.excel.SheetExportEntity;
+import jdbc.util.excel.read.ExcelReadUtil;
+import jdbc.util.excel.read.RowReadContent;
+import jdbc.util.excel.read.SheetReadContent;
+import jdbc.util.excel.write.CellEntity;
+import jdbc.util.excel.write.CellTypeEnum;
+import jdbc.util.excel.write.ExcelWritelUtil;
+import jdbc.util.excel.write.MergeColEntity;
+import jdbc.util.excel.write.SheetExportEntity;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -39,7 +41,7 @@ public class TestExcelUtil {
         dataList.add(titleList);
 
         // 添加数据
-        int dataRow = 5000;
+        int dataRow = 3;
         for (int i = 0; i < dataRow; i++) {
             if (i == 1) {
                 dataList.add(new ArrayList<CellEntity>());
@@ -57,8 +59,8 @@ public class TestExcelUtil {
         }
 
         // 合并单元格
-        List<MergeColType> mergeColTypes = new ArrayList<MergeColType>();
-        mergeColTypes.add(new MergeColType(0, 1, 0, 1));
+        List<MergeColEntity> mergeColTypes = new ArrayList<MergeColEntity>();
+        mergeColTypes.add(new MergeColEntity(0, 1, 0, 1));
 
         se.setSheetName(sheetName);
         se.setDataList(dataList);
@@ -69,6 +71,18 @@ public class TestExcelUtil {
 
     public static void main(String[] args) {
 
+        // 导出测试
+        excelWriteTest();
+
+        System.out.println("\n");
+
+        // 导入测试
+        excelReadTest();
+
+    }
+
+    // 导出测试
+    private static void excelWriteTest() {
         // 获取数据
         String fileName = "导出excel";
         boolean isExcel2007 = true;
@@ -99,6 +113,21 @@ public class TestExcelUtil {
         }
 
         System.out.println("导出完成...");
+    }
+
+    private static void excelReadTest() {
+        String filePath = "e:/z_temp/导出excel.xlsx";
+        System.out.println("开始导入数据。。。");
+        SheetReadContent sheetReadContent = ExcelReadUtil.readExcel(filePath, 0);
+        List<RowReadContent> rowList = sheetReadContent.getRowReadContents();
+        System.out.println("导入完成，显示如下： ");
+        for (RowReadContent rrc : rowList) {
+            System.out.print("\n 第" + rrc.getRowNum() + "行 \t");
+            List<Object> cellList = rrc.getCellList();
+            for (Object o : cellList) {
+                System.out.print(o + "\t");
+            }
+        }
     }
 
 }

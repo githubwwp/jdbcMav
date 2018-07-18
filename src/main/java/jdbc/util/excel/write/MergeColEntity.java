@@ -1,4 +1,4 @@
-package jdbc.util.excel;
+package jdbc.util.excel.write;
 
 /**
  * 合并单元格类
@@ -6,7 +6,7 @@ package jdbc.util.excel;
  * @author wwp23
  * 
  */
-public class MergeColType {
+public class MergeColEntity {
 
     /**
      * 开始行
@@ -29,7 +29,7 @@ public class MergeColType {
         return firstRow;
     }
 
-    public MergeColType(int firstRow, int lastRow, int firstCol, int lastCol) {
+    public MergeColEntity(int firstRow, int lastRow, int firstCol, int lastCol) {
         super();
         this.firstRow = firstRow;
         this.lastRow = lastRow;

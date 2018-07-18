@@ -1,9 +1,10 @@
-package jdbc.util.excel;
+package jdbc.util.excel.read;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -95,19 +96,4 @@ public class ExcelReadUtil {
             return "";
         }
     }
-
-    public static void main(String[] args) {
-        String filePath = "e:/z_temp/导出excel.xlsx";
-        SheetReadContent sheetReadContent = readExcel(filePath, 0);
-        List<RowReadContent> rowList = sheetReadContent.getRowReadContents();
-        for (RowReadContent rrc : rowList) {
-            System.out.print("\n 第" + rrc.getRowNum() + "行 \t");
-            List<Object> cellList = rrc.getCellList();
-            for (Object o : cellList) {
-                System.out.print(o + "\t");
-            }
-
-        }
-    }
-
 }

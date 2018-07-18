@@ -1,5 +1,11 @@
-package jdbc.util.excel;
+package jdbc.util.excel.write;
 
+/**
+ * 单元格类
+ * 
+ * @author wwp
+ * @date 2018-7-18
+ */
 public class CellEntity {
 
     private Object data;

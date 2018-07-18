@@ -1,8 +1,9 @@
-package jdbc.util.excel;
+package jdbc.util.excel.write;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -62,8 +63,8 @@ public class ExcelWritelUtil {
             }
 
             // 合并单元格
-            List<MergeColType> mctList = se.getMergeColTypes();
-            for (MergeColType mct : mctList) {
+            List<MergeColEntity> mctList = se.getMergeColTypes();
+            for (MergeColEntity mct : mctList) {
                 CellRangeAddress cellRangeAddress = new CellRangeAddress(mct.getFirstRow(), mct.getLastRow(), mct.getFirstCol(),
                         mct.getLastCol());
                 sheet.addMergedRegion(cellRangeAddress);

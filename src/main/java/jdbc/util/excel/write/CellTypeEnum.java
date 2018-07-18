@@ -1,4 +1,4 @@
-package jdbc.util.excel;
+package jdbc.util.excel.write;
 
 /**
  * 导出单元格类型
