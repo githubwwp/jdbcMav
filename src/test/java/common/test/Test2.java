@@ -1,6 +1,12 @@
 package common.test;
 
-import java.io.UnsupportedEncodingException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.poi.hssf.extractor.ExcelExtractor;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 public class Test2 {
     private static void testBoolean() {
@@ -27,8 +33,15 @@ public class Test2 {
         System.out.println(thread.getSimpleName());
     }
 
-    public static void main(String[] args) {
-        System.out.println(Short.MAX_VALUE);
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        String fileName = "e:/z_temp/导出excel.xls";
+        HSSFWorkbook wb = new HSSFWorkbook(new POIFSFileSystem(new FileInputStream(fileName)));
+        ExcelExtractor extractor = new ExcelExtractor(wb);
+    
+        extractor.setFormulasNotResults(true);
+        extractor.setIncludeSheetNames(false);
+        String text = extractor.getText();
+        System.out.println(text);
     }
 
 }

@@ -85,7 +85,7 @@ public class TestExcelUtil {
     private static void excelWriteTest() {
         // 获取数据
         String fileName = "导出excel";
-        boolean isExcel2007 = true;
+        boolean isExcel2007 = false;
         List<SheetExportEntity> sheetEntities = new ArrayList<SheetExportEntity>();
         sheetEntities.add(getSheet1());
         sheetEntities.add(getSheet1());
