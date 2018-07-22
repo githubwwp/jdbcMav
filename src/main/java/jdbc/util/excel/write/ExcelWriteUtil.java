@@ -45,19 +45,19 @@ public class ExcelWriteUtil {
         // 遍历每一个sheet
         for (SheetExportEntity se : sheetEntities) {
             String sheetName = se.getSheetName();
-            List<List<CellEntity>> dataList = se.getDataList();
+            List<List<WriteCell>> dataList = se.getDataList();
 
             Sheet sheet = wk.createSheet(sheetName); // 创建sheet
 
             // 遍历每一行
             for (int i = 0, iLen = dataList.size(); i < iLen; i++) {
-                List<CellEntity> rowData = dataList.get(i);
+                List<WriteCell> rowData = dataList.get(i);
                 Row row = sheet.createRow(i);
 
                 // 遍历每一列
                 for (int j = 0, jLen = rowData.size(); j < jLen; j++) {
                     Cell cell = row.createCell(j);
-                    CellEntity data = rowData.get(j);
+                    WriteCell data = rowData.get(j);
                     setCellValue(cell, data, baseCellStyle);
                 }
             }
@@ -77,7 +77,7 @@ public class ExcelWriteUtil {
     /**
      * 设置单元格的值
      */
-    private static void setCellValue(Cell cell, CellEntity cellEntity, DefaultCellStyleMap baseCellStyle) {
+    private static void setCellValue(Cell cell, WriteCell cellEntity, DefaultCellStyleMap baseCellStyle) {
         Object data = cellEntity.getData();
         CellTypeEnum dataType = cellEntity.getColTypeEnum();
 

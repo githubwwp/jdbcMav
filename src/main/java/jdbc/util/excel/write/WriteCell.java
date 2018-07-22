@@ -6,7 +6,7 @@ package jdbc.util.excel.write;
  * @author wwp
  * @date 2018-7-18
  */
-public class CellEntity {
+public class WriteCell {
 
     private Object data;
 
@@ -28,7 +28,7 @@ public class CellEntity {
         this.colTypeEnum = colTypeEnum;
     }
 
-    public CellEntity(Object data, CellTypeEnum colTypeEnum) {
+    public WriteCell(Object data, CellTypeEnum colTypeEnum) {
         super();
         this.data = data;
         this.colTypeEnum = colTypeEnum;

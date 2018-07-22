@@ -13,7 +13,7 @@ public class SheetExportEntity {
     /**
      * sheet数据
      */
-    private List<List<CellEntity>> dataList;
+    private List<List<WriteCell>> dataList;
 
     /**
      * 合并单元格
@@ -38,11 +38,11 @@ public class SheetExportEntity {
         this.mergeColTypes = mergeColTypes;
     }
 
-    public List<List<CellEntity>> getDataList() {
+    public List<List<WriteCell>> getDataList() {
         return dataList;
     }
 
-    public void setDataList(List<List<CellEntity>> dataList) {
+    public void setDataList(List<List<WriteCell>> dataList) {
         this.dataList = dataList;
     }
 

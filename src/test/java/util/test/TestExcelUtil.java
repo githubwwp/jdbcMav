@@ -10,10 +10,11 @@ import java.util.Random;
 import java.util.UUID;
 
 import jdbc.util.ObjectUtil;
+import jdbc.util.excel.read.ColEntity;
 import jdbc.util.excel.read.ExcelReadUtil;
-import jdbc.util.excel.read.RowReadContent;
-import jdbc.util.excel.read.SheetReadContent;
-import jdbc.util.excel.write.CellEntity;
+import jdbc.util.excel.read.RowMapping;
+import jdbc.util.excel.read.SheetMapping;
+import jdbc.util.excel.write.WriteCell;
 import jdbc.util.excel.write.CellTypeEnum;
 import jdbc.util.excel.write.ExcelWriteUtil;
 import jdbc.util.excel.write.MergeColEntity;
@@ -29,31 +30,31 @@ public class TestExcelUtil {
         ArrayList<Integer> titleRowList = new ArrayList<Integer>();
         titleRowList.add(0);
 
-        List<List<CellEntity>> dataList = new ArrayList<List<CellEntity>>();
+        List<List<WriteCell>> dataList = new ArrayList<List<WriteCell>>();
         // 添加标题
-        List<CellEntity> titleList = new ArrayList<CellEntity>();
-        titleList.add(new CellEntity("字符串", CellTypeEnum.STRING));
-        titleList.add(new CellEntity("日期", CellTypeEnum.STRING));
-        titleList.add(new CellEntity("小数", CellTypeEnum.STRING));
-        titleList.add(new CellEntity("整数", CellTypeEnum.STRING));
-        titleList.add(new CellEntity("Calender", CellTypeEnum.STRING));
-        titleList.add(new CellEntity("boolean", CellTypeEnum.STRING));
+        List<WriteCell> titleList = new ArrayList<WriteCell>();
+        titleList.add(new WriteCell("字符串", CellTypeEnum.STRING));
+        titleList.add(new WriteCell("日期", CellTypeEnum.STRING));
+        titleList.add(new WriteCell("小数", CellTypeEnum.STRING));
+        titleList.add(new WriteCell("整数", CellTypeEnum.STRING));
+        titleList.add(new WriteCell("Calender", CellTypeEnum.STRING));
+        titleList.add(new WriteCell("boolean", CellTypeEnum.STRING));
         dataList.add(titleList);
 
         // 添加数据
         int dataRow = 3;
         for (int i = 0; i < dataRow; i++) {
             if (i == 1) {
-                dataList.add(new ArrayList<CellEntity>());
+                dataList.add(new ArrayList<WriteCell>());
                 continue;
             }
-            List<CellEntity> tl = new ArrayList<CellEntity>();
-            tl.add(new CellEntity(ObjectUtil.getBaseUuid(), CellTypeEnum.STRING));
-            tl.add(new CellEntity(null, CellTypeEnum.DATETIME));
-            tl.add(new CellEntity(Math.random(), CellTypeEnum.DOUBLE_PERCENT));
-            tl.add(new CellEntity(new Random().nextInt(987), CellTypeEnum.INTEGER));
-            tl.add(new CellEntity(Calendar.getInstance(), CellTypeEnum.CALENDAR));
-            tl.add(new CellEntity(i % 3 == 0, CellTypeEnum.BOOLEAN));
+            List<WriteCell> tl = new ArrayList<WriteCell>();
+            tl.add(new WriteCell(ObjectUtil.getBaseUuid(), CellTypeEnum.STRING));
+            tl.add(new WriteCell(null, CellTypeEnum.DATETIME));
+            tl.add(new WriteCell(Math.random(), CellTypeEnum.DOUBLE_PERCENT));
+            tl.add(new WriteCell(new Random().nextInt(987), CellTypeEnum.INTEGER));
+            tl.add(new WriteCell(Calendar.getInstance(), CellTypeEnum.CALENDAR));
+            tl.add(new WriteCell(i % 3 == 0, CellTypeEnum.BOOLEAN));
 
             dataList.add(tl);
         }
@@ -118,16 +119,32 @@ public class TestExcelUtil {
     private static void excelReadTest() {
         String filePath = "e:/z_temp/导出excel.xlsx";
         System.out.println("开始导入数据。。。");
-        SheetReadContent sheetReadContent = ExcelReadUtil.readExcel(filePath, 0);
-        List<RowReadContent> rowList = sheetReadContent.getRowReadContents();
+        List<List<Object>> dataList = ExcelReadUtil.readExcel(filePath, 0);
         System.out.println("导入完成，显示如下： ");
-        for (RowReadContent rrc : rowList) {
-            System.out.print("\n 第" + rrc.getRowNum() + "行 \t");
-            List<Object> cellList = rrc.getCellList();
-            for (Object o : cellList) {
-                System.out.print(o + "\t");
+
+        for (int i = 0; i < dataList.size(); i++) {
+            System.out.print("\n 第" + (i + 1) + "行 \t");
+            List<Object> cellList = dataList.get(i);
+
+            // 验证表头
+
+            // 验证数据类型
+
+            // 其它验证
+
+            // 处理数据
+
+            // 获取数据
+            for (int j = 0; j < 7; j++) {
+                if (j < cellList.size()) {
+                    System.out.print((String) cellList.get(j));
+                } else {
+                    System.out.print("null");
+                }
+                System.out.print("\t");
             }
         }
+
     }
 
 }

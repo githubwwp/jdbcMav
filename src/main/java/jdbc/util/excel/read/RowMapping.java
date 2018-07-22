@@ -8,14 +8,17 @@ import java.util.List;
  * @author wwp
  * @date 2018-7-18
  */
-public class RowReadContent {
+public abstract class RowMapping {
 
     /**
      * 行数(从0开始)
      */
     private int rowNum;
 
-    private List<Object> cellList;
+    private List<CellMapping> cellList;
+
+    // 初始化
+    public abstract void defaultColMappings();
 
     public int getRowNum() {
         return rowNum;
@@ -25,11 +28,11 @@ public class RowReadContent {
         this.rowNum = rowNum;
     }
 
-    public List<Object> getCellList() {
+    public List<CellMapping> getCellList() {
         return cellList;
     }
 
-    public void setCellList(List<Object> cellList) {
+    public void setCellList(List<CellMapping> cellList) {
         this.cellList = cellList;
     }
 

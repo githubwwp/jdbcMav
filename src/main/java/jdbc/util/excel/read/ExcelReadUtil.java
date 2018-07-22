@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -26,7 +25,7 @@ public class ExcelReadUtil {
     private ExcelReadUtil() {
     }
 
-    public static SheetReadContent readExcel(String filePath, int sheetIndex) {
+    public static List<List<Object>> readExcel(String filePath, int sheetIndex) {
         Workbook wk = null;
         try {
             wk = WorkbookFactory.create(new File(filePath));
@@ -36,24 +35,17 @@ public class ExcelReadUtil {
             e.printStackTrace();
         }
 
+        List<List<Object>> dataList = new ArrayList<List<Object>>();
         Sheet sheet = wk.getSheetAt(sheetIndex);
-        SheetReadContent sheetReadContent = new SheetReadContent();
-        List<RowReadContent> rowReadContents = new ArrayList<RowReadContent>();
-        sheetReadContent.setSheetName(sheet.getSheetName());
-        sheetReadContent.setRowReadContents(rowReadContents);
-
         // 遍历row
         int lastRowNum = sheet.getLastRowNum();
         for (int j = 0; j <= lastRowNum; j++) { // lastRowNum 表示最后一行行标
+            List<Object> list = new ArrayList<Object>();
+            dataList.add(list);
             Row row = sheet.getRow(j);
             if (row == null) {
                 continue;
             }
-            RowReadContent rowContent = new RowReadContent();
-            List<Object> celllList = new ArrayList<Object>();
-            rowContent.setRowNum(j);
-            rowContent.setCellList(celllList);
-            rowReadContents.add(rowContent);
 
             // 遍历col
             short lastCellNum = row.getLastCellNum(); // lastCellNum 表示最后一个不为空行的
@@ -65,11 +57,11 @@ public class ExcelReadUtil {
                 } else {
                     cellValue = "";
                 }
-                celllList.add(cellValue);
+                list.add(cellValue);
             }
         }
 
-        return sheetReadContent;
+        return dataList;
     }
 
     /**

@@ -9,11 +9,11 @@ import java.util.List;
  * @author wwp
  * @date 2018-7-18
  */
-public class SheetReadContent {
+public class SheetMapping {
 
     private String sheetName;
 
-    private List<RowReadContent> rowReadContents;
+    private List<RowMapping> rowReadContents;
 
     public String getSheetName() {
         return sheetName;
@@ -23,11 +23,11 @@ public class SheetReadContent {
         this.sheetName = sheetName;
     }
 
-    public List<RowReadContent> getRowReadContents() {
+    public List<RowMapping> getRowReadContents() {
         return rowReadContents;
     }
 
-    public void setRowReadContents(List<RowReadContent> rowReadContents) {
+    public void setRowReadContents(List<RowMapping> rowReadContents) {
         this.rowReadContents = rowReadContents;
     }
 
