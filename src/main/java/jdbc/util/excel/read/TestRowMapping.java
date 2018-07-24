@@ -8,7 +8,6 @@ public class TestRowMapping extends RowMapping{
     public void defaultColMappings() {
         List<CellMapping> cmList = super.getCellList();
         cmList.add(new CellMapping(String.class, null));
-        Object object = 32;
         
         
     }
