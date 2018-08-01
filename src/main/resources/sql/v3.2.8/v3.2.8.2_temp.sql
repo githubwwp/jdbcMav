@@ -13,4 +13,6 @@ ALTER TABLE dcms_sale_task ADD sum_notax_rece_task DECIMAL (16, 4) DEFAULT NULL 
 ALTER TABLE dcms_sale_task ADD sum_bill_notax_gross_task DECIMAL (16, 4) DEFAULT NULL COMMENT '开票不含税毛利任务合计' AFTER sum_rece_task;
 
 
+# 销售任务历史表新增统计字段 by wwp 2018-08-01
+
 
