@@ -11,6 +11,20 @@ Ext.onReady(function() {
             text : 'remote combo',
             handler : showRemoteCombo
         } ],
+        items : [ {
+            xtype : 'combo',
+            id : 'combo',
+            displayField : 'name',
+            valueField : 'name',
+            queryMode : 'local',
+            store : {
+                fields : [ 'abbr', 'name', 'slogan' ],
+                data : getStates()
+            },
+            forceSelection : true,
+            listeners: {
+            }
+        } ]
     });
 
     Ext.create('Ext.container.Viewport', {
@@ -19,7 +33,7 @@ Ext.onReady(function() {
     });
 
     // TODO
-    showRemoteCombo();
+    // showRemoteCombo();
 });
 
 function showLocalCombo() {
@@ -37,25 +51,26 @@ function showLocalCombo() {
             fieldLabel : 'select a single state',
             displayField : 'name',
             queryMode : 'local',
+            anyMatch : true, // 实现模糊匹配
             store : {
                 fields : [ 'abbr', 'name', 'slogan' ],
                 data : getStates()
             },
             listeners : {
-                // 实现模糊查询
-                'beforequery' : function(e) {
-                    var combo = e.combo;
-                    if (!e.forceAll) {
-                        var input = e.query;
-                        var regExp = new RegExp('.*' + input + '.*');
-                        combo.store.filterBy(function(record, id) {
-                            var text = record.get(combo.displayField);
-                            return regExp.test(text);
-                        });
-                    }
-                    combo.expand();
-                    return false;
-                }
+            // // 实现模糊查询
+            // 'beforequery' : function(e) {
+            // var combo = e.combo;
+            // if (!e.forceAll) {
+            // var input = e.query;
+            // var regExp = new RegExp('.*' + input + '.*');
+            // combo.store.filterBy(function(record, id) {
+            // var text = record.get(combo.displayField);
+            // return regExp.test(text);
+            // });
+            // }
+            // combo.expand();
+            // return false;
+            // }
             }
         }, {
             xtype : 'combo',
@@ -384,16 +399,16 @@ function showRemoteCombo() {
 
 function fuzzyQuery(e) {
     console.log(e.combo.lastQuery);
-    
-//    var combo = e.combo;
-//    if (!e.forceAll) {
-//        var input = e.query;
-//        var regExp = new RegExp('.*' + input + '.*');
-//        combo.store.filterBy(function(record, id) {
-//            var text = record.get(combo.displayField);
-//            return regExp.test(text);
-//        });
-//    }
-//    combo.expand();
-//    return false;
+
+    // var combo = e.combo;
+    // if (!e.forceAll) {
+    // var input = e.query;
+    // var regExp = new RegExp('.*' + input + '.*');
+    // combo.store.filterBy(function(record, id) {
+    // var text = record.get(combo.displayField);
+    // return regExp.test(text);
+    // });
+    // }
+    // combo.expand();
+    // return false;
 }

@@ -8,24 +8,23 @@ import jdbc.util.FileUtil;
 public class Test3 {
 
     public static void main(String[] args) {
-//        String fileName = "abcdef123";
-//        String msg = FileUtil.readTextContent(fileName);
-//        System.out.println(msg);
-//
+        String fileName = "e:\\z_temp\\dbparse.txt";
+        String msg = FileUtil.readTextContent(fileName);
+        System.out.println(msg);
+
 //        // 解析字符串
-//        String pattern = "`[a-zA-Z0-9_]*`";
+//        String pattern = "'[\u3400-\u9FFF]*'";
 //        Pattern r = Pattern.compile(pattern);
 //        Matcher m = r.matcher(msg);
+//        StringBuffer sb = new StringBuffer();
 //        while (m.find()) {
-//            System.out.print(m.group() + ", ");
+//            sb.append(m.group()).append(", ");
 //        }
+//        
+//        System.out.println(sb.toString().replace("'", "\""));
         
-        String str = "abcdeabc123abc!@#";
-        Pattern p = Pattern.compile("abc(?!de|12)");
-        Matcher m = p.matcher(str);
-        while(m.find()){
-            System.out.println(m.group());
-        }
+        String[] strs = msg.split(",");
+        System.out.println(strs.length);
     }
 
 }
