@@ -5,19 +5,20 @@ Ext.onReady(function(){
         title: "VBoxLayout Panel",
         layout: {
             type: 'vbox',
-            align: 'center'
+            align: 'stretch'
         },
         renderTo: document.body,
         items: [{
-            xtype: 'panel',
-            title: 'Inner Panel One',
-            width: 250,
-            flex: 2
+            xtype: 'textfield',
+            labelField: 'textfield',
+            title: 'adbc',
+            width: 50,
+            height: 50
         },
         {
             xtype: 'panel',
             title: 'Inner Panel Two',
-            width: 250,
+            width: 200,
             flex: 4
         },
         {
