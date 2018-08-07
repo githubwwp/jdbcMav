@@ -3,15 +3,18 @@ Ext.onReady(function(){
         title: 'Accordion Layout',
         width: 300,
         height: 300,
+        multi: true,
         defaults: {
             // applied to each contained panel
             bodyStyle: 'padding:15px'
         },
+        // Note: Only Ext Panels and all subclasses of Ext.panel.Panel may be used in an accordion layout Container.
         layout: {
             // layout-specific configs go here
             type: 'accordion',
             titleCollapse: false,
             animate: true,
+            multi: true,
             activeOnTop: true
         },
         items: [{

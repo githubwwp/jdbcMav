@@ -11,7 +11,7 @@ Ext.onReady(function(){
         items: [{
             xtype: 'panel',
             title: 'Inner Panel One',
-            flex: 2
+            width: 100
         },{
             xtype: 'panel',
             title: 'Inner Panel Two',
