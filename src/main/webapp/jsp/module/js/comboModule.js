@@ -17,11 +17,35 @@ Ext.onReady(function() {
             displayField : 'name',
             valueField : 'name',
             queryMode : 'local',
+            fieldLabel : 'combo',
+            labelWidth: 100,
+            labelSeparator: '***',
+            labelAlign: 'top',
+            labelPad : 100,
+            allowBlank: false,
+            msgTarget: 'title',
+            width: 300,
+            html: 'abc',
+            queryDelay: 20,
+            resizable: true,
+            selectOnFocus: false,
+            validator: function(val){
+                return "验证失败";
+            },
+            
+            afterBodyEl: 'as',
+            anyMatch: true,
+            checkChangeBuffer : 10000,
+            emptyText: '请输入内容',
             store : {
                 fields : [ 'abbr', 'name', 'slogan' ],
                 data : getStates()
             },
-            forceSelection : true,
+            padding: 5,
+            style: {
+                border: '1px solid black'
+            },
+            forceSelection : false,
             listeners: {
             }
         } ]
