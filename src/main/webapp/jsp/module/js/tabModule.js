@@ -92,7 +92,7 @@ function showAdvancedTabFn() {
 	var tabs = Ext.create('Ext.tab.Panel', {
 		id : 'tabs',
 		items : [ {
-			title : 'tab1',
+			title : 'tab1'
 		}, {
 			title : 'tab2'
 		} ]

@@ -248,7 +248,7 @@ function showComplexForm() {
 					xtype : 'textfield',
 					fieldLabel : 'company',
 					name : 'company',
-					anchor : '95%',
+					anchor : '95%'
 				} ]
 			}, {
 				xtype : 'container',
@@ -718,7 +718,7 @@ function getStore1() {
 			text : 'three'
 		}, {
 			val : '4',
-			text : 'four',
+			text : 'four'
 		}, {
 			val : '5',
 			text : 'five'
@@ -937,7 +937,7 @@ function showHboxForm() {
 			} ]
 		} ],
 		buttons : [ '->', {
-			text : 'save',
+			text : 'save'
 		}, {
 			text : 'cancel'
 		} ]

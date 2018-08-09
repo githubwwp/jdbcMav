@@ -39,7 +39,7 @@ function dcmsperson2_showWin(){
 		   { id: '3', name: '英雄联盟', dep: 'C' }, 
 		   { id: '4', name: 'QQ地主', dep: 'D' }, 
 		   { id: '5', name: '流星蝴蝶剑', dep: 'E' }, 
-		   { id: '6', name: '实况足球', dep: 'F' },
+		   { id: '6', name: '实况足球', dep: 'F' }
         ]
 	});
 	
@@ -76,7 +76,7 @@ function dcmsperson2_showWin(){
         id: "dcmsperson2_selectedGrid", flex: 1, title: '<center>已选人员</center>',
         forceFit:true, columnLines:true,
         store: Ext.create('Ext.data.Store', {
-        	fields: ['id', 'name', 'dep'],
+        	fields: ['id', 'name', 'dep']
         }),
         columns: [ 
             {   header: 'id', dataIndex: 'id', sortable: false, hideable: false, flex: 1 },

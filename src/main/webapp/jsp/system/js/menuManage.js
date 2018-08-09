@@ -17,7 +17,7 @@ Ext.onReady(function(){
 function addBaseTree(){
     var treeStore = Ext.create('Ext.data.TreeStore', {
         fields: [ 
-            'text', 'menuId', 'menuPid', 'menuName', 'menuUrl', 'menuRemark', 'menuOrder', 
+            'text', 'menuId', 'menuPid', 'menuName', 'menuUrl', 'menuRemark', 'menuOrder'
         ],
         proxy: {
             type: 'ajax',
@@ -57,7 +57,7 @@ function addBaseTree(){
            {    xtype: 'textfield', name: 'menuName', fieldLabel: '名称', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false },
            {    xtype: 'textfield', name: 'menuUrl', fieldLabel: '菜单地址', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false },
            {    xtype: 'textarea', name: 'menuRemark', fieldLabel: '备注', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false },
-           {    xtype: 'textfield', name: 'menuOrder', fieldLabel: '排序', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false },
+           {    xtype: 'textfield', name: 'menuOrder', fieldLabel: '排序', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: false }
        ]
     });
     
@@ -176,7 +176,7 @@ function showAddOrEditMenu(flag){
             },
             {   xtype: 'textfield', name: 'menuOrder', fieldLabel: '排序', labelWidth: 100, labelAlign: 'right', columnWidth: 1,
                 maxLength: 20
-            },
+            }
         ]
     });
     

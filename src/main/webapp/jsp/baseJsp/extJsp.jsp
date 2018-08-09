@@ -9,7 +9,7 @@ var contextPath = "<%=request.getContextPath()%>"; // 项目根目录
 </script>
 
 <!-- extjs 样式 -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/extjs/resources/ext-theme-neptune/ext-theme-neptune-all.css"></link>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/extjs/resources/ext-theme-gray/ext-theme-gray-all.css"></link>
 <!-- 自定义样式 -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/customStyle.css"></link>
 

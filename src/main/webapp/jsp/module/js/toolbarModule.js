@@ -34,7 +34,7 @@ function showBasicToolbar() {
             text : 'button w/ menu',
             iconCls : 'bmenu',
             menu : [ {
-                xtype : 'combo',
+                xtype : 'combo'
             }, {
                 text : 'i hate ext',
                 checked : true

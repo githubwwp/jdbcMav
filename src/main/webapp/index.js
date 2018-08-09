@@ -95,26 +95,41 @@ function addWestNav(o){
         height: 400,
         bodyPadding : 5,
         store: treeStore,
-        tbar: [
-            {   xtype: 'button', text: '展开', iconCls: 'icon-sort-down icon-large icon-color-info',
-                handler: function(){ treePanel.expandAll(); }
+        dockedItems:[
+            {   xtype:'toolbar', dock:'top',  
+                items:[
+                    {   xtype: 'button', text: '展开', iconCls: 'icon-sort-down icon-large icon-color-info',
+                        handler: function(){ treePanel.expandAll(); }
+                    },
+                    {   xtype: 'button', text: '收起', iconCls: ' icon-sort-up icon-large icon-color-info',
+                        handler: function(){ treePanel.collapseAll(); }
+                    },
+                    {
+                        xtype: 'button', text: '刷新', iconCls: ' icon-refresh icon-large icon-color-info'
+                    }
+                ] 
             },
-            {   xtype: 'button', text: '收起', iconCls: ' icon-sort-up icon-large icon-color-info',
-                handler: function(){ treePanel.collapseAll(); }
-            }
-//            TODO
-//            ,{
-//                xtype: 'button', text: '刷新', iconCls: ' icon-sort-up icon-large icon-color-info',
-//                handler: function(){ treeStore.reload(); }
-//            }
-        ],
+             {   xtype:'toolbar', dock:'top',  
+                 items:[
+                     {
+                        xtype: 'textfield',
+                        id : 'treeFilterTextId',
+                        listeners: {
+                            'change': filterTree
+                        }
+                     }
+                 ] 
+             }
+         ],
+        
         listeners: {
             'itemclick': function(obj, rec){
                 var data = rec.data;
                 if(data.leaf){
                     addCenterTab(data.text, data.menuUrl); // 添加tab
                 }
-            }
+            },
+//            'itemexpand': filterTree
         }
     });
     
@@ -171,3 +186,52 @@ function closeAllTabs(){
         }
     });
 }
+
+
+// 过滤目录
+function filterTree(){
+    
+    // 清除过滤
+    var tp = Ext.getCmp('menuTreePanel'); // treePanel 对象
+    var val = Ext.getCmp('treeFilterTextId').getValue(); // 过滤条件
+    var view = tp.getView();
+    tp.getRootNode().cascadeBy(function(tree, view) {
+        var uiNode = view.getNodeByRecord(this);
+
+        if (uiNode) {
+            Ext.get(uiNode).setDisplayed('table-row');
+        }
+    }, null, [tp, view]);
+    
+    if(!val){
+        return;
+    }
+    
+    // 过滤
+    var nodesAndParents = [];
+    tp.getRootNode().cascadeBy(function(tree, view) {
+        var currNode = this;
+        var text = currNode.data.text;
+        
+        if (new RegExp(val).test(text)) {
+//            tp.expandPath(currNode.getPath()); // invalid
+
+            while (currNode.parentNode) {
+                currNode.expand();
+                nodesAndParents.push(currNode.id);
+                currNode = currNode.parentNode;
+            }
+        }
+    }, null, [tp, view]);
+
+    
+    // 隐藏其它节点
+    tp.getRootNode().cascadeBy(function(tree, view) {
+        var uiNode = view.getNodeByRecord(this);
+
+        if (uiNode && !Ext.Array.contains(nodesAndParents, this.id)) {
+            Ext.get(uiNode).setDisplayed('none');
+        }
+    }, null, [tp, view]);
+}
+

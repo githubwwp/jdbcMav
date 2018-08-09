@@ -6,7 +6,7 @@ Ext.onReady(function(){
     // 选项卡
     var treeTabs = Ext.create('Ext.tab.Panel', {
         id: 'treeTabs',
-        frame: true, tabPosition: 'bottom',
+        frame: true, tabPosition: 'bottom'
     });
     
     
@@ -97,7 +97,7 @@ function addBaseStoreTree(){
 function addBaseTree(){
     var treeStore = Ext.create('Ext.data.TreeStore', {
         fields: [ 
-            'text', 'menuId', 'menuPid', 'menuName', 'menuUrl', 'menuRemark', 'menuOrder', 
+            'text', 'menuId', 'menuPid', 'menuName', 'menuUrl', 'menuRemark', 'menuOrder'
         ],
         proxy: {
             type: 'ajax',
@@ -132,7 +132,7 @@ function addBaseTree(){
            {    xtype: 'textfield', name: 'text', fieldLabel: '名称', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
            {    xtype: 'textfield', name: 'menuUrl', fieldLabel: '菜单地址', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
            {    xtype: 'textarea', name: 'menuRemark', fieldLabel: '备注', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
-           {    xtype: 'textfield', name: 'menuOrder', fieldLabel: '排序', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true },
+           {    xtype: 'textfield', name: 'menuOrder', fieldLabel: '排序', labelWidth: 100, labelAlign: 'right', columnWidth: 1, readOnly: true }
        ]
     });
     
@@ -164,7 +164,7 @@ function addBaseTree(){
            'itemclick': function(obj, record){ // 点击触发事件
                Ext.getCmp("editMenuForm").getForm().setValues(record.data);
            }
-       },
+       }
     });
     
     var panel = Ext.create('Ext.panel.Panel', {
@@ -174,7 +174,7 @@ function addBaseTree(){
         bodyPadding : 5,
         items: [
             tree,
-            {columnWidth: 0.02, },
+            {columnWidth: 0.02},
             form
          ]
     });
@@ -230,7 +230,7 @@ function showAddOrEditMenu(flag){
             },
             {   xtype: 'textfield', name: 'menuOrder', fieldLabel: '排序', labelWidth: 100, labelAlign: 'right', columnWidth: 1,
                 maxLength: 20
-            },
+            }
         ]
     });
     

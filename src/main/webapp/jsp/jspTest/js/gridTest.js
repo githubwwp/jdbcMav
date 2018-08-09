@@ -2,7 +2,7 @@ Ext.onReady(function(){
     // 选项卡
     var gridTabs = Ext.create('Ext.tab.Panel', {
         id: 'gridTabs',
-        frame: true, tabPosition: 'bottom',
+        frame: true, tabPosition: 'bottom'
     });
     
     
@@ -56,7 +56,7 @@ function addBaseGrid(){
             {   header: '第二列', dataIndex: 'col2' },      
             {   header: '第三列', dataIndex: 'col3' },      
             {   header: '第四列', dataIndex: 'col4' },      
-            {   header: '第五列', dataIndex: 'col5' },      
+            {   header: '第五列', dataIndex: 'col5' }     
         ]
     });
     Ext.getCmp("gridTabs").add(baseGrid);
@@ -133,7 +133,7 @@ function addEditorGrid(){
                 editor: {
                     xtype: 'datefield'
                 }
-            },      
+            }      
         ]
     });
     Ext.getCmp("gridTabs").add(editorGrid);

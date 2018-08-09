@@ -42,7 +42,7 @@ Ext.onReady(function(){
         ],
         buttonAlign : 'center',
         fbar : [ 
-            {   text : '保存',
+            {   text : '保存'
             },
             {   text : '取消',
                 handler : function(btn, e) {

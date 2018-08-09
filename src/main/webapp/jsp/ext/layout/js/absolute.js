@@ -6,7 +6,7 @@ Ext.onReady(function() {
         layout : {
             type : 'absolute'
         // layout-specific configs go here
-        // itemCls: 'x-abs-layout-item',
+        // itemCls: 'x-abs-layout-item'
         },
         url : 'save-form.php',
         defaultType : 'textfield',

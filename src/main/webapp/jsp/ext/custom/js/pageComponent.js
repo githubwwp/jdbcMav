@@ -41,7 +41,7 @@ Ext.onReady(function() {
 				pressed : true,
 				enableToggle : true
 			} ]
-		}),
+		})
 
 	});
 

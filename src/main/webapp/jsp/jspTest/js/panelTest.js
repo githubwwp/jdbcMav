@@ -51,7 +51,7 @@ Ext.onReady(function(){
 //            { xtype: 'button', text: 'Button 1' }
 //        ],
         header: true,
-        // icon: '图标路劲',
+        // icon: '图标路劲'
         
         
         
