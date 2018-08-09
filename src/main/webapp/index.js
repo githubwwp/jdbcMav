@@ -113,6 +113,7 @@ function addWestNav(o){
                  items:[
                      {
                         xtype: 'textfield',
+                        emptyText: '搜索(可正则表达式)...',
                         id : 'treeFilterTextId',
                         listeners: {
                             'change': filterTree
@@ -213,7 +214,7 @@ function filterTree(){
         var currNode = this;
         var text = currNode.data.text;
         
-        if (new RegExp(val).test(text)) {
+        if (new RegExp(val.replace(/\\/g, '\\\\')).test(text)) {
 //            tp.expandPath(currNode.getPath()); // invalid
 
             while (currNode.parentNode) {
