@@ -10,15 +10,11 @@ import java.util.Random;
 import java.util.UUID;
 
 import jdbc.util.ObjectUtil;
-import jdbc.util.excel.read.ColEntity;
 import jdbc.util.excel.read.ExcelReadUtil;
-import jdbc.util.excel.read.RowMapping;
-import jdbc.util.excel.read.SheetMapping;
-import jdbc.util.excel.write.WriteCell;
-import jdbc.util.excel.write.CellTypeEnum;
 import jdbc.util.excel.write.ExcelWriteUtil;
 import jdbc.util.excel.write.MergeColEntity;
 import jdbc.util.excel.write.SheetExportEntity;
+import jdbc.util.excel.write.WriteCell;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -33,28 +29,28 @@ public class TestExcelUtil {
         List<List<WriteCell>> dataList = new ArrayList<List<WriteCell>>();
         // 添加标题
         List<WriteCell> titleList = new ArrayList<WriteCell>();
-        titleList.add(new WriteCell("字符串", CellTypeEnum.STRING));
-        titleList.add(new WriteCell("日期", CellTypeEnum.STRING));
-        titleList.add(new WriteCell("小数", CellTypeEnum.STRING));
-        titleList.add(new WriteCell("整数", CellTypeEnum.STRING));
-        titleList.add(new WriteCell("Calender", CellTypeEnum.STRING));
-        titleList.add(new WriteCell("boolean", CellTypeEnum.STRING));
+        titleList.add(new WriteCell("字符串", ExcelWriteUtil.STRING));
+        titleList.add(new WriteCell("日期", ExcelWriteUtil.STRING));
+        titleList.add(new WriteCell("小数", ExcelWriteUtil.STRING));
+        titleList.add(new WriteCell("整数", ExcelWriteUtil.STRING));
+        titleList.add(new WriteCell("Calender", ExcelWriteUtil.STRING));
+        titleList.add(new WriteCell("boolean", ExcelWriteUtil.STRING));
         dataList.add(titleList);
 
         // 添加数据
-        int dataRow = 3;
+        int dataRow = 30000;
         for (int i = 0; i < dataRow; i++) {
             if (i == 1) {
                 dataList.add(new ArrayList<WriteCell>());
                 continue;
             }
             List<WriteCell> tl = new ArrayList<WriteCell>();
-            tl.add(new WriteCell(ObjectUtil.getBaseUuid(), CellTypeEnum.STRING));
-            tl.add(new WriteCell(null, CellTypeEnum.DATETIME));
-            tl.add(new WriteCell(Math.random(), CellTypeEnum.DOUBLE_PERCENT));
-            tl.add(new WriteCell(new Random().nextInt(987), CellTypeEnum.INTEGER));
-            tl.add(new WriteCell(Calendar.getInstance(), CellTypeEnum.CALENDAR));
-            tl.add(new WriteCell(i % 3 == 0, CellTypeEnum.BOOLEAN));
+            tl.add(new WriteCell(ObjectUtil.getBaseUuid(), ExcelWriteUtil.STRING));
+            tl.add(new WriteCell(null, ExcelWriteUtil.DATETIME));
+            tl.add(new WriteCell(Math.random(), ExcelWriteUtil.DOUBLE_PERCENT));
+            tl.add(new WriteCell(new Random().nextInt(987), ExcelWriteUtil.STRING));
+            tl.add(new WriteCell(Calendar.getInstance(), ExcelWriteUtil.CALENDAR));
+            tl.add(new WriteCell(i % 3 == 0, ExcelWriteUtil.BOOLEAN));
 
             dataList.add(tl);
         }

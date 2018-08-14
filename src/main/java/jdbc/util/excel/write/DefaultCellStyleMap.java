@@ -2,7 +2,6 @@ package jdbc.util.excel.write;
 
 import java.util.HashMap;
 
-
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -13,7 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
  * @author wwp
  * @date 2018-7-17
  */
-public class DefaultCellStyleMap extends HashMap<CellTypeEnum, CellStyle> {
+public class DefaultCellStyleMap extends HashMap<Integer, CellStyle> {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,88 +22,28 @@ public class DefaultCellStyleMap extends HashMap<CellTypeEnum, CellStyle> {
      * @param wk
      */
     public DefaultCellStyleMap(Workbook wk) {
-        this.put(CellTypeEnum.BOOLEAN, this.defaultBooleanCellStyle(wk));
-        this.put(CellTypeEnum.CALENDAR, this.defaultDateCellStyle(wk));
-        this.put(CellTypeEnum.DATE, this.defaultDateCellStyle(wk));
-        this.put(CellTypeEnum.DATETIME, this.defaultDateTimeCellStyle(wk));
-        this.put(CellTypeEnum.INTEGER, this.defaultIntegerCellStyle(wk));
-        this.put(CellTypeEnum.DOUBLE, this.defaultDoubleCellStyle(wk));
-        this.put(CellTypeEnum.DOUBLE_PERCENT, this.defaultDoublePerCentCellStyle(wk));
-        this.put(CellTypeEnum.RICHTEXTSTRING, this.defaultStringCellStyle(wk));
-        this.put(CellTypeEnum.STRING, this.defaultStringCellStyle(wk));
+        this.put(ExcelWriteUtil.BOOLEAN, this.defaultCommonCellStyle(wk, null));
+        this.put(ExcelWriteUtil.CALENDAR, this.defaultCommonCellStyle(wk, "yyyy-mm-dd"));
+        this.put(ExcelWriteUtil.DATE, this.defaultCommonCellStyle(wk, "yyyy-mm-dd"));
+        this.put(ExcelWriteUtil.DATETIME, this.defaultCommonCellStyle(wk, "yyyy-mm-dd HH:mm:ss"));
+        this.put(ExcelWriteUtil.INTEGER, this.defaultCommonCellStyle(wk, "0"));
+        this.put(ExcelWriteUtil.DOUBLE, this.defaultCommonCellStyle(wk, "0.###"));
+        this.put(ExcelWriteUtil.DOUBLE_PERCENT, this.defaultCommonCellStyle(wk, "0.00%"));
+        this.put(ExcelWriteUtil.RICHTEXTSTRING, this.defaultCommonCellStyle(wk, "TEXT"));
+        this.put(ExcelWriteUtil.STRING, this.defaultCommonCellStyle(wk, "TEXT"));
     }
 
     /**
-     * 初始化字符串单元格样式 2018-7-17 by wwp
+     * 初始化单元格样式
+     * <p />
+     * by wwp
      */
-    private CellStyle defaultStringCellStyle(Workbook wk) {
-        // 字符串单元格样式
+    private CellStyle defaultCommonCellStyle(Workbook wk, String formatStyle) {
         CellStyle cellStyle = this.getBaseCellStyle(wk);
-
-        return cellStyle;
-    }
-
-    /**
-     * 初始化布尔类型单元格样式 2018-7-17 by wwp
-     */
-    private CellStyle defaultBooleanCellStyle(Workbook wk) {
-        CellStyle cellStyle = this.getBaseCellStyle(wk);
-
-        return cellStyle;
-    }
-
-    /**
-     * 初始化小数类型单元格样式 2018-7-17 by wwp
-     */
-    private CellStyle defaultDoubleCellStyle(Workbook wk) {
-        DataFormat format = wk.createDataFormat();
-        CellStyle cellStyle = this.getBaseCellStyle(wk);
-        cellStyle.setDataFormat(format.getFormat("0.###"));
-
-        return cellStyle;
-    }
-
-    /**
-     * 初始化小数类型单元格样式 2018-7-17 by wwp
-     */
-    private CellStyle defaultIntegerCellStyle(Workbook wk) {
-        DataFormat format = wk.createDataFormat();
-        CellStyle cellStyle = this.getBaseCellStyle(wk);
-        cellStyle.setDataFormat(format.getFormat("0"));
-
-        return cellStyle;
-    }
-
-    /**
-     * 初始化小数类型单元格样式 2018-7-17 by wwp
-     */
-    private CellStyle defaultDoublePerCentCellStyle(Workbook wk) {
-        DataFormat format = wk.createDataFormat();
-        CellStyle cellStyle = this.getBaseCellStyle(wk);
-        cellStyle.setDataFormat(format.getFormat("0.00%"));
-
-        return cellStyle;
-    }
-
-    /**
-     * 初始化date类型单元格样式 2018-7-17 by wwp
-     */
-    private CellStyle defaultDateCellStyle(Workbook wk) {
-        DataFormat format = wk.createDataFormat();
-        CellStyle cellStyle = this.getBaseCellStyle(wk);
-        cellStyle.setDataFormat(format.getFormat("yyyy-mm-dd"));
-
-        return cellStyle;
-    }
-
-    /**
-     * 初始化dateTime类型单元格样式 2018-7-17 by wwp
-     */
-    private CellStyle defaultDateTimeCellStyle(Workbook wk) {
-        DataFormat format = wk.createDataFormat();
-        // 字符串单元格样式
-        CellStyle cellStyle = this.getBaseCellStyle(wk);
-        cellStyle.setDataFormat(format.getFormat("yyyy-mm-dd HH:mm:ss"));
+        if (formatStyle != null && formatStyle.trim() != "") {
+            DataFormat format = wk.createDataFormat();
+            cellStyle.setDataFormat(format.getFormat(formatStyle));
+        }
 
         return cellStyle;
     }

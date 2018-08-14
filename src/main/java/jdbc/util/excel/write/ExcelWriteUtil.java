@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.RichTextString;
@@ -21,6 +20,17 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
  * @date 2018-7-13
  */
 public class ExcelWriteUtil {
+
+    /* 单元格类型常量 */
+    public static final int STRING = 0;
+    public static final int BOOLEAN = 1;
+    public static final int DOUBLE = 2;
+    public static final int DOUBLE_PERCENT = 3;
+    public static final int DATE = 4;
+    public static final int DATETIME = 5;
+    public static final int CALENDAR = 6;
+    public static final int RICHTEXTSTRING = 7;
+    public static final int INTEGER = 8;
 
     // 防止实例化
     private ExcelWriteUtil() {
@@ -79,7 +89,7 @@ public class ExcelWriteUtil {
      */
     private static void setCellValue(Cell cell, WriteCell cellEntity, DefaultCellStyleMap baseCellStyle) {
         Object data = cellEntity.getData();
-        CellTypeEnum dataType = cellEntity.getColTypeEnum();
+        int dataType = cellEntity.getColType();
 
         // cell 为空，不做处理
         if (data != null) {
@@ -115,7 +125,7 @@ public class ExcelWriteUtil {
                 break;
             }
         } else {
-            cell.setCellStyle(baseCellStyle.get(CellTypeEnum.STRING));
+            cell.setCellStyle(baseCellStyle.get(STRING));
         }
     }
 

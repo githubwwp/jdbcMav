@@ -8,9 +8,15 @@ package jdbc.util.excel.write;
  */
 public class WriteCell {
 
+    /**
+     * 数据实际值
+     */
     private Object data;
 
-    private CellTypeEnum colTypeEnum;
+    /**
+     * 单元格数据类型
+     */
+    private int colType;
 
     public Object getData() {
         return data;
@@ -20,18 +26,18 @@ public class WriteCell {
         this.data = data;
     }
 
-    public CellTypeEnum getColTypeEnum() {
-        return colTypeEnum;
+    public int getColType() {
+        return colType;
     }
 
-    public void setColTypeEnum(CellTypeEnum colTypeEnum) {
-        this.colTypeEnum = colTypeEnum;
+    public void setColType(int colType) {
+        this.colType = colType;
     }
 
-    public WriteCell(Object data, CellTypeEnum colTypeEnum) {
+    public WriteCell(Object data, int colType) {
         super();
         this.data = data;
-        this.colTypeEnum = colTypeEnum;
+        this.colType = colType;
     }
 
 }
