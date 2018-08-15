@@ -4,11 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import jdbc.util.DateUtil;
 import jdbc.util.ObjectUtil;
 import jdbc.util.excel.read.ExcelReadUtil;
 import jdbc.util.excel.write.ExcelWriteUtil;
@@ -38,7 +39,7 @@ public class TestExcelUtil {
         dataList.add(titleList);
 
         // 添加数据
-        int dataRow = 30000;
+        int dataRow = 7;
         for (int i = 0; i < dataRow; i++) {
             if (i == 1) {
                 dataList.add(new ArrayList<WriteCell>());
@@ -49,7 +50,7 @@ public class TestExcelUtil {
             tl.add(new WriteCell(null, ExcelWriteUtil.DATETIME));
             tl.add(new WriteCell(Math.random(), ExcelWriteUtil.DOUBLE_PERCENT));
             tl.add(new WriteCell(new Random().nextInt(987), ExcelWriteUtil.STRING));
-            tl.add(new WriteCell(Calendar.getInstance(), ExcelWriteUtil.CALENDAR));
+            tl.add(new WriteCell(DateUtil.formatDate(new Date(), DateUtil.YYYY_MM_DD), ExcelWriteUtil.STRING));
             tl.add(new WriteCell(i % 3 == 0, ExcelWriteUtil.BOOLEAN));
 
             dataList.add(tl);
@@ -82,7 +83,7 @@ public class TestExcelUtil {
     private static void excelWriteTest() {
         // 获取数据
         String fileName = "导出excel";
-        boolean isExcel2007 = false;
+        boolean isExcel2007 = true;
         List<SheetExportEntity> sheetEntities = new ArrayList<SheetExportEntity>();
         sheetEntities.add(getSheet1());
         sheetEntities.add(getSheet1());
@@ -131,14 +132,9 @@ public class TestExcelUtil {
             // 处理数据
 
             // 获取数据
-            for (int j = 0; j < 7; j++) {
-                if (j < cellList.size()) {
-                    System.out.print((String) cellList.get(j));
-                } else {
-                    System.out.print("null");
-                }
-                System.out.print("\t");
-            }
+           for(Object o: cellList){
+               System.out.print(o + "\t");
+           }
         }
 
     }

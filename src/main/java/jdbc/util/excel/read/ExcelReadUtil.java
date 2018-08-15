@@ -39,7 +39,7 @@ public class ExcelReadUtil {
         Sheet sheet = wk.getSheetAt(sheetIndex);
         // 遍历row
         int lastRowNum = sheet.getLastRowNum();
-        for (int j = 0; j <= lastRowNum; j++) { // lastRowNum 表示最后一行行标
+        for (int j = 0; j <= lastRowNum; j++) { // lastRowNum 表示最后一行行标，不是总行数
             List<Object> list = new ArrayList<Object>();
             dataList.add(list);
             Row row = sheet.getRow(j);

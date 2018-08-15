@@ -41,6 +41,18 @@ ADD jc_add_cont DECIMAL (16, 4) DEFAULT NULL COMMENT '集成新增合同金额' 
 ADD jc_add_cont_task DECIMAL (16, 4) DEFAULT NULL COMMENT '集成新增合同金额任务' AFTER jc_actual_rece;
 
 
+# 删除我的地盘下的部分菜单 by wwp 2018-08-15
+DELETE m, rm 
+FROM sys_module m 
+LEFT JOIN sys_rolemodule rm on m.module_id = rm.module_id WHERE 
+	m.module_id IN ( 
+	SELECT * FROM ( 
+		SELECT module_id FROM sys_module 
+		WHERE module_id IN ( '###' ) 
+		OR pmodule_id IN ( '###' ) 
+	) aa 
+);
+
 
 
 
