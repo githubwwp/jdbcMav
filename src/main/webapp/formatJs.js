@@ -1,9 +1,21 @@
-for ( var i = 0; i < len; i++) {
-    var rec = saleTaskStore.getAt(i);
-    for ( var j = 0; j < vrs.length; j++) {
-        var vr = vrs[j];
-        if (Ext.isEmpty(rec.data[vr[0]])) {
-            return "第" + (i + 1) + "行请输入‘" + vr[1] + "’！";
-        }
-    }
+if (v == '01') {
+    return '执行中';
+} else if (v == '02') {
+    return '预编号';
+} else if (v == '03') {
+    return '预-进行';
+} else if (v == '04') {
+    return '预-取消';
+} else if (v == '05') {
+    return '预-成功';
+} else if (v == '05') {
+    return '预-成功';
+} else if (v == '06') {
+    return '预-失败';
+} else if (v == '98') {
+    return '已撤销';
+} else if (v == '99') {
+    return '关闭';
+} else {
+    return '';
 }

@@ -53,6 +53,11 @@ LEFT JOIN sys_rolemodule rm on m.module_id = rm.module_id WHERE
 	) aa 
 );
 
+## 添加菜单 销售合同信息
+INSERT INTO `sys_module` VALUES ( 'saleContInfo', NULL, '销售合同信息', 'ContractMgr', '/contract/contInfoManage.jsp', '1', '1', NULL, NULL, NULL, '0', NULL, '1', NULL, NULL );
+INSERT INTO sys_module VALUES ( 'saleContInfo_add', NULL, '新增', 'saleContInfo', NULL, '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL );
+
+
 
 
 
