@@ -1,4 +1,8 @@
+// 自定义延时任务
+var treeSearchTask = new Ext.util.DelayedTask(filterTree);
+
 Ext.onReady(function() {
+	
     
     Ext.create('Ext.container.Viewport', {
         layout : 'border',
@@ -116,7 +120,9 @@ function addWestNav(o){
                         emptyText: '搜索(可正则表达式)...',
                         id : 'treeFilterTextId',
                         listeners: {
-                            'change': filterTree
+                            'change': function(){
+                            	treeSearchTask.delay(400);
+                            }
                         }
                      }
                  ] 
@@ -191,7 +197,8 @@ function closeAllTabs(){
 
 // 过滤目录
 function filterTree(){
-    
+    console.log(3);
+	
     // 清除过滤
     var tp = Ext.getCmp('menuTreePanel'); // treePanel 对象
     var val = Ext.getCmp('treeFilterTextId').getValue(); // 过滤条件
