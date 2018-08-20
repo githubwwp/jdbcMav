@@ -52,6 +52,7 @@ Ext.onReady(function() {
 			name : 'a',
 			id : 'a',
 			html : ' A content',
+			width: 500,
 			renderer : Ext.util.Format.numberRenderer("0.00")
 		}, {
 			name : 'b',
