@@ -3,11 +3,10 @@ Ext.onReady(function() {
 	Ext.define('Ext.ux.CustomTable', {
 		extend : 'Ext.panel.Panel',
 		alias : [ 'widget.customtable' ],
-		columns : 4,
+		columns : 6,
 		defaults : {
-			// applied to each contained panel
 			bodyStyle : 'padding:2px',
-			width : 115,
+			width : 200,
 			height : 25,
 		},
 		setTableValue : function(obj) { // 赋值函数
@@ -27,7 +26,6 @@ Ext.onReady(function() {
 						}
 
 						c.update(val);
-
 					}
 				});
 			}
@@ -52,7 +50,6 @@ Ext.onReady(function() {
 			name : 'a',
 			id : 'a',
 			html : ' A content',
-			width: 500,
 			renderer : Ext.util.Format.numberRenderer("0.00")
 		}, {
 			name : 'b',
