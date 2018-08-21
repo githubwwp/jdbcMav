@@ -1,13 +1,21 @@
+var num = 6;
+
 Ext.onReady(function() {
+
+	Ext.QuickTips.init();
 
 	Ext.define('Ext.ux.CustomTable', {
 		extend : 'Ext.panel.Panel',
 		alias : [ 'widget.customtable' ],
-		columns : 6,
+		columns : 2,
 		defaults : {
 			bodyStyle : 'padding:2px',
 			width : 200,
 			height : 25,
+			style: {
+			    "white-space": "nowrap",
+			    "text-overflow": "ellipsis",
+			}
 		},
 		setTableValue : function(obj) { // 赋值函数
 			var me = this;
@@ -25,7 +33,17 @@ Ext.onReady(function() {
 							val = renderer.apply(this, [ val, c, me ]);
 						}
 
-						c.update(val);
+						// html格式化
+						val = Ext.String.htmlEncode(val);
+						c.update(val); // 赋值
+					}
+
+					// 添加鼠标悬停提示(当isTip值为true时显示)
+					if (c.isTip) {
+						Ext.tip.QuickTipManager.register({
+							target : c.el.id,
+							text : val
+						});
 					}
 				});
 			}
@@ -44,16 +62,15 @@ Ext.onReady(function() {
 			me.callParent(arguments); // 调用父类函数
 		}
 	});
-
+	
 	tab = Ext.create('Ext.ux.CustomTable', {
 		items : [ {
 			name : 'a',
-			id : 'a',
+			isTip : true,
 			html : ' A content',
-			renderer : Ext.util.Format.numberRenderer("0.00")
 		}, {
 			name : 'b',
-			html : 'Cell A content Cell A content Cell A content'
+			html : 'Cell A content Cell A content Cel sdfwe w l A content Cell A content Cell A content Cel sdfwe w l A content Cell A content Cell A content Cel sdfwe w l A content'
 		}, {
 			name : '',
 			html : 'Cell B content'
@@ -61,7 +78,8 @@ Ext.onReady(function() {
 			html : 'Cell C content',
 			cellCls : 'highlight'
 		}, {
-			html : 'Cell D content'
+			html : 'Cell D content',
+			id : 'clearButton'
 		} ],
 		renderTo : Ext.getBody()
 	});
