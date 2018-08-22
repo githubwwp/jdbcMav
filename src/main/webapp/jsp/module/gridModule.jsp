@@ -8,7 +8,7 @@
 <!-- common.jsp -->
 <jsp:include page="/jsp/baseJsp/extJsp.jsp"></jsp:include>
 
-<script type="text/javascript" src="js/girdModule.js?v=<%=Math.random()%>"></script>
+<script type="text/javascript" src="js/gridModule.js?v=<%=Math.random()%>"></script>
 
 </head>
 <body>
