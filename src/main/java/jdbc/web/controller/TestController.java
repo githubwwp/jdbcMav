@@ -31,10 +31,8 @@ public class TestController {
 	@RequestMapping("jdbcTest")
 	public ModelAndView jdbcTest(Map<String, Object> map){
 	    Map<String, Object> rstMap = new HashMap<String, Object>();
-	    List<Map<String, Object>> list = jdbcTemplate.queryForList("select user_id, username, age from t_user");
-	    rstMap.put("list", list);
-	    
-	    sysMenuService.queryAll2();
+	    rstMap.put("a", 3);
+        rstMap.put("b", "4");
 	    
 	    return new ModelAndView(new JsonView(), rstMap);
 	}
