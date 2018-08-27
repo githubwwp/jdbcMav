@@ -67,7 +67,7 @@ function sqlToSb() {
 	if (originVal) {
 		var url = contextPath + "/util/sqlToSb.do";
 		MT.ajax(url, {str: originVal}, function(text){
-			Ext.getCmp('geneTextId').setValue(text);
+			Ext.getCmp('geneTextId').setValue(Ext.decode(text).str);
 		});
 	} else {
 		Ext.Msg.alert('tip: ', '请输入源文本！');
@@ -79,7 +79,7 @@ function getTableFields(){
 	if (originVal) {
 		var url = contextPath + "/util/getTableFields.do";
 		MT.ajax(url, {str: originVal}, function(text){
-			Ext.getCmp('geneTextId').setValue(text);
+			Ext.getCmp('geneTextId').setValue(Ext.decode(text).str);
 		});
 	} else {
 		Ext.Msg.alert('tip: ', '请输入源文本！');

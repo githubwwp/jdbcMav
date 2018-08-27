@@ -24,6 +24,7 @@ window.MYTOOL = (function() {
 				url : url,
 				params : params,
 				success : function(response) {
+					console.log(response);
 					var text = response.responseText;
 					if (cb) {
 						cb.apply(this, [text]);
