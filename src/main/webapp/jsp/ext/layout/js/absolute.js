@@ -1,5 +1,5 @@
 Ext.onReady(function() {
-    Ext.create('Ext.form.Panel', {
+    var panel = Ext.create('Ext.form.Panel', {
         title : 'Absolute Layout',
         width : 300,
         height : 275,
@@ -36,9 +36,17 @@ Ext.onReady(function() {
             xtype : 'textareafield',
             name : 'msg',
             anchor : '100% 100%' // anchor width and height
-        } ],
-        renderTo : Ext.getBody()
+        } ]
     });
+    
+    Ext.create('Ext.container.Viewport', {
+		layout : {
+			align: 'middle',
+			type : 'hbox',
+			pack: 'center'
+		},
+		items : panel
+	});
 });
 
 // 第二个文件加载完成后触发的事件

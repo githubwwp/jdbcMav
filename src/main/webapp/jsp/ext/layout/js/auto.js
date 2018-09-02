@@ -1,5 +1,5 @@
 Ext.onReady(function() {
-	Ext.create('Ext.Panel', {
+	var panel = Ext.create('Ext.Panel', {
 		width : 500,
 		height : 280,
 		autoScroll : true,
@@ -9,7 +9,6 @@ Ext.onReady(function() {
 			type : 'auto',
 			width : '100%'
 		},
-		renderTo : document.body,
 		items : [ {
 			xtype : 'panel',
 			title : 'Top Inner Panel',
@@ -21,5 +20,14 @@ Ext.onReady(function() {
 			width : '75%',
 			height : 290
 		} ]
+	});
+
+	Ext.create('Ext.container.Viewport', {
+		layout : {
+			align : 'middle',
+			type : 'hbox',
+			pack : 'center'
+		},
+		items : panel
 	});
 });
