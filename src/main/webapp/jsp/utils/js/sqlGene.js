@@ -8,7 +8,7 @@ Ext.onReady(function() {
 		},
 		defaults : {
 			layout : 'fit',
-			width : '100%',
+			width : '100%'
 		},
 		dockedItems : [ {
 			dock : 'bottom',

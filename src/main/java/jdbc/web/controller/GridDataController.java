@@ -9,7 +9,6 @@ import java.util.Random;
 import java.util.UUID;
 
 import jdbc.util.ObjectUtil;
-
 import net.sf.json.spring.web.servlet.view.JsonView;
 
 import org.springframework.context.annotation.Scope;

@@ -1,11 +1,9 @@
 package jdbc.web.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import jdbc.service.impl.SysMenuService;
-
 import net.sf.json.spring.web.servlet.view.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -76,8 +76,16 @@ window.onload = function() {
 
     Ext.define('Post', {
         extend : 'Ext.data.Model',
-        fields : [ 'id', 'user_id' ]
-    });
+        fields : [ 'id', 'user_id' ]    });
+    
+    Ext.create('Ext.panel.Panel', {
+    	id: 'we',
+    	style: {
+    		
+    	}
+    })
+    
+    
 
     user = Ext.create('User', {
         name : 'wwp',
