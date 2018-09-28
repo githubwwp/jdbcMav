@@ -40,7 +40,7 @@ ROLE_NAME IN ( '市场部销售人员' )
 ;
 ###################################### 根据角色名称获取角色ID end  #####################################
 
-# myeclipse 搜索范围： (*.css, *.html, *.java, *.js, *.json, *.log, *.pom, *.sql, *.tag, *.tld, *.txt, *.xml)
+# myeclipse 搜索范围： (*.css, *.html, *.jsp, *.java, *.js, *.json, *.log, *.pom, *.sql, *.tag, *.tld, *.txt, *.xml)
 
 # 修改用户邮箱地址
 UPDATE dcms_employee_information SET emp_inemail = 'wwp231@163.com';

@@ -307,6 +307,32 @@ FROM
          )
       )
    )
+   ;
+   
+## 合同跟踪界面插叙需要的数据
+ `cont_tax_free_income` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计销售收入',
+ `cont_advance_gross_profit` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计毛利',
+ `cont_advance_gross_profit_rate` DOUBLE (16, 4) DEFAULT NULL COMMENT '预计毛利率',
+ `cont_plan_pro` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计利润',
+ `cont_plan_proRate` double(16,4) DEFAULT NULL COMMENT '预计利润率',
+ `cont_tax_cost` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计产品成本(含税)',
+ `cont_tax_free_cost_cp` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计产品成本(不含税)',
+ `pre_close_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品结算成本含税',
+ `pre_close_free_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品结算成本（不含税）',
+ `pre_other_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计其他成本含税',
+ `cont_tax_free_cost_qita` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计其他成本(不含税)',
+ `plan_fixed_cost` DOUBLE (16, 2) DEFAULT NULL COMMENT '实施固定费用',
+ `plan_vari_cost` DOUBLE (16, 2) DEFAULT NULL COMMENT '实施变动费用',
+ `cont_market_cost` DOUBLE (16, 2) DEFAULT NULL COMMENT '预估销售费用',
+ `cont_capital_cost` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计资金占用费',
+ `cont_yinhua_planTax` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计印花税',
+ `cont_yingye_planTax` DOUBLE (16, 2) DEFAULT NULL COMMENT '预计营业税'
+;
+
+
+   
+   
+   
 
 
 
