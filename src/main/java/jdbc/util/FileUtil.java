@@ -6,7 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,10 +38,12 @@ public class FileUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return message.toString();
@@ -79,9 +84,62 @@ public class FileUtil {
 		return sb.toString();
 	}
 
+	public void replaceText2() {
+		String filePath = "E:\\z_temp\\dbparse.txt";
+		String str = FileUtil.readTextContent(filePath, "utf-8");
+		Pattern p = Pattern.compile("\\d+", Pattern.MULTILINE);
+		final Matcher m = p.matcher(str);
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		int i = 0;
+		while (m.find()) {
+			Map<String, Object> map = new HashMap<String, Object>() {
+				{
+					put("start", m.start());
+					put("end", m.end());
+					put("content", m.group());
+				}
+			};
+			list.add(map);
+		}
+
+		// 打印需要替换的内容
+		// for(Map<String, Object> map: list){
+		// System.out.println(map.get("start") + ", " + map.get("end") + ", " +
+		// map.get("content"));
+		// }
+		//
+		Collections.reverse(list);
+		StringBuffer strSb = new StringBuffer(str);
+		for (Map<String, Object> map : list) {
+			int start = Integer.parseInt(map.get("start").toString());
+			int end = Integer.parseInt(map.get("end").toString());
+			int content = Integer.parseInt(map.get("content").toString());
+			strSb.replace(start, end, (content + 1) + "");
+		}
+
+		System.out.println(strSb);
+	}
+
 	// test
 	public static void main(String[] args) {
-		System.out.println(matchText("E:\\z_temp\\dbparse.txt", CHARSET_UTF8));
+		String filePath = "E:\\z_temp\\dbparse.txt";
+		String str = FileUtil.readTextContent(filePath, CHARSET_UTF8);
+		Pattern p = Pattern.compile("put\\(.*?\"(.*?)\"\\)", Pattern.MULTILINE);
+		final Matcher m = p.matcher(str);
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+		int i = 0;
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			i++;
+			System.out.println(m.group(1));
+			sb.append(m.group(1)).append(",");
+		}
+		System.out.println(sb);
+		System.out.println(i);
 	}
 
 }

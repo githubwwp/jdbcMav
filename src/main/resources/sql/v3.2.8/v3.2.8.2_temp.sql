@@ -330,7 +330,44 @@ FROM
 ;
 
 
-   
+------------------------------------------------ 2018-10-29 ------------------------------------------------
+
+# 删除部分新增列
+ALTER TABLE dcms_sales_contract_register 
+DROP COLUMN cont_plan_pro,
+DROP COLUMN cont_plan_proRate,
+DROP COLUMN cont_tax_cost,
+DROP COLUMN cont_tax_free_cost_cp,
+DROP COLUMN pre_close_cost,
+DROP COLUMN pre_close_free_cost,
+DROP COLUMN pre_other_cost,
+DROP COLUMN cont_tax_free_cost_qita;
+
+# 从表 dcms_sales_contract_oatemp 新增字段到表 dcms_sales_contract_register
+ALTER TABLE dcms_sales_contract_register 
+ ADD COLUMN `cont_plan_pro` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计利润',
+ ADD COLUMN `cont_plan_proRate` DECIMAL (16, 4) DEFAULT NULL COMMENT '预计利润率',
+ ADD COLUMN `cont_tax_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品成本(含税)',
+ ADD COLUMN `cont_tax_free_cost_cp` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品成本(不含税)',
+ ADD COLUMN `pre_close_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品结算成本含税',
+ ADD COLUMN `pre_close_free_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品结算成本（不含税）',
+ ADD COLUMN `pre_other_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计其他成本含税',
+ ADD COLUMN `cont_tax_free_cost_qita` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计其他成本(不含税)';
+
+# 初始化销售合同新规则字段数据 by wwp 2018-10-29
+UPDATE dcms_sales_contract_register a
+SET a.Cont_advance_net_profit = IFNULL(cont_tax_free_income, 0) - IFNULL(cont_tax_free_cost_cp, 0) - IFNULL(cont_tax_free_cost_qita, 0) - IFNULL(cont_fee_sum, 0),
+ a.Cont_advance_net_profit_rate = (IFNULL(cont_tax_free_income, 0) - IFNULL(cont_tax_free_cost_cp, 0) - IFNULL(cont_tax_free_cost_qita, 0) - IFNULL(cont_fee_sum, 0)) / IFNULL(cont_tax_free_income, 0),
+ a.Cont_cost_sum = IFNULL(pre_close_cost, 0) + IFNULL(pre_other_cost, 0),
+ a.Cont_tax_free_cost = IFNULL(pre_close_free_cost, 0) + IFNULL(cont_tax_free_cost_qita, 0),
+ a.cont_advance_gross_profit_yh = IFNULL(cont_tax_free_income, 0) - (IFNULL(pre_close_free_cost, 0) + IFNULL(cont_tax_free_cost_qita, 0)),
+ a.cont_imp_fee_sum = IFNULL(plan_fixed_cost, 0) + IFNULL(plan_vari_cost, 0),
+ a.Cont_advance_gross_profit_rate = (IFNULL(cont_tax_free_income, 0) -(IFNULL(pre_close_free_cost, 0) + IFNULL(cont_tax_free_cost_qita, 0))) / IFNULL(cont_tax_free_income, 0),
+ a.plan_roi = (IFNULL(plan_fixed_cost, 0) + IFNULL(plan_vari_cost, 0)) / (IFNULL(cont_tax_free_income, 0) -(IFNULL(pre_close_free_cost, 0) + IFNULL(cont_tax_free_cost_qita, 0)))
+ ;
+
+
+
    
    
 
