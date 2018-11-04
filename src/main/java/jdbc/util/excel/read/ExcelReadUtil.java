@@ -31,8 +31,10 @@ public class ExcelReadUtil {
             wk = WorkbookFactory.create(new File(filePath));
         } catch (InvalidFormatException e) {
             e.printStackTrace();
+            throw new RuntimeException("异常", e);
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException("异常", e);
         }
 
         List<List<Object>> dataList = new ArrayList<List<Object>>();

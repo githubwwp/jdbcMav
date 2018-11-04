@@ -45,7 +45,6 @@ public class GridDataController {
 	public ModelAndView getModelData(){
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<Map<String, Object>> datas = new ArrayList<Map<String,Object>>();
-		Random rand = new Random(47);
 		for(int i=0; i< 10; i++){
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("id", ObjectUtil.getRandInt(100));

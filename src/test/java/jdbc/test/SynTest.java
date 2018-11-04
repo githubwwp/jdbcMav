@@ -6,7 +6,7 @@ class Abc{
         System.out.println("mul");
     }
     
-    public synchronized static void add(){
+    public static void add(){
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

@@ -30,7 +30,6 @@ class NIOBlacked implements Runnable{
 public class NIOInterruption {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		ExecutorService exec = Executors.newCachedThreadPool();
-		ServerSocket server = new ServerSocket(8080);
 		InetSocketAddress isa = new InetSocketAddress("localhost", 8080);
 		SocketChannel sc1 = SocketChannel.open(isa);
 		SocketChannel sc2 = SocketChannel.open(isa);

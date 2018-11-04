@@ -135,7 +135,7 @@ function addWestNav(o){
                 if(data.leaf){
                     addCenterTab(data.text, data.menuUrl); // 添加tab
                 }
-            },
+            }
 //            'itemexpand': filterTree
         }
     });

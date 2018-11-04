@@ -40,7 +40,7 @@ public class DefaultCellStyleMap extends HashMap<Integer, CellStyle> {
      */
     private CellStyle defaultCommonCellStyle(Workbook wk, String formatStyle) {
         CellStyle cellStyle = this.getBaseCellStyle(wk);
-        if (formatStyle != null && formatStyle.trim() != "") {
+        if (formatStyle != null && !"".equals(formatStyle.trim())) {
             DataFormat format = wk.createDataFormat();
             cellStyle.setDataFormat(format.getFormat(formatStyle));
         }
