@@ -1,4 +1,6 @@
 Ext.onReady(function() {
+	
+	Ext.QuickTips.init();
 
 	var panel = Ext.create('Ext.panel.Panel', {
 		title : 'head',
@@ -24,7 +26,7 @@ Ext.onReady(function() {
 			} ]
 		}, {
 			xtype : 'toolbar',
-			width : 70,
+			width : 100,
 			layout : {
 				type : 'vbox',
 				align : 'stretch'
@@ -36,9 +38,11 @@ Ext.onReady(function() {
 			},
 			items : [ '->', {
 				text : 'sql to StringBuffer',
+				tooltip : '<span style="color: red; font-size: 16px;">生成StringBuffer字符串</span>',
 				handler : sqlToSb
 			}, {
 				text : 'get table fields',
+				tooltip : '<span style="color: red; font-size: 16px;">提取表格字段名</span>',
 				handler: getTableFields
 			}, '->' ]
 		}, {

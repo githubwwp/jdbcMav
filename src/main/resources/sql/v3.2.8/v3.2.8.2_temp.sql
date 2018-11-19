@@ -330,7 +330,77 @@ FROM
 ;
 
 
-   
+------------------------------------------------ 2018-10-29 ------------------------------------------------
+
+# 删除部分新增列
+ALTER TABLE dcms_sales_contract_register 
+DROP COLUMN cont_plan_pro,
+DROP COLUMN cont_plan_proRate,
+DROP COLUMN cont_tax_cost,
+DROP COLUMN cont_tax_free_cost_cp,
+DROP COLUMN pre_close_cost,
+DROP COLUMN pre_close_free_cost,
+DROP COLUMN pre_other_cost,
+DROP COLUMN cont_tax_free_cost_qita;
+
+# 从表 dcms_sales_contract_oatemp 新增字段到表 dcms_sales_contract_register
+ALTER TABLE dcms_sales_contract_register 
+ ADD COLUMN `cont_plan_pro` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计利润',
+ ADD COLUMN `cont_plan_proRate` DECIMAL (16, 4) DEFAULT NULL COMMENT '预计利润率',
+ ADD COLUMN `cont_tax_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品成本(含税)',
+ ADD COLUMN `cont_tax_free_cost_cp` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品成本(不含税)',
+ ADD COLUMN `pre_close_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品结算成本含税',
+ ADD COLUMN `pre_close_free_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计产品结算成本（不含税）',
+ ADD COLUMN `pre_other_cost` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计其他成本含税',
+ ADD COLUMN `cont_tax_free_cost_qita` DECIMAL (16, 2) DEFAULT NULL COMMENT '预计其他成本(不含税)';
+
+# 更新'易汇预计毛利'
+update dcms_sales_contract_register set cont_advance_gross_profit_yh =  cont_advance_gross_profit;
+# 初始化销售合同新规则字段数据 by wwp 2018-10-29
+UPDATE dcms_sales_contract_register a
+SET a.Cont_advance_net_profit = IFNULL(cont_tax_free_income, 0) - IFNULL(cont_tax_free_cost_cp, 0) - IFNULL(cont_tax_free_cost_qita, 0) - IFNULL(cont_fee_sum, 0),
+ a.Cont_advance_net_profit_rate = (IFNULL(cont_tax_free_income, 0) - IFNULL(cont_tax_free_cost_cp, 0) - IFNULL(cont_tax_free_cost_qita, 0) - IFNULL(cont_fee_sum, 0)) / IFNULL(cont_tax_free_income, 0),
+ a.Cont_cost_sum = IFNULL(pre_close_cost, 0) + IFNULL(pre_other_cost, 0),
+ a.Cont_tax_free_cost = IFNULL(pre_close_free_cost, 0) + IFNULL(cont_tax_free_cost_qita, 0),
+ a.cont_advance_gross_profit_yh = IFNULL(cont_tax_free_income, 0) - (IFNULL(pre_close_free_cost, 0) + IFNULL(cont_tax_free_cost_qita, 0)),
+ a.cont_imp_fee_sum = IFNULL(plan_fixed_cost, 0) + IFNULL(plan_vari_cost, 0),
+ a.Cont_advance_gross_profit_rate = (IFNULL(cont_tax_free_income, 0) -(IFNULL(pre_close_free_cost, 0) + IFNULL(cont_tax_free_cost_qita, 0))) / IFNULL(cont_tax_free_income, 0),
+ a.plan_roi = (IFNULL(plan_fixed_cost, 0) + IFNULL(plan_vari_cost, 0)) / (IFNULL(cont_tax_free_income, 0) -(IFNULL(pre_close_free_cost, 0) + IFNULL(cont_tax_free_cost_qita, 0)))
+ ;
+ 
+# 连接合同登记临时表 初始化合同新规则字段数据 by wwp 2018-10-30
+UPDATE dcms_sales_contract_register a
+INNER JOIN dcms_sales_contract_oatemp b ON b.gf_cont_id = a.gf_cont_id
+SET a.Cont_advance_net_profit = IFNULL(b.cont_tax_free_income, 0) - IFNULL(b.cont_tax_free_cost_cp, 0) - IFNULL(b.cont_tax_free_cost_qita, 0) - IFNULL(b.cont_fee_sum, 0),
+ a.Cont_advance_net_profit_rate = (IFNULL(b.cont_tax_free_income, 0) - IFNULL(b.cont_tax_free_cost_cp, 0) - IFNULL(b.cont_tax_free_cost_qita, 0) - IFNULL(b.cont_fee_sum, 0)) / IFNULL(b.cont_tax_free_income, 0),
+ a.Cont_cost_sum = IFNULL(b.pre_close_cost, 0) + IFNULL(b.pre_other_cost, 0),
+ a.Cont_tax_free_cost = IFNULL(b.pre_close_free_cost, 0) + IFNULL(b.cont_tax_free_cost_qita, 0),
+ a.cont_advance_gross_profit_yh = IFNULL(b.cont_tax_free_income, 0) - (IFNULL(b.pre_close_free_cost, 0) + IFNULL(b.cont_tax_free_cost_qita, 0)),
+ a.cont_imp_fee_sum = IFNULL(b.plan_fixed_cost, 0) + IFNULL(b.plan_vari_cost, 0),
+ a.Cont_advance_gross_profit_rate = (IFNULL(b.cont_tax_free_income, 0) -(IFNULL(b.pre_close_free_cost, 0) + IFNULL(b.cont_tax_free_cost_qita, 0))) / IFNULL(b.cont_tax_free_income, 0),
+ a.plan_roi = (IFNULL(b.plan_fixed_cost, 0) + IFNULL(b.plan_vari_cost, 0)) / (IFNULL(b.cont_tax_free_income, 0) -(IFNULL(b.pre_close_free_cost, 0) + IFNULL(b.cont_tax_free_cost_qita, 0)))
+;
+
+#全年预测 最基础统计视图生成对应物理表，上一层引用直接引用物理表，解决查询性能问题 by lihl 2018年9月21日 10:07:13
+DROP TABLE if EXISTS fore_basi_plan ;
+CREATE TABLE fore_basi_plan SELECT * FROM v_fore_basi_plan ;
+ALTER TABLE fore_basi_plan ADD PRIMARY KEY (`ag_id`) ;
+DROP TABLE if EXISTS fore_basi_apply ;
+CREATE TABLE fore_basi_apply SELECT * FROM v_fore_basi_apply ;
+ALTER TABLE fore_basi_apply ADD PRIMARY KEY (`ag_id`) ;
+DROP TABLE if EXISTS fore_basi_drawer ;
+CREATE TABLE fore_basi_drawer SELECT * FROM v_fore_basi_drawer ;
+ALTER TABLE fore_basi_drawer ADD PRIMARY KEY (`ag_id`) ;
+DROP TABLE if EXISTS fore_basi_confirm ;
+CREATE TABLE fore_basi_confirm SELECT * FROM v_fore_basi_confirm ;
+ALTER TABLE fore_basi_confirm ADD PRIMARY KEY (`ag_id`) ;
+
+
+## v3.2.8.2 补丁（2018-11-12）
+##  实际开票表新增字段 by wwp 2018-11-14
+ALTER TABLE dcms_001bill ADD COLUMN `un_conf_money_s` DECIMAL (16, 2) DEFAULT '0' COMMENT '无需核算金额';
+ALTER TABLE dcms_001bill ADD COLUMN `un_conf_money_k` DECIMAL (16, 2) DEFAULT '0' COMMENT '无需核算不含税金额';
+
    
    
 

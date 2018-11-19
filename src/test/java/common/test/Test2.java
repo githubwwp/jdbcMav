@@ -1,9 +1,10 @@
 package common.test;
 
 
-public class Test3 {
+public class Test2 {
 
 	public static void main(String[] args) {
+		
 	}
 
 }

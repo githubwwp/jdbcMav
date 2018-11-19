@@ -136,9 +136,8 @@ function addWestNav(o){
                     addCenterTab(data.text, data.menuUrl); // 添加tab
                 }
             }
-//            'itemexpand': filterTree
-        }
-    });
+		}
+
     
     Ext.getCmp("west").add(treePanel);
     treePanel.expandNode(treePanel.getRootNode()); // 展开根节点
