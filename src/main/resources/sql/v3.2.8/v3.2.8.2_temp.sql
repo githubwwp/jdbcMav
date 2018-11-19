@@ -396,6 +396,11 @@ CREATE TABLE fore_basi_confirm SELECT * FROM v_fore_basi_confirm ;
 ALTER TABLE fore_basi_confirm ADD PRIMARY KEY (`ag_id`) ;
 
 
+## v3.2.8.2 补丁（2018-11-12）
+##  实际开票表新增字段 by wwp 2018-11-14
+ALTER TABLE dcms_001bill ADD COLUMN `un_conf_money_s` DECIMAL (16, 2) DEFAULT '0' COMMENT '无需核算金额';
+ALTER TABLE dcms_001bill ADD COLUMN `un_conf_money_k` DECIMAL (16, 2) DEFAULT '0' COMMENT '无需核算不含税金额';
+
    
    
 

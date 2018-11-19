@@ -17,33 +17,33 @@ import org.springframework.web.servlet.ModelAndView;
 @Scope("prototype")
 public class UtilController {
 
-    @RequestMapping("sqlToSb")
-    public ModelAndView sqlToSb(String str) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        Pattern p = Pattern.compile("^.*", Pattern.MULTILINE);
-        Matcher m = p.matcher(str);
-        StringBuffer sb = new StringBuffer();
-        while (m.find()) {
-            String s = "sb.append(\" ## \");\n";
-            sb.append(s.replace("##", m.group()));
-        }
-        map.put("str", sb.toString());
+	@RequestMapping("sqlToSb")
+	public ModelAndView sqlToSb(String str) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Pattern p = Pattern.compile("^.*", Pattern.MULTILINE);
+		Matcher m = p.matcher(str);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			m.appendReplacement(sb, "sb.append(\" " + m.group() + " \");");
+		}
+		m.appendTail(sb);
 
-        return new ModelAndView(new JsonView(), map);
-    }
+		map.put("str", sb.toString());
+		return new ModelAndView(new JsonView(), map);
+	}
 
-    @RequestMapping("getTableFields")
-    public ModelAndView getTableFields(String str) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        Pattern p = Pattern.compile("^\\s*`(\\w+)`", Pattern.MULTILINE);
-        Matcher m = p.matcher(str);
-        StringBuffer sb = new StringBuffer();
-        while (m.find()) {
-            sb.append(m.group()).append(", ");
-        }
+	@RequestMapping("getTableFields")
+	public ModelAndView getTableFields(String str) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Pattern p = Pattern.compile("^\\s*(`\\w+`)", Pattern.MULTILINE);
+		Matcher m = p.matcher(str);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			sb.append(m.group(1)).append(", ");
+		}
 
-        map.put("str", sb.toString());
-        return new ModelAndView(new JsonView(), map);
-    }
+		map.put("str", sb.toString());
+		return new ModelAndView(new JsonView(), map);
+	}
 
 }

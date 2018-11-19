@@ -9,7 +9,7 @@ import jdbc.entity.db.SysMenu;
 import jdbc.entity.page.PageEntity;
 import jdbc.entity.vo.SysMenuChildVo;
 import jdbc.entity.vo.SysMenuVo;
-import jdbc.service.impl.SysMenuService;
+import jdbc.service.page.SysMenuService;
 import jdbc.service.page.PageUtilService;
 import jdbc.util.ObjectUtil;
 import jdbc.web.WebConstant;
