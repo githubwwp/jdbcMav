@@ -137,6 +137,7 @@ function addWestNav(o){
                 }
             }
 		}
+    });
 
     
     Ext.getCmp("west").add(treePanel);
