@@ -27,6 +27,9 @@ Ext.onReady(function() {
                 },
                 {   xtype : 'button', text : '图库链接', iconCls: 'icon-link icon-large icon-color-info',
                     handler : function(){ window.open('http://www.bootcss.com/p/font-awesome/'); }
+                },
+                {   xtype : 'button', text : 'vidoeTest', iconCls: 'icon-link icon-large icon-color-info',
+                    handler : function(){ window.open('http://localhost/html/videoTest.html'); }
                 }
             ]
         }, {
