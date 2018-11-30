@@ -62,5 +62,32 @@ INSERT INTO `sys_rolemodule` (`module_id`, `role_id`) VALUES ('mtmn_batchExtraIn
 INSERT INTO `sys_rolemodule` (`module_id`, `role_id`) VALUES ('mtmn_edit', 'ROLE_ID78f301ba_b308_4dcc_9991_30bf6b04c4c1');
 
 
+# 出入库管理菜单
+INSERT INTO `sys_module` VALUES ( 'warehouseManage', NULL, '出入库管理 ', 'procurementContractMgr', '/procurementContract/warehouseManage.jsp', '1', '1', NULL, NULL, NULL, '7', NULL, '1', NULL, NULL );
+INSERT INTO `sys_module` VALUES ( 'warehouseManage_editState', NULL, '编辑是否有效', 'warehouseManage', NULL, '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL );
+INSERT INTO `sys_module` VALUES ( 'warehouseManage_export', NULL, '导出出入库报表', 'warehouseManage', NULL, '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL );
+
+# 出入库管理菜单权限
+INSERT INTO `sys_rolemodule` (`module_id`, `role_id`) VALUES ('warehouseManage_editState', 'Role_Channel_manager');
+INSERT INTO `sys_rolemodule` (`module_id`, `role_id`) VALUES ('warehouseManage_export', 'Role_Channel_manager');
+INSERT INTO `sys_rolemodule` (`module_id`, `role_id`) VALUES ('warehouseManage_editState', 'ROLE_ID78f301ba_b308_4dcc_9991_30bf6b04c4c1');
+INSERT INTO `sys_rolemodule` (`module_id`, `role_id`) VALUES ('warehouseManage_export', 'ROLE_ID78f301ba_b308_4dcc_9991_30bf6b04c4c1');
+
+
+# 查询匹配 名称及规格、数量
+select uu.d_number, uu.self_model from dcms_purchase_receipt_details rd 
+left join (
+	SELECT count(DISTINCT id) as d_number, tt.p_cont_id, tt.sale_cont_id, tt.tax_rate_act, tt.p_money, tt.self_model FROM ( 
+		SELECT id, p_cont_id, sale_cont_id, tax_rate_act, p_money1 AS p_money, self_model FROM dcms_purchase_product_detail WHERE tax_rate_act IS NOT NULL 
+		UNION ALL 
+		SELECT id, p_cont_id, sale_cont_id, tax_rate_act2, p_money2, self_model FROM dcms_purchase_product_detail WHERE tax_rate_act2 IS NOT NULL 
+		UNION ALL 
+		SELECT id, p_cont_id, sale_cont_id, tax_rate_act3, p_money3, self_model FROM dcms_purchase_product_detail WHERE tax_rate_act3 IS NOT NULL 
+	) tt 
+	GROUP BY tt.p_cont_id, tt.sale_cont_id, tt.tax_rate_act 
+	ORDER BY tt.p_money DESC
+) uu
+ON rd.p_cont_id = uu.p_cont_id AND rd.sale_cont_id = uu.sale_cont_id AND rd.tax_rate = uu.tax_rate_act;
+
 
 
