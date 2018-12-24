@@ -1,16 +1,24 @@
 package jdbc.web.controller.test;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jdbc.service.impl.JdbcTestService;
+
 import net.sf.json.spring.web.servlet.view.JsonView;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +35,9 @@ public class JdbcTestController {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private JdbcTestService jdbcTestService;
 
 	@RequestMapping("queryForList")
 	public ModelAndView queryForList() {
@@ -79,17 +90,9 @@ public class JdbcTestController {
 	public ModelAndView batchUpdate(@RequestParam Map<String, String> parMap) {
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 
-		// 批量参数
-		List<Object[]> params = new ArrayList<Object[]>();
-		params.add(new Object[] { 3, 332 });
-		params.add(new Object[] { 3, 332 });
-		params.add(new Object[] { new Date(), 3 });
-		params.add(new Object[] { 3, 332 });
+		jdbcTestService.batchUpdateTest();
+//		jdbcTestService.tranTest();
 
-		String sql = " update t_ht set 语文  = ? where id = ? ";
-		int[] ints = jdbcTemplate.batchUpdate(sql, params);
-
-		rstMap.put("ints", ints);
 		return new ModelAndView(new JsonView(), rstMap);
 	}
 
@@ -104,5 +107,5 @@ public class JdbcTestController {
 
 		return new ModelAndView(new JsonView(), rstMap);
 	}
-
+	
 }

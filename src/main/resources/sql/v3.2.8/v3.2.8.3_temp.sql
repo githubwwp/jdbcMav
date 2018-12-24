@@ -90,4 +90,24 @@ left join (
 ON rd.p_cont_id = uu.p_cont_id AND rd.sale_cont_id = uu.sale_cont_id AND rd.tax_rate = uu.tax_rate_act;
 
 
+################################################ 采购合同模版调整 by wwp 2018-12-14 begin #################################################################
+#	修改导入‘采购合同申请查询表’模版
+UPDATE tbl_imp_cfg_dtl SET Sort_Val = Sort_Val + 2 WHERE imp_id = '0000034' AND Sort_Val > 13;
+INSERT INTO `tbl_imp_cfg_dtl` ( `imp_id`, `dtl_id`, `fld_nm`, `fld_caption`, `PK_Flg`, `Sort_Val`, `data_tp`, `def_val`, `def_val_tp`, `allow_blank` ) VALUES ( '0000034', '0003019', 'our_sign_time', '签署日期', '1', '14', '3', 'com.nantian.imp.impl.purchase.PurchaserDateDefaultValue', '1', '1' );
+INSERT INTO `tbl_imp_cfg_dtl` ( `imp_id`, `dtl_id`, `fld_nm`, `fld_caption`, `PK_Flg`, `Sort_Val`, `data_tp`, `def_val`, `def_val_tp`, `allow_blank` ) VALUES ('0000034', '0003020', 'payment_way', '付款方式', '1', '15', '0', NULL, '1', '1');
+
+#	修改导入‘采购产品明细表’模版
+UPDATE tbl_imp_cfg_dtl SET Sort_Val = Sort_Val + 1 WHERE imp_id = '0000035' AND Sort_Val > 5;
+INSERT INTO `tbl_imp_cfg_dtl` ( `imp_id`, `dtl_id`, `fld_nm`, `fld_caption`, `PK_Flg`, `Sort_Val`, `data_tp`, `def_val`, `def_val_tp`, `allow_blank` ) VALUES ('0000035', '0004017', 'product_brand', '产品品牌', '1', '6', '0', NULL, '1', '1');
+
+#	‘采购合同表’新增字段 ‘付款方式’
+ALTER TABLE dcms_purchase_contract ADD COLUMN payment_way VARCHAR (100) DEFAULT NULL COMMENT '付款方式';
+
+# ‘采购产品明细表’新增‘产品品牌’字段
+ALTER TABLE dcms_purchase_product_detail ADD COLUMN product_brand VARCHAR (255) CHARACTER SET utf8 DEFAULT NULL COMMENT '产品品牌';
+
+# 修改名称‘付款方式’---‘最终付款方式’
+ALTER TABLE dcms_purchase_contract MODIFY `final_payment_way` VARCHAR (100) DEFAULT NULL COMMENT '最终付款方式';
+UPDATE tbl_imp_cfg_dtl SET fld_caption = '最终付款方式' WHERE imp_id = '0000034' AND dtl_id = '0003010' AND fld_caption = '付款方式';
+################################################ 采购合同模版调整 end #################################################################
 

@@ -1,6 +1,8 @@
 package jdbc.util;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 public class ObjectUtil {
@@ -42,7 +44,12 @@ public class ObjectUtil {
 	
 	// test
 	public static void main(String[] args) {
-	    System.out.println(getBaseUuid());
+		Set<String> set = new HashSet<String>();
+		for(int i=0 ;i < 1000; i++){
+			set.add(getRandStr(3));
+		}
+		
+		System.out.println(set.size());
     }
 	
 }
