@@ -19,6 +19,7 @@ public class UtilController {
 
 	@RequestMapping("sqlToSb")
 	public ModelAndView sqlToSb(String str) {
+		str.replace("$", "\\$");
 		Map<String, Object> map = new HashMap<String, Object>();
 		Pattern p = Pattern.compile("^.*", Pattern.MULTILINE);
 		Matcher m = p.matcher(str);
