@@ -19,7 +19,9 @@ public class UtilController {
 
 	@RequestMapping("sqlToSb")
 	public ModelAndView sqlToSb(String str) {
-		str.replace("$", "\\$");
+		// \ 和 $ 两个符号会引起异常: Illegal group reference
+		str = str.replace("\\", "\\\\");
+		str = str.replace("$", "\\$");
 		Map<String, Object> map = new HashMap<String, Object>();
 		Pattern p = Pattern.compile("^.*", Pattern.MULTILINE);
 		Matcher m = p.matcher(str);
