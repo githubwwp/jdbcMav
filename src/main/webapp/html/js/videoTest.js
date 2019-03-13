@@ -23,6 +23,12 @@ Ext.onReady(function() {
 						handler: function(){
 							replaceHtml("gridPanel.html");
 						}
+					},
+					{
+						text: 'store',
+						handler: function(){
+							replaceHtml("store.html");
+						}
 					}
 				]
 			},

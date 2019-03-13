@@ -42,6 +42,16 @@ public class ObjectUtil {
 		return UUID.randomUUID().toString().replace('-', '_');
 	}
 	
+	/**
+	 * 判断是否为空 2019-3-13 <br/>
+	 * by wwp
+	 * @param o
+	 * @return boolean
+	 */
+	public static boolean isEmpty(Object o) {
+		return o == null || o.toString() == "";
+	}
+
 	// test
 	public static void main(String[] args) {
 		Set<String> set = new HashSet<String>();
