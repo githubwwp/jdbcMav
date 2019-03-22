@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import jdbc.entity.db.SysMenu;
 import jdbc.service.impl.CycTest1;
 import jdbc.service.impl.CycTest2;
 import jdbc.service.impl.SysMenuService;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -262,6 +264,26 @@ public class TestController {
 			jdbcTemplate.batchUpdate(insertSql, params);
 		}
 
+	}
+	
+	@ResponseBody
+	@RequestMapping("respTest")
+	public Map<String, Object> respTest() {
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		rstMap.put("a", "b");
+		rstMap.put("sysMenu", new SysMenu());
+
+		return rstMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping("respTest2")
+	public String respTest2() {
+		Map<String, Object> rstMap = new HashMap<String, Object>();
+		rstMap.put("a", "b");
+		rstMap.put("sysMenu", new SysMenu());
+		
+		return "wejfiwejj";
 	}
 	
 }

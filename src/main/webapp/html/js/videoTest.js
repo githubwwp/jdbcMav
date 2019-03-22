@@ -25,7 +25,7 @@ Ext.onReady(function() {
 						}
 					},
 					{
-						text: 'store',
+						text: 'store.html',
 						handler: function(){
 							replaceHtml("store.html");
 						}

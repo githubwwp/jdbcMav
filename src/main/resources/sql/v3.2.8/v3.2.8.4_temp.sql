@@ -75,4 +75,7 @@ ALTER TABLE dcms_contract_project_connection MODIFY `pro_percent` DECIMAL (6, 2)
 # 新增字段 '已签合同人月'
 ALTER TABLE dcms_project_indicators ADD COLUMN signed_cont_pm DECIMAL (16, 4) DEFAULT NULL COMMENT '已签合同人月';
 
+# 修改注释('当年实际费效比' -> '当年实际费效比(实际费用)')
+ALTER TABLE dcms_project_indicators MODIFY `cur_year_act_rate` DECIMAL (16, 4) DEFAULT NULL COMMENT '当年实际费效比(实际费用)';
+
 
