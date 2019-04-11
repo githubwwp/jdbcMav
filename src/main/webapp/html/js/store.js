@@ -1,26 +1,22 @@
 Ext.onReady(function(){
 	
-	var treeStore = Ext.create('Ext.data.TreeStore', {
-        fields: [ 
-            'text', 'menuId', 'menuPid', 'menuName', 'menuUrl', 'menuRemark', 'menuOrder'
-        ],
-        proxy: {
-            type: 'ajax',
-            url: '/sysMenu/queryMenuVos.do',
-            reader: {
-                type: 'json',
-                root: 'sysMenuChildVo'
-            },
-            root: {
-            	text: '根节点',  
-	            id: '0',  
-	            expanded: true  
-            	
-            }
+	 // 添加导航
+    Ext.Ajax.request( {
+        url : '/sysMenu/treePickerTest.do',
+        method : 'post',
+        success : function(rst) {
+            var o = Ext.decode(rst.responseText);
+            init(o);
         },
-        autoLoad: true
+        failure : function(a) {
+            alert(a.responseText);
+        }
     });
 	
+	
+});
+
+function init(o){
 	var form = Ext.create('Ext.form.Panel', {
 		xtype: 'from',
 		title: 'form',
@@ -30,9 +26,15 @@ Ext.onReady(function(){
 				fieldLabel: 'name'
 			},
 			{
+				id:'tree',
 				fieldLabel: 'tree',
 				xtype: 'treepicker',
-				store: treeStore,
+//				xtype: 'tree',
+				rootVisible : false,
+				// 这里必须用 Ext.create 方法创建 treeStore
+				store: Ext.create('Ext.data.TreeStore', {
+			        root: o.root
+				}),
 				valueField: 'text',
 				displayField : 'text'
 			}
@@ -46,4 +48,4 @@ Ext.onReady(function(){
 		]
 	});
 	
-});
+}

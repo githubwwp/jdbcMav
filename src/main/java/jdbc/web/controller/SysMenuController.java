@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import jdbc.entity.db.SysMenu;
 import jdbc.entity.page.PageEntity;
@@ -176,6 +177,45 @@ public class SysMenuController {
         Map<String, Object> rstMap = new HashMap<String, Object>();
         rstMap = sysMenuService.getPageMenus(query, page, start, limit);
 
+        return new ModelAndView(new JsonView(), rstMap);
+    }
+    
+    @RequestMapping("treePickerTest")
+    public ModelAndView treePickerTest() {
+        Map<String, Object> rstMap = new HashMap<String, Object>();
+        HashMap<String, Object> rootMap = new HashMap<String, Object>();
+        List<Map<String, Object>> childList = new ArrayList<Map<String,Object>>();
+        rootMap.put("text", "ab");
+        rootMap.put("id", "root");
+        rootMap.put("children", childList);
+        rootMap.put("leaf", false);
+        rootMap.put("expanded", true);
+        
+        for(int i=0; i< 4; i++){
+            HashMap<String, Object> tm = new HashMap<String, Object>();
+            List<Map<String, Object>> childList2 = new ArrayList<Map<String,Object>>();
+            tm.put("id", new Random().nextInt());
+            tm.put("text", "text_" + new Random().nextInt(45));
+            tm.put("leaf", false);
+            tm.put("expanded", true);
+            tm.put("children", childList2);
+            childList.add(tm);
+            
+            
+            for(int j=0; j< 3; j++){
+                HashMap<String, Object> tm2 = new HashMap<String, Object>();
+                tm2.put("id", new Random().nextInt());
+                tm2.put("text", "text_" + new Random().nextInt(69));
+                tm2.put("leaf", true);
+                tm2.put("expanded", true);
+                
+                childList2.add(tm2);
+            }
+        }
+        
+        List<Map<String, Object>> l2 = new ArrayList<Map<String,Object>>();
+        l2.add(rootMap);
+        rstMap.put("root", rootMap);
         return new ModelAndView(new JsonView(), rstMap);
     }
     
