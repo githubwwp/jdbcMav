@@ -202,7 +202,7 @@ public class SysMenuController {
             childList.add(tm);
             
             
-            for(int j=0; j< 3; j++){
+            for(int j=0; j< 8; j++){
                 HashMap<String, Object> tm2 = new HashMap<String, Object>();
                 tm2.put("id", new Random().nextInt());
                 tm2.put("text", "text_" + new Random().nextInt(69));
@@ -216,6 +216,48 @@ public class SysMenuController {
         List<Map<String, Object>> l2 = new ArrayList<Map<String,Object>>();
         l2.add(rootMap);
         rstMap.put("root", rootMap);
+        return new ModelAndView(new JsonView(), rstMap);
+    }
+    
+    @RequestMapping("treeBaseData")
+    public ModelAndView treeBaseData() {
+        Map<String, Object> rstMap = new HashMap<String, Object>();
+        HashMap<String, Object> rootMap = new HashMap<String, Object>();
+        List<Map<String, Object>> allList = new ArrayList<Map<String,Object>>();
+        rootMap.put("text", "ab");
+        rootMap.put("id", "root");
+        rootMap.put("pid", "0");
+        rootMap.put("leaf", false);
+        rootMap.put("expanded", true);
+        
+        allList.add(rootMap);
+        
+        for(int i=0; i< 4; i++){
+            HashMap<String, Object> tm = new HashMap<String, Object>();
+            List<Map<String, Object>> childList2 = new ArrayList<Map<String,Object>>();
+            tm.put("id", i+1);
+            tm.put("pid", "root");
+            tm.put("text", "text_" + new Random().nextInt(45));
+//            tm.put("leaf", false);
+            tm.put("expanded", true);
+            tm.put("children", childList2);
+            allList.add(tm);
+            
+            for(int j=0; j< 8; j++){
+                HashMap<String, Object> tm2 = new HashMap<String, Object>();
+                tm2.put("id", i + "_" + j);
+                tm2.put("pid", tm.get("id"));
+                tm2.put("text", "text_" + new Random().nextInt(69));
+//                tm2.put("leaf", true);
+                tm2.put("expanded", true);
+                
+                allList.add(tm2);
+            }
+        }
+        
+        List<Map<String, Object>> l2 = new ArrayList<Map<String,Object>>();
+        l2.add(rootMap);
+        rstMap.put("root", allList);
         return new ModelAndView(new JsonView(), rstMap);
     }
     
