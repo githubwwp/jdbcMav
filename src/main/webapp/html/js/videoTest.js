@@ -29,6 +29,12 @@ Ext.onReady(function() {
 						handler: function(){
 							replaceHtml("store.html");
 						}
+					},
+					{
+						text: 'treeGrid.html',
+						handler: function(){
+							replaceHtml("treeGrid.html");
+						}
 					}
 				]
 			},
