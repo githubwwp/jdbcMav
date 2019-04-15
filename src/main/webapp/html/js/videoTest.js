@@ -25,6 +25,12 @@ Ext.onReady(function() {
 						}
 					},
 					{
+						text: 'baseTree.html',
+						handler: function(){
+							replaceHtml("baseTree.html");
+						}
+					},
+					{
 						text: 'store.html',
 						handler: function(){
 							replaceHtml("store.html");
