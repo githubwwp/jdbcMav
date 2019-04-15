@@ -7,8 +7,7 @@ Ext.onReady(function() {
         items: [
 	        {
 	        	xtype: 'yh-tree',
-	        	id: 'yh',
-	        	autoLoad: true
+	        	id: 'yh'
 	        }
         ]
     });
@@ -23,7 +22,7 @@ Ext.onReady(function() {
 	});
 	
 	// 加载
-	Ext.getCmp('yh').getStore().load();
+	Ext.getCmp('yh').load();
 
 });
 
@@ -50,17 +49,10 @@ Ext.define('Ext.ux.baseTree', {
 			})
 		});
 		
-		// 自动加载数据
-		if(me.autoLoad){
-			me.addListener('afterrender', function(){
-				me.load2();
-			});
-		}
-		
 		me.callParent();
 	}, 
 	// 加载
-	load2: function(){
+	load: function(){
 		var me = this;
 		
 		// 获取数据
