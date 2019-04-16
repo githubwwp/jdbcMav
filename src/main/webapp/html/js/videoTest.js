@@ -41,6 +41,12 @@ Ext.onReady(function() {
 						handler: function(){
 							replaceHtml("treeGrid.html");
 						}
+					},
+					{
+						text: 'hexoTree.html',
+						handler: function(){
+							replaceHtml("hexoTree.html");
+						}
 					}
 				]
 			},
