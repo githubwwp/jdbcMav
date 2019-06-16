@@ -20,3 +20,7 @@ class B{
 	private A a;
 	
 }
+
+class C{
+
+}
