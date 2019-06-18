@@ -21,3 +21,10 @@ class B{
 	private A a;
 	
 }
+
+class C{
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+}
